@@ -1,0 +1,77 @@
+<ion-header>
+ <ion-toolbar color="primary">
+   <ion-avatar slot="start">
+        <img src="{{ icon }}">
+   </ion-avatar>
+
+   <ion-title>&nbsp;{{title}}</ion-title>
+    
+   <ion-buttons slot="end">
+     <ion-button fill="solid" color="secondary" (click)="cancelAndReturn()">
+       <ion-icon slot="start" name="close"></ion-icon>
+     </ion-button>
+   </ion-buttons>
+ </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ <HR>
+ <div class="tile-box">
+    <ion-buttons>
+      <ion-button class="my-button" (click)="presentActionSheet(1)">
+        <ion-icon class="my-icon" name="images"></ion-icon>
+      </ion-button>
+      <ion-button class="my-button" (click)="presentActionSheet(2)">
+        <ion-icon class="my-icon" name="film"></ion-icon>
+      </ion-button>
+      <ion-button class="my-button" (click)="presentActionSheet(3)">
+        <ion-icon class="my-icon" name="document"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+ </div>
+ <HR>
+
+ <ion-row>
+   <ion-col>
+     <div class="input-div" #myInputDiv id="myInputDiv" contenteditable="true"></div>	    
+  </ion-col>
+ </ion-row>
+      
+ <ion-row>    
+   <ion-col>
+    <div class="cover-div">
+	<div *ngIf="postData.ObjectType == 1" class="message-div"><img class="display-image" src="{{objectLocation}}"></div> 
+	<div *ngIf="postData.ObjectType == 2" class="message-div"><video class="display-image" src="{{objectLocation}}" controls="controls"></video></div> 
+	<div *ngIf="postData.ObjectType == 3" class="message-div"><img class="display-pdf" src="../../assets/imgs/PDF.png"></div> 
+    </div>
+    <span>&nbsp;{{objectLabel}}</span>
+   </ion-col>
+
+   <ion-col>
+     <ion-row>
+       <ion-col col-1>
+       </ion-col>
+       <ion-col>
+        <ion-button class="submit-btn" expand="block" type="button" (click)="saveAndReturn()">{{'Login_Submit' | translate }}</ion-button>
+       </ion-col>
+     </ion-row>
+
+     <ion-row>
+       <ion-col col-1>
+       </ion-col>
+       <ion-col>
+       </ion-col>
+     </ion-row>
+
+     <ion-row>
+       <ion-col col-1>
+       </ion-col>
+       <ion-col>
+         <ion-button class="submit-btn" expand="block" type="button" (click)="cancelAndReturn()">{{'All_BTN_Cancel' | translate }}</ion-button>
+       </ion-col>
+     </ion-row>
+   </ion-col>
+ </ion-row>
+
+ <BR>
+</ion-content>

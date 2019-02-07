@@ -1,0 +1,96 @@
+
+   .toolbar-box {
+      max-height:20px;
+   }
+
+
+
+
+   .my-icon {
+      color: #FAF5DA;
+   }
+
+
+   .my-button {
+      background: #733C00;
+      width: 30px;
+      height: 30px;
+   }
+
+   .tile-box {
+      vertical-align: middle;
+      padding: 0px;
+      height: 30px;
+      font-weight: bold;
+      font-size: 16pt;
+   }
+
+   ion-row {
+       align-items: center;
+       text-align: center;
+   }
+ 
+   ion-item {
+         padding-left: 10px !important;
+         font-size: 0.9em;
+         margin-bottom: 10px;
+         border: 1px solid #733C00;
+         border-bottom: 1px solid #733C00 !important;
+         border-top: 1px solid #733C00 !important;
+         box-shadow: none !important;
+	 color: #733C00;
+   }
+    
+   .input-div {
+        padding: 10px;
+        text-align: left;
+        background-color: #fff;
+        height:200px;
+        max-height:300px;
+        border: 1px solid #733C00;
+        margin: 10px;
+        box-shadow: inset 0 0 15px 0 rgba(0, 0, 0, 0.5) !important;
+   }
+
+
+
+
+
+   .submit-btn {
+       padding: 10px;
+       background: #733C00;
+       border-radius: 30px !important;
+       border: 1px solid #ffffff;
+       width: 90%;
+   }
+
+
+   .cover-div {
+        margin-left: 20px;
+	max-width:250px;
+	max-height:200px;
+	width:250px;
+	height:200px;
+	text-align:center;
+        vertical-align: middle;
+   }
+
+
+    .message-div {
+        color: #000 !important;
+	max-width:250px;
+	max-height:200px;
+	display:inline-block;
+    }
+
+    .display-image {
+	width:250px;
+	height:200px;
+	max-width:250px;
+	max-height:200px;
+    }
+
+    .display-pdf {
+	max-height:120px;
+    }
+

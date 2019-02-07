@@ -1,0 +1,170 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-avatar *ngIf="icon != null" slot="start">
+         <img src="{{ icon }}">
+    </ion-avatar>
+ 
+    <ion-title>&nbsp;{{'User_Information' | translate }}</ion-title>
+     
+    <ion-buttons slot="end">
+      <ion-button fill="solid" color="secondary" (click)="cancelAndReturn()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="form-content" color="cardback" padding>
+ <div *ngIf="infoDetails != null">    
+  <form name="editForm" #editForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+            <ion-item>
+			  <ion-label color="secondary">{{'Register_CreatedOn' | translate }}: {{infoDetails.CreatedOn | date: 'dd/MM/yyyy HH:mm'}}</ion-label>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'Register_Firstname' | translate }}:</ion-label>
+              <ion-input type="text" name="FirstName" [(ngModel)]="infoDetails.FirstName" required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'User_SecondaryName' | translate }}:</ion-label>
+              <ion-input type="text" name="SecondaryName" [(ngModel)]="infoDetails.SecondaryName"></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'Register_Lastname' | translate }}:</ion-label>
+              <ion-input type="text" name="LastName" [(ngModel)]="infoDetails.LastName" required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'User_LastName2' | translate }}:</ion-label>
+              <ion-input type="text" name="LastName2" [(ngModel)]="infoDetails.LastName2"></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'Register_Email' | translate }}:</ion-label>
+              <ion-input type="text" name="EMail" [disabled]="true" [(ngModel)]="infoDetails.EMail"></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'Register_Language' | translate }}:</ion-label>
+              <ion-select name="Language" [(ngModel)]="infoDetails.Language" okText="{{'All_BTN_OK' | translate }}" cancelText="{{'All_BTN_Cancel' | translate }}">
+                  <ion-select-option value="Eng">English</ion-select-option>
+                  <ion-select-option value="Span">Español</ion-select-option>
+                  <ion-select-option value="Pap">Papiamentu</ion-select-option>
+              </ion-select>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'User_SocialID' | translate }}:</ion-label>
+              <ion-input type="text" name="SocialSecurityID" [(ngModel)]="infoDetails.SocialSecurityID"></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'User_Passport' | translate }}:</ion-label>
+              <ion-input type="text" name="Passport" [(ngModel)]="infoDetails.Passport"></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'Register_Birthday' | translate }}:</ion-label>
+              <ion-datetime displayFormat="MM/DD/YYYY" name="Birthday" [(ngModel)]="infoDetails.Birthday"></ion-datetime>
+            </ion-item>
+                        
+            <ion-item>
+			  <ion-label color="secondary">{{'Register_Age' | translate }}: {{infoDetails.Age}}</ion-label>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'User_Nationality' | translate }}:</ion-label>
+              <ion-select name="Nationality" [(ngModel)]="infoDetails.Nationality" okText="{{'All_BTN_OK' | translate }}" cancelText="{{'All_BTN_Cancel' | translate }}">
+                  <ion-select-option *ngFor="let c of countries" [value]=c.Code>{{c.Label | translate }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'Register_Gender' | translate }}:</ion-label>
+              <ion-select name="Gender" [(ngModel)]="infoDetails.Gender" okText="{{'All_BTN_OK' | translate }}" cancelText="{{'All_BTN_Cancel' | translate }}">
+                  <ion-select-option [value]="0">{{'All_Female' | translate }}</ion-select-option>
+                  <ion-select-option selected="true" [value]="1">{{'All_Male' | translate }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'User_SocialStatus' | translate }}:</ion-label>
+			  <ion-select name="SocialStatus" [(ngModel)]="infoDetails.SocialStatus" okText="{{'All_BTN_OK' | translate }}" cancelText="{{'All_BTN_Cancel' | translate }}">
+                  <ion-select-option selected="true" [value]="0">{{'Social_All_Private' | translate }}</ion-select-option>
+                  <ion-select-option [value]="1">{{'Social_Status_Sinlge' | translate }}</ion-select-option>
+                  <ion-select-option [value]="2">{{'Social_Status_Engaged' | translate }}</ion-select-option>
+                  <ion-select-option [value]="3">{{'Social_Status_Married' | translate }}</ion-select-option>
+                  <ion-select-option [value]="4">{{'Social_Status_Divorced' | translate }}</ion-select-option>
+                  <ion-select-option [value]="5">{{'Social_Status_Widowed' | translate }}</ion-select-option>
+                  <ion-select-option [value]="6">{{'Social_All_Other' | translate }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'User_Ethnicity' | translate }}:</ion-label>
+              <ion-select name="Ethnicity" [(ngModel)]="infoDetails.Ethnicity" okText="{{'All_BTN_OK' | translate }}" cancelText="{{'All_BTN_Cancel' | translate }}">
+                  <ion-select-option selected="true" [value]="0">{{'Social_All_Private' | translate }}</ion-select-option>
+                  <ion-select-option [value]="1">{{'Social_Ethnic_Caucasian' | translate }}</ion-select-option>
+                  <ion-select-option [value]="2">{{'Social_Ethnic_Black' | translate }}</ion-select-option>
+                  <ion-select-option [value]="3">{{'Social_Ethnic_Hispanic' | translate }}</ion-select-option>
+                  <ion-select-option [value]="4">{{'Social_Ethnic_Asian' | translate }}</ion-select-option>
+                  <ion-select-option [value]="5">{{'Social_Ethnic_Indian' | translate }}</ion-select-option>
+                  <ion-select-option [value]="6">{{'Social_Ethnic_Eastern' | translate }}</ion-select-option>
+                  <ion-select-option [value]="7">{{'Social_Ethnic_Pacific' | translate }}</ion-select-option>
+                  <ion-select-option [value]="8">{{'Social_Ethnic_Mixed' | translate }}</ion-select-option>
+                  <ion-select-option [value]="9">{{'Social_All_Other' | translate }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'User_Religion' | translate }}:</ion-label>
+              <ion-select name="Religion" [(ngModel)]="infoDetails.Religion" okText="{{'All_BTN_OK' | translate }}" cancelText="{{'All_BTN_Cancel' | translate }}">
+                  <ion-select-option selected="true" [value]="0">{{'Social_All_Private' | translate }}</ion-select-option>
+                  <ion-select-option [value]="1">{{'Social_Religion_Spiritual' | translate }}</ion-select-option>
+                  <ion-select-option [value]="2">{{'Social_Religion_Catholic' | translate }}</ion-select-option>
+                  <ion-select-option [value]="3">{{'Social_Religion_Chritian' | translate }}</ion-select-option>
+                  <ion-select-option [value]="4">{{'Social_Religion_Muslim' | translate }}</ion-select-option>
+                  <ion-select-option [value]="5">{{'Social_Religion_Jewish' | translate }}</ion-select-option>
+                  <ion-select-option [value]="6">{{'Social_Religion_Buddhist' | translate }}</ion-select-option>
+                  <ion-select-option [value]="7">{{'Social_Religion_Hindu' | translate }}</ion-select-option>
+                  <ion-select-option [value]="8">{{'Social_Religion_Atheist' | translate }}</ion-select-option>
+                  <ion-select-option [value]="9">{{'Social_Religion_Agnostic' | translate }}</ion-select-option>
+                  <ion-select-option [value]="10">{{'Social_All_Other' | translate }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'User_Orientation' | translate }}:</ion-label>
+              <ion-select name="Orientation" [(ngModel)]="infoDetails.Orientation" okText="{{'All_BTN_OK' | translate }}" cancelText="{{'All_BTN_Cancel' | translate }}">
+                  <ion-select-option selected="true" [value]="0">{{'Social_All_Private' | translate }}</ion-select-option>
+                  <ion-select-option [value]="1">{{'Social_Orientation_Straight' | translate }}</ion-select-option>
+                  <ion-select-option [value]="2">{{'Social_Orientation_Bi' | translate }}</ion-select-option>
+                  <ion-select-option [value]="3">{{'Social_Orientation_Gay' | translate }}</ion-select-option>
+                  <ion-select-option [value]="4">{{'Social_All_Other' | translate }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col offset="1">
+          <ion-button class="submit-btn" expand="block" type="button" [disabled]="!editForm.form.valid" (click)="saveAndReturn()">{{'Login_Submit' | translate }}</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col offset="1">
+          <ion-button class="submit-btn" expand="block" type="button" (click)="cancelAndReturn()">{{'Go_Back_Text' | translate }}</ion-button>
+        </ion-col>
+      </ion-row>
+   <BR>
+   <BR>
+  </form>
+ </div>
+</ion-content>

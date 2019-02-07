@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button slot="start" fill="clear" color="dark" (click)="goBack()">
+      <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
+    </ion-button>    
+      
+    <ion-title>{{ forumName }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-menu-button menu="RightMenu">
+        <ion-icon name="star"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>	
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="tile-box">
+     <ion-buttons>
+       <ion-button *ngIf="activeMember" class="my-button" (click)="presentActionSheet()">
+         <ion-icon class="mybutton-icon" name="filing"></ion-icon>
+       </ion-button>
+       <ion-button *ngIf="activeMember" class="my-button" (click)="newMessage(true)">
+         <ion-icon class="mybutton-icon" name="play"></ion-icon>
+       </ion-button>
+       <ion-button *ngIf="activeMember" class="my-button" (click)="newMessage(false)">
+         <ion-icon class="mybutton-icon" name="mail"></ion-icon>
+       </ion-button>
+       <ion-button *ngIf="groupAdmin" class="my-button" (click)="showBlockPrompt()">
+         <ion-icon class="mybutton-icon" name="eye-off"></ion-icon>
+       </ion-button>
+       &nbsp;{{ forumName }}
+     </ion-buttons>
+  </div>
+  <HR>
+  <ion-searchbar placeholder="{{'All_Search' | translate }}" (ionInput)="getItems($event)"></ion-searchbar>
+  <HR>
+ 
+  <ion-card *ngFor="let c of messages; let i = index">
+    <ion-item class="item-header">
+       <ion-avatar slot="start">
+         <img *ngIf="c.UserData != null" src="{{c.UserData.PhotoLocation}}">
+       </ion-avatar>
+       <ion-label text-wrap>
+        <h2 *ngIf="c.UserData != null">{{'Message_From' | translate }}: {{c.UserData.FullName}}</h2>
+        <p *ngIf="c.RelatedPostID > 0" [ngClass]="{'text-box1': c.Pressed, 'text-box3': !c.Pressed}" (click)="showMessage(i,c.RelatedPostID)">{{'Message_RelatedTo' | translate }}: {{c.toNames}}</p>
+        <p class="text-box1">{{'Message_Recieved' | translate }}: {{c.PostDate | date: 'dd/MM/yyyy HH:mm a'}}</p>
+        <p class="text-box2">{{c.Title}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-card-content>
+       <BR>
+       <p class="detail-box" [innerHTML]="c.PostText"></p>
+    </ion-card-content>
+  </ion-card>
+ </ion-content>
+ 

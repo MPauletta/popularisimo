@@ -1,3 +1,4 @@
+import { AuthGuardService } from './../auth-guard.service';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -9,42 +10,58 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: 'my-portal',
+		    canActivate: [AuthGuardService],
         children: [
           {
             path: '',
-            loadChildren: '../tab1/tab1.module#Tab1PageModule'
+			      canActivate: [AuthGuardService],
+            loadChildren: '../my-portal/my-portal.module#MyPortalPageModule',
           }
         ]
       },
       {
-        path: 'tab2',
+        path: 'groups',
         children: [
           {
             path: '',
-            loadChildren: '../tab2/tab2.module#Tab2PageModule'
+			      canActivate: [AuthGuardService],
+            loadChildren: '../groups/groups.module#GroupsPageModule'
           }
         ]
       },
       {
-        path: 'tab3',
+        path: 'chat',
         children: [
           {
             path: '',
-            loadChildren: '../tab3/tab3.module#Tab3PageModule'
+			      canActivate: [AuthGuardService],
+            loadChildren: '../chat/chat.module#ChatPageModule'
+          }
+        ]
+      },
+      {
+        path: 'market',
+        children: [
+          {
+            path: '',
+			      canActivate: [AuthGuardService],
+            loadChildren: '../market/market.module#MarketPageModule'
           }
         ]
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+		    canActivate: [AuthGuardService],
+        redirectTo: '/login',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+	  canActivate: [AuthGuardService],
+    redirectTo: '/login',
     pathMatch: 'full'
   }
 ];

@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-avatar slot="start">
+         <img src="../../assets/imgs/FolderDoc.png">
+    </ion-avatar>
+ 
+    <ion-title>&nbsp;{{pageTitle | translate }}</ion-title>
+     
+    <ion-buttons slot="end">
+      <ion-button fill="solid" color="secondary" (click)="cancelAndReturn()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngFor="let c of folders; let i = index" style="ion-Div" (click)="saveAndReturn(c.ID,c.FolderType,c.FolderName)">
+    <ion-card class="card-box-list">
+     <img class="pic-smaller-image" src="../../assets/imgs/FolderDoc.png" align="left">
+  
+     <ion-card-content class="styleList">
+       <p class="text-box">&nbsp;{{c.FolderName | translate }}</p>
+       <p class="text-box">&nbsp;{{c.Description | translate }}</p>
+       <p class="text-box">&nbsp;{{'ALL_DateAdded' | translate }}: {{c.Created | date: 'dd/MM/yyyy H:mm'}}</p>
+     </ion-card-content>
+    </ion-card>
+   </div>
+    
+   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+     <ion-infinite-scroll-content></ion-infinite-scroll-content>
+   </ion-infinite-scroll>  
+</ion-content>

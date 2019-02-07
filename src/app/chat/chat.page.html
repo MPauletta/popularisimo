@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>  
+    <ion-title>{{'Chat_Chat' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button menu="RightMenu"><ion-icon name="star"></ion-icon></ion-menu-button>
+    </ion-buttons>	
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <br>
+    <div class="tile-box">
+       <ion-buttons right>
+         <ion-button class="my-button" (click)="mySatus()">
+           <ion-icon class="mybutton-icon" name="construct"></ion-icon>
+         </ion-button>
+       </ion-buttons>
+       <ion-searchbar placeholder="{{'All_Search' | translate }}" (ionInput)="getItems($event)"></ion-searchbar>
+    </div>
+    <hr>
+   
+    <ion-grid>
+     <ion-row *ngFor="let c of messages" (click)="showChatMessages(c.FriendID,c.FullName,c.PhotoLocation,c.StatData.Unread)">
+       <ion-col>   
+         <div class="text-box0">
+          <ion-card>
+           <ion-item text-wrap color="custom">
+             <ion-avatar slot="start">
+               <img src="{{c.PhotoLocation}}">
+             </ion-avatar>
+			 <ion-label text-wrap>
+               <h2>{{c.FullName}}&nbsp;</h2>
+               <p>{{c.DateSend | date: 'dd/MM/yyyy HH:mm a'}}</p>
+			 </ion-label>
+             <ion-badge slot="end">{{c.StatData.Unread}}</ion-badge>
+           </ion-item>
+          </ion-card>
+   
+          <div class="text-box2">
+            <div class="text-box2">
+                <span [innerHTML]="c.Message">{{c.Message}}</span>
+            </div>
+          </div>
+         </div>
+   
+       </ion-col>
+     </ion-row>
+    </ion-grid>
+     
+   </ion-content>
+   

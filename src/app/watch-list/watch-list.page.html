@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-avatar *ngIf="icon != null" slot="start">
+         <img src="{{ icon }}">
+    </ion-avatar>
+ 
+    <ion-title>&nbsp;{{strTitle}}</ion-title>
+     
+    <ion-buttons slot="end">
+      <ion-button fill="solid" color="secondary" (click)="cancelAndReturn()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="cards-bg social-cards">
+ <ion-searchbar placeholder="{{'All_Search' | translate }}" (ionInput)="getItems($event)"></ion-searchbar>
+ <HR>
+
+ <div class="card-box" *ngFor="let c of watchs; let i = index">
+  <ion-card>
+   <img class="pic-image" src="{{c.PhotoLocation}}" (click)="presentActionSheet(c.ID, i)">
+   <ion-item color="custom" no-padding>
+      <ion-label>
+		<p class="text-box">&nbsp;{{c.FullName}}</p>
+		<p class="text-box">&nbsp;{{c.Label}}</p>
+      </ion-label>
+   </ion-item>
+  </ion-card>
+ </div>
+
+ <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+   <ion-infinite-scroll-content></ion-infinite-scroll-content>
+ </ion-infinite-scroll>
+</ion-content>

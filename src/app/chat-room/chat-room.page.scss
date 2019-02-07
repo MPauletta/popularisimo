@@ -1,0 +1,227 @@
+    .user_name {
+        color: #733C00;
+        font-size: 8pt;
+    }
+
+    .message {
+        padding: 10px !important;
+        transition: all 250ms ease-in-out !important;
+        border-radius: 10px !important;
+        margin-bottom: 4px !important;
+    }
+
+    .my_message {
+        background: #FAF5DA !important;
+        color: #000 !important;
+        border: 1px solid gray;
+    }
+
+    .other_message {
+        background: #fabcaf !important;
+        color: #000 !important;
+        border: 1px solid gray;
+    }
+
+    .time {
+        color: #733C00;
+        float: right;
+        font-size: small;
+    }
+
+    .message_row {
+        height:40px;
+        max-height:40px;
+    }
+
+
+
+
+
+    .emoti-icons {
+        height:30px;
+	width:30px;
+        vertical-align:middle;
+    }
+
+
+
+
+
+    .icons {
+        height:16%;
+	width:16%;
+        vertical-align:middle;
+	float: left;
+    }
+
+
+
+
+    .ok-icon {
+        height:20px;
+	width:20px;
+	float:left;
+        vertical-align:middle;
+    }
+
+
+
+
+
+    .message-div {
+        background: #FAF5DA !important;
+        color: #000 !important;
+	max-width:320px;
+	max-height:260px;
+	display:inline-block;
+    }
+
+
+    .message-div2 {
+        background: #fabcaf !important;
+        color: #000 !important;
+	max-width:320px;
+	max-height:260px;
+	display:inline-block;
+    }
+
+    .input-div {
+        background-color: #fff;
+        height:30px;
+        max-height:30px;
+    }
+
+
+
+
+
+    .cover-div {
+	text-align:center;
+    }
+
+    .tabs-scroll {
+	width:1500px;
+    }
+
+    .display-image {
+	max-height:250px;
+    }
+
+    .display-pdf {
+	max-height:120px;
+    }
+
+    .header-title {
+        color: #FAF5DA;
+        font-size: 1.0em;
+    }
+
+    .grid-col{
+	border: 0px;
+    }
+
+    .my-icon {
+	color: #FAF5DA;
+    }
+
+
+    .my-button {
+	background: #733C00;
+	width: 30px;
+	height: 30px;
+    }
+
+    .my-button2 {
+	color: #FAF5DA;
+	background: #733C00;
+	height: 30px;
+    }
+
+    .tabs {
+	color: white;
+	height: 40px;
+	min-width: 130px;
+	font: bold 12px arial, sans-serif;
+	text-decoration: underline;
+	border-top-left-radius: 25px;
+	border-top-right-radius: 25px;
+	border: 2px solid #73AD21;
+	background-color: #733C00;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	text-align:center;	
+	float: left;
+        vertical-align:middle;
+	line-height: 40px;
+    }
+
+    .object-window {
+	border-radius: 5px;
+	padding: 2px 8px;
+	border: 2px solid gray;
+	background-color: #FAF5DA;
+	color: black;
+	text-align:left;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	left: 10px;
+	bottom: 120px;
+	position: fixed;
+	height:250px;
+	background-color: #FAF5DA;
+    }
+
+    .icons-window {
+	border-radius: 5px;
+	padding: 2px 8px;
+	border: 2px solid gray;
+	background-color: #FAF5DA;
+	color: black;
+	text-align:left;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	left: 10px;
+	bottom: 10px;
+	position: fixed;
+	height:400px;
+	width:80%;
+	background-color: #FAF5DA;
+    }
+
+    .icons-list {
+	border: 1px solid red;
+	left:0px;
+	top:-10px;
+	height:330px;
+	width:100%;
+	background-color: white;
+	overflow-y:scroll;
+	overflow-x:hidden;
+    }
+
+    .tabs-list {
+	white-space: nowrap;
+	overflow-x:scroll;
+	overflow-y:hidden;
+    }
+
+    .tabs-scroll {
+	width:1500px;
+    }
+
+    .div-close {
+	position: absolute;
+	left: 5px;
+	top: 5px;
+    }
+
+    ion-col.my-thin-col {
+	flex: 0 0 75px;
+	padding:0;
+	margin-left:5px;
+    }
+
+  .my-arrow {
+    width: 80;
+    heigth: 80;
+    color: white;
+  }

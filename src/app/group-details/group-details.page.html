@@ -1,0 +1,194 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button slot="start" fill="clear" color="dark" (click)="goBack()">
+      <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
+    </ion-button>    
+      
+    <ion-title>{{ 'Group_Details' | translate }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-menu-button menu="RightMenu">
+        <ion-icon name="star"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>	
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="social-cards">
+  <div class="tile-box">
+    <ion-buttons>
+      <ion-button *ngIf="groupAdmin" class="my-button" (click)="editGroup()">
+        <ion-icon class="mybutton-icon" name="create"></ion-icon>
+      </ion-button>
+      <ion-button class="my-button" (click)="presentGroupActionSheet()">
+        <ion-icon class="mybutton-icon" name="briefcase"></ion-icon>
+      </ion-button>
+      <ion-button class="my-button" (click)="presentSocialActionSheet()">
+        <ion-icon class="mybutton-icon" name="images"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="activeMember" class="my-button" (click)="presentForumActionSheet()">
+        <ion-icon class="mybutton-icon" name="chatbubbles"></ion-icon>
+      </ion-button>
+      <ion-button class="my-button" (click)="showProducts()">
+        <ion-icon class="mybutton-icon" name="basket"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </div>
+  <hr>
+
+  <ion-card>
+   <ion-item color="custom">
+	 <ion-label text-wrap>
+	   <p class="text-box-header">&nbsp;{{ group.GroupName }}</p>
+	   <p class="text-box">&nbsp;&nbsp;{{ group.Description }}</p>
+	 </ion-label>
+   </ion-item>
+
+   <ion-row>
+    <ion-col class="text-col3">
+      <img *ngIf="group.PhotoLocation != ''" class="profile-image" src="{{ group.PhotoLocation }}" (click)="showPhoto()">
+    </ion-col>
+    <ion-col class="text-col3">
+      <ion-card-content>
+		<p class="text-box-left">{{ 'Group_Type' | translate }}: {{ group.lblGroupType | translate }}</p>
+		<p class="text-box-left">{{ 'Group_Topic' | translate }}: {{ group.GroupTopic }}</p>
+		<p class="text-box-left">{{ 'Register_CreatedOn' | translate }}: {{ group.DateCreated | date: 'dd/MM/yyyy HH:mm' }}</p>
+		<p class="text-box-left">{{ 'Group_LastPost' | translate }}: {{ group.LastPost | date: 'dd/MM/yyyy HH:mm' }}</p>
+		<p class="text-box-left">{{ 'Al_CreatedBy' | translate }}: {{ group.UserData.FullName }}</p>
+		<p class="text-box-left">{{ 'Social_Members' | translate }}: {{ group.Members }}</p>
+	  </ion-card-content>
+    </ion-col>
+   </ion-row>
+   <ion-row>
+    <ion-col class="text-col3">
+      <ion-button fill="clear" size="small" (click)="toggleMoreDetail()">
+        <div class="my-icon">{{ 'Product_MoreDetails' | translate }}&nbsp;&nbsp;&nbsp;</div>
+        <ion-icon slot="start" class="my-icon" name="{{moreDetailArrow}}"></ion-icon>
+      </ion-button>
+    </ion-col>
+
+   </ion-row>
+   <ion-row *ngIf="moreDetail">
+    <ion-col class="text-col3">
+      <p class="text-box-left">{{ 'All_LastUpdated' | translate }}: {{ group.LastUpdated | date: 'dd/MM/yyyy HH:mm'}}</p>
+      <p class="text-box-left">{{ 'Group_IsPublic' | translate }}: {{ groupIsPublic | translate }}</p>
+      <p class="text-box-left">{{ 'Group_IsActive' | translate }}: {{ groupIsActive | translate }}</p>
+    </ion-col>
+   </ion-row>
+
+   <ion-row class="text-col">
+    <ion-col>
+      <ion-button fill="clear" size="small" (click)="showGroupLikePrompt()">
+        <ion-icon slot="start" class="my-icon" name="thumbs-up"></ion-icon>
+        <div class="my-icon">{{group.Likes}}</div>
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button fill="clear" size="small" (click)="showGroupLikePrompt()">
+        <ion-icon slot="start" class="my-icon" name="thumbs-down"></ion-icon>
+        <div class="my-icon">{{group.NLikes}}</div>
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button fill="clear" size="small" (click)="showPhoto()">
+        <ion-icon slot="start" class="my-icon" name="text"></ion-icon>
+        <div class="my-icon">{{group.Comments}}</div>
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="groupAdmin">
+      <ion-button fill="clear" size="small" (click)="editPhoto()">
+        <ion-icon slot="start" class="my-icon" name="camera"></ion-icon>
+        <div class="my-icon">{{ 'Social_Edit_Photo' | translate }}&nbsp;&nbsp;&nbsp;</div>
+      </ion-button>
+    </ion-col>	
+   </ion-row>
+  </ion-card>
+  <hr>
+  
+  <div *ngIf="hasForums">
+   <ion-card>
+    <ion-row class="list-title">
+     <ion-col>
+       <p class="list-title-text">{{ 'Group_Forums' | translate }}</p>
+     </ion-col>
+    </ion-row>
+    <ion-row class="text-col">
+     <ion-col class="list-col">
+       <p class="text-box">{{ 'All_Name' | translate }}</p>
+     </ion-col>
+     <ion-col class="list-col" col-2>
+       <p class="text-box">{{ 'Group_ForumPosts' | translate }}</p>
+     </ion-col>
+     <ion-col class="list-col">
+       <p class="text-box">{{ 'All_Description' | translate }}</p>
+     </ion-col>
+    </ion-row>
+
+    <ion-row class="list-box" *ngFor="let b of forums; let y = index" (click)="showForum(b.ID, b.ForumName, b.GroupAdmin, b.ActiveMember, b.AccessType)">
+     <ion-col class="list-col">
+       <p class="text-box-small">{{ b.ForumName }}</p>
+     </ion-col>
+     <ion-col class="list-col" col-2>
+       <p class="text-box-small">{{ b.NumPosts }}</p>
+     </ion-col>
+     <ion-col class="list-col">
+       <p class="text-box-small">{{ b.Description }}</p>
+     </ion-col>
+    </ion-row>
+   </ion-card>
+  </div>
+
+  <div *ngFor="let c of groupNotifications; let i = index" [ngSwitch]="c.NoteType">
+   <ion-card>
+    <ion-item color="custom" class="item-header">
+       <ion-avatar slot="start">
+         <img src="{{c.UserData.PhotoLocation}}">
+       </ion-avatar>
+       <h2>{{c.UserData.FullName}}</h2>
+       <p slot="end" class="text-box1">{{c.DateSend | date: 'dd/MM/yyyy HH:mm a'}}</p>
+    </ion-item>
+   
+    <div class="noti-content">
+      <div *ngIf="c.NoteType == 1" class="section-div">
+        <ion-row *ngIf="c.GroupData != null">
+         <ion-col>
+           <img *ngIf="c.ObjectType == 1" class="pic-image" src="{{c.GroupData.Location}}" (click)="showObject(i)">
+           <video *ngIf="c.ObjectType == 2" class="pic-image" src="{{c.GroupData.Location}}" controls="controls" (click)="showObject(i)"></video>
+         </ion-col>
+        </ion-row> 
+
+        <ion-row>
+         <ion-col>
+           <p *ngIf="c.Contents != null" [innerHTML]="c.Contents"></p>
+         </ion-col>
+        </ion-row> 
+      </div>
+    </div>
+ 
+    <ion-row class="text-col">
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showAddLikePrompt(i)">
+         <ion-icon slot="start" class="my-icon" name="thumbs-up"></ion-icon>
+         <div class="my-icon">{{c.Likes}}</div>
+       </ion-button>
+     </ion-col>
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showAddLikePrompt(i)">
+         <ion-icon slot="start" class="my-icon" name="thumbs-down"></ion-icon>
+         <div class="my-icon">{{c.NLikes}}</div>
+       </ion-button>
+     </ion-col>
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showObject(i)">
+         <ion-icon slot="start" class="my-icon" name="text"></ion-icon>
+         <div class="my-icon">{{c.Comments}}</div>
+       </ion-button>
+     </ion-col>
+    </ion-row>
+   </ion-card>
+  </div>
+
+ <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+   <ion-infinite-scroll-content></ion-infinite-scroll-content>
+ </ion-infinite-scroll>
+</ion-content>

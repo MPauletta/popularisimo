@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-avatar *ngIf="icon != null" slot="start">
+         <img src="{{ icon }}">
+    </ion-avatar>
+ 
+    <ion-title>&nbsp;{{'User_Addresses' | translate }}: {{formOptions.Title | translate }}</ion-title>
+     
+    <ion-buttons slot="end">
+      <ion-button fill="solid" color="secondary" (click)="cancelAndReturn()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="form-content" color="cardback" padding>
+
+ <div *ngIf="addressDetails != null">    
+  <form name="editForm" #editForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+            <ion-item>
+			  <ion-label color="primary">{{addressDetails.lblAddressType | translate }}:</ion-label>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="primary">{{'Register_Street1' | translate }}:</ion-label>
+              <ion-input type="text" name="Street1" [(ngModel)]="addressDetails.Street1" required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="primary">{{'Register_Street2' | translate }}:</ion-label>
+              <ion-input type="text" name="Street2" [(ngModel)]="addressDetails.Street2"></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="primary">{{'Register_Country' | translate }}:</ion-label>
+              <ion-input type="text" name="Country" [disabled]="formEdit" [(ngModel)]="addressDetails.Country" required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="primary">{{'Register_City' | translate }}:</ion-label>
+              <ion-input type="text" name="City" [(ngModel)]="addressDetails.City"></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="primary">{{'Register_State' | translate }}:</ion-label>
+              <ion-input type="text" name="State" [(ngModel)]="addressDetails.State"></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="primary">{{'Register_ZipCode' | translate }}:</ion-label>
+              <ion-input type="text" name="Zip" [(ngModel)]="addressDetails.Zip"></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="primary">{{'Register_CellPhone' | translate }}:</ion-label>
+              <ion-input type="text" name="CellPhone" [disabled]="formEdit" [(ngModel)]="addressDetails.CellPhone" required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="primary">{{'Register_HomePhone' | translate }}:</ion-label>
+              <ion-input type="text" name="HomePhone" [(ngModel)]="addressDetails.HomePhone"></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="primary">{{'Register_WorkPhone' | translate }}:</ion-label>
+              <ion-input type="text" name="WorkPhone" [(ngModel)]="addressDetails.WorkPhone"></ion-input>
+            </ion-item>
+            
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col offset="1">
+          <ion-button class="submit-btn" expand="block" type="button" [disabled]="!editForm.form.valid" (click)="saveAndReturn()">{{'Login_Submit' | translate }}</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col offset="1">
+          <ion-button class="submit-btn" expand="block" type="button" (click)="cancelAndReturn()">{{'Go_Back_Text' | translate }}</ion-button>
+        </ion-col>
+      </ion-row>
+   <BR>
+   <BR>
+  </form>
+ </div>
+</ion-content>

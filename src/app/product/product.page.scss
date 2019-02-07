@@ -1,0 +1,151 @@
+
+  .social-cards ion-col {
+    padding: 5px;
+  }
+  
+  .padding-zero {
+    padding: 0px;
+    display: inline-block;
+    line-height: 60px;
+  }
+
+  .padding-ten {
+    padding: 10px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+  }
+
+  ion-card {
+    position: relative;
+    text-align: center;
+  }
+
+
+  .text-col {
+    background: #CC9E86;
+  }
+
+
+  .text-col3 {
+    padding: 0px;
+    text-align: left;
+    font-size: 12pt;
+    background: #FAF5DA;
+  }
+
+
+  .card-box {
+    padding: 0px;
+    float: left;
+    width: 99.99999%;
+  }
+  
+  .card-box-small {
+    padding: 5px;
+    float: left;
+    width: 90px;
+  }
+  
+  .pic-image {
+    height:200px;
+    max-height:200px;
+  }
+  
+  .pic-image-small {
+    max-width:80px;
+    height:70px;
+    border-radius: 5px;
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, .5);
+  }
+  
+  .text-box {
+    color: black;
+    font-size: 9pt;
+  }
+
+
+  .text-box-small {
+    color: black;
+    font-size: 8pt;
+  }
+
+
+  .text-box-left {
+    color: black;
+    font-size: 9pt;
+    text-align: left;
+  }
+
+
+  .text-box-header {
+    color: black;
+    font-size: 18pt;
+  }
+
+
+  .my-icon {
+    color: #733C00;
+  }
+
+
+
+  .photo-div {
+    height: 140px;
+    width: 100%;
+  }
+
+
+  .thumb-photos {
+    position:relative;
+    height: 110;
+    text-align: center;
+    padding: 6px 3px 6px 3px;
+  }
+
+
+  .list-title {
+    background: #733C00;
+  }
+ 
+  .list-box {
+    background: #FAF5DA;
+  }
+ 
+  .list-col {
+    border: 1px solid #ccc;
+  }
+
+
+  .list-title-text {
+    color: white;
+  }
+ 
+  .tile-box {
+    padding: 0px;
+    padding-top: 10px;
+    padding-left: 10px;
+    height: 30px;
+    font-weight: bold;
+    font-size: 16pt;
+  }
+
+  .my-button {
+    background: #733C00;
+    width: 30px;
+    height: 30px;
+  }
+
+
+
+  .my-arrow {
+    width: 80;
+    heigth: 80;
+    color: white;
+  }
+
+
+  .mybutton-icon {
+    color: #FAF5DA;
+  }
+

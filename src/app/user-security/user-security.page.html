@@ -1,0 +1,189 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-avatar *ngIf="icon != null" slot="start">
+         <img src="{{ icon }}">
+    </ion-avatar>
+ 
+    <ion-title>&nbsp;{{strTitle}}</ion-title>
+     
+    <ion-buttons slot="end">
+      <ion-button fill="solid" color="secondary" (click)="cancelAndReturn()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="form-content" color="cardback" padding>
+ <div *ngIf="blnChangePassword">    
+  <form name="changeForm" #changeForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list *ngIf="blnChangePassword" inset>
+            <ion-item>
+			  <ion-label color="secondary">{{'User_CurrentPassword' | translate }}:</ion-label>
+              <ion-input type="password" name="txtPassword" [(ngModel)]="txtPassword" required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'User_NewPassword' | translate }}:</ion-label>
+              <ion-input type="password" name="txtNewPassword" [(ngModel)]="txtNewPassword" required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'User_ConfirmPassword' | translate }}:</ion-label>
+              <ion-input type="password" name="txtConfirmPassword" [(ngModel)]="txtConfirmPassword" required></ion-input>
+            </ion-item>
+            
+            <div class="div-box">
+				<p class="text-box">&nbsp;{{'User_PasswordLength' | translate }}</p>
+				<p class="text-box">&nbsp;{{'User_PasswordLower' | translate }}</p>
+				<p class="text-box">&nbsp;{{'User_PasswordUpper' | translate }}</p>
+				<p class="text-box">&nbsp;{{'User_PasswordNumber' | translate }}</p>
+				<p class="text-box">&nbsp;{{'User_PasswordSpecial' | translate }}</p>
+            </div>
+            
+            <div class="div-box2">
+              <ion-button class="submit-btn" expand="block" type="button" [disabled]="!changeForm.form.valid" (click)="saveAndReturn()">{{'Login_Submit' | translate }}</ion-button>
+            </div>
+	    <HR>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col offset="1">
+          <ion-button class="submit-btn" expand="block" type="button" (click)="showForgotPassword()">{{'User_Password_Link' | translate }}</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col offset="1">
+          <ion-button class="submit-btn" expand="block" type="button" (click)="showUnlockPassword()">{{'User_Locked_Link' | translate }}</ion-button>
+        </ion-col>
+      </ion-row>
+   <BR>
+  </form>
+ </div>
+
+ <div *ngIf="blnForgotPassword || blnUnlockPassword">    
+  <form name="changeForm" #changeForm="ngForm">
+      <ion-row>
+        <ion-col>
+
+          <ion-list inset>
+            <div class="div-box">
+			  <p class="text-box">&nbsp;{{'User_Mail_Confirm' | translate }}</p>
+            </div>
+
+            <ion-item>
+			  <ion-label color="secondary">{{'All_Username' | translate }}:</ion-label>
+              <ion-input type="text" name="txtUsername" [(ngModel)]="txtUsername"></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'Register_Email' | translate }}:</ion-label>
+              <ion-input type="text" name="txtEmail" [(ngModel)]="txtEmail"></ion-input>
+            </ion-item>
+            
+            <div class="div-box">
+				<br>
+            </div>
+
+            <div class="div-box2">
+              <ion-button class="submit-btn" expand="block" type="button" (click)="sendAndReturn()">{{'Login_Submit' | translate }}</ion-button>
+            </div>
+			<HR>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col offset="1">
+          <ion-button class="submit-btn" expand="block" type="button" (click)="showChangePassword()">{{'User_ChangePassword' | translate }}</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!blnForgotPassword">
+        <ion-col offset="1">
+          <ion-button class="submit-btn" expand="block" type="button" (click)="showForgotPassword()">{{'User_Password_Link' | translate }}</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!blnUnlockPassword">
+        <ion-col offset="1">
+          <ion-button class="submit-btn" expand="block" type="button" (click)="showUnlockPassword()">{{'User_Locked_Link' | translate }}</ion-button>
+        </ion-col>
+      </ion-row>
+   <BR>
+  </form>
+ </div>
+
+ <div *ngIf="blnForgotComplete || blnUnlockComplete">    
+  <form name="changeForm" #changeForm="ngForm">
+      <ion-row>
+        <ion-col>
+
+          <ion-list inset>
+            <div class="div-box">
+				<p class="text-box">&nbsp;{{strSubTitle1}}</p>
+				<p class="text-box">&nbsp;{{strSubTitle2}}</p>
+            </div>
+
+            <ion-item>
+			  <ion-label color="secondary">{{'All_Code' | translate }}:</ion-label>
+              <ion-input type="text" name="txtCode" [(ngModel)]="txtCode"></ion-input>
+            </ion-item>
+            
+            <div class="div-box">
+				<br>
+            </div>
+
+            <div class="div-box2">
+              <ion-button class="submit-btn" expand="block" type="button" (click)="completeAndReturn()">{{'Login_Submit' | translate }}</ion-button>
+            </div>
+			<HR>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      
+   <BR>
+  </form>
+ </div>
+
+ <div *ngIf="blnRecoverPassword">    
+  <form name="changeForm" #changeForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+            <div class="div-box">
+				<p class="text-box">&nbsp;{{'User_RecoverComplete2' | translate }}</p>
+            </div>
+
+            <ion-item>
+			  <ion-label color="secondary">{{'User_NewPassword' | translate }}:</ion-label>
+              <ion-input type="password" name="txtNewPassword" [(ngModel)]="txtNewPassword" required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'User_ConfirmPassword' | translate }}:</ion-label>
+              <ion-input type="password" name="txtConfirmPassword" [(ngModel)]="txtConfirmPassword" required></ion-input>
+            </ion-item>
+            
+            <div class="div-box">
+				<p class="text-box">&nbsp;{{'User_PasswordLength' | translate }}</p>
+				<p class="text-box">&nbsp;{{'User_PasswordLower' | translate }}</p>
+				<p class="text-box">&nbsp;{{'User_PasswordUpper' | translate }}</p>
+				<p class="text-box">&nbsp;{{'User_PasswordNumber' | translate }}</p>
+				<p class="text-box">&nbsp;{{'User_PasswordSpecial' | translate }}</p>
+            </div>
+            
+            <div class="div-box2">
+              <ion-button class="submit-btn" expand="block" type="button" [disabled]="!changeForm.form.valid" (click)="completeRecover()">{{'Login_Submit' | translate }}</ion-button>
+            </div>
+			<HR>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      
+   <BR>
+  </form>
+ </div>
+</ion-content>

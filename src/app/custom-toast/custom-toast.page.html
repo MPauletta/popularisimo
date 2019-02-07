@@ -1,0 +1,18 @@
+<ion-grid class="form-content">
+   <ion-row>
+     <ion-col *ngIf="icon != null" size="auto">
+       <div class="my-card" (click)="cancelReturn()">
+         <ion-avatar slot="start">
+           <img class="emoti-icons" src="{{icon}}">
+         </ion-avatar>
+       </div>
+     </ion-col>
+     <ion-col>
+       <div class="my-label" [innerHTML]="title" (click)="cancelReturn()"></div>
+     </ion-col>
+     <ion-col class="button-col" size="auto">
+       <ion-button class="my-button" color="custom" (click)="okReturn()">{{buttonText}}</ion-button>
+     </ion-col>
+   </ion-row>
+</ion-grid>
+

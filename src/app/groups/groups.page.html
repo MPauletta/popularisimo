@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons *ngIf="popTools.isRoot" slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>  
+    <ion-button *ngIf="popTools.isRoot == false" slot="start" fill="clear" color="dark" (click)="goBack()">
+      <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
+    </ion-button>    
+
+    <ion-title>{{'Main_Groups' | translate }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-menu-button menu="RightMenu"><ion-icon name="star"></ion-icon></ion-menu-button>
+    </ion-buttons>	
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="cards-bg social-cards">
+    <div class="tile-box">
+       <ion-buttons>
+         <ion-button class="my-button" (click)="getGroups()">
+           <ion-icon class="mybutton-icon" name="contacts"></ion-icon>
+         </ion-button>
+         <ion-button class="my-button" (click)="getMyGroups()">
+           <ion-icon class="mybutton-icon" name="bookmarks"></ion-icon>
+         </ion-button>
+         <ion-button class="my-button" (click)="newGroup()">
+           <ion-icon class="mybutton-icon" name="add"></ion-icon>
+         </ion-button>
+       </ion-buttons>
+    </div>
+    <HR>
+    <ion-searchbar placeholder="{{'All_Search' | translate }}" (ionInput)="getItems($event)"></ion-searchbar>
+    <HR>
+   
+    <div *ngFor="let c of groups; let i = index">
+     <ion-card color="cardback">
+      <ion-item color="custom">
+       <h2>{{c.GroupName}}</h2>
+      </ion-item>
+   
+      <img class="pic-image" src="{{c.PhotoLocation}}" (click)="presentActionSheet(c.ID,c.GroupName,i)">
+   
+      <ion-card-content>
+       <p class="text-box">{{'All_Type' | translate }}: {{c.lblGroupType | translate }}</p>
+       <p class="text-box">{{'All_Topic' | translate }}: {{c.GroupTopic}}</p>
+       <p class="text-box">{{'Group_LastPost' | translate }}: {{c.LastPost | date: 'dd/MM/yyyy H:mm'}}</p>
+      </ion-card-content>
+   
+      <ion-row>
+       <ion-col>
+         <ion-button fill="clear" size="small" (click)="showAddLikePrompt(i)">
+           <ion-icon class="my-icon" slot="start" name="thumbs-up"></ion-icon>
+           <div class="my-icon">{{c.Likes}}</div>
+         </ion-button>
+       </ion-col>
+       <ion-col>
+         <ion-button fill="clear" size="small" (click)="showAddLikePrompt(i)">
+           <ion-icon class="my-icon" slot="start" name="thumbs-down"></ion-icon>
+           <div class="my-icon">{{c.NLikes}}</div>
+         </ion-button>
+       </ion-col>
+       <ion-col>
+         <ion-button fill="clear" size="small" (click)="showObject(i)">
+           <ion-icon class="my-icon" slot="start" name="text"></ion-icon>
+           <div class="my-icon">{{c.Comments}}</div>
+         </ion-button>
+       </ion-col>
+      </ion-row>
+     </ion-card>
+    </div>
+   
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+   
+   </ion-content>
+   

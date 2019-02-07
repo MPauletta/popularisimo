@@ -1,0 +1,557 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>  
+    <ion-title>{{'Member_MyPortal' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button menu="RightMenu"><ion-icon name="star"></ion-icon></ion-menu-button>
+    </ion-buttons>	
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="social-cards">
+
+ <ion-refresher [disabled]="false" (ionRefresh)="doRefresh($event)">
+   <ion-refresher-content></ion-refresher-content>
+ </ion-refresher>
+
+ <br>
+ <ion-card>
+   <ion-item color="custom">
+    <h2>&nbsp;&nbsp;{{userFullname}} ({{userSpaceAcess | translate }})</h2>
+   </ion-item>
+
+   <ion-row>
+     <ion-col size="5" class="text-col3">
+      <img class="pic-image" src="{{PhotoLocation}}" (click)="showProfile()">
+     </ion-col>	 
+     <ion-col class="text-col3">     
+       <ion-card-content>
+		    <div class="text-div">
+		       <p class="text-box">{{'Login_User' | translate }}: {{userName}}</p>
+           <p class="text-box">{{'Register_CreatedOn' | translate }}:</p>
+           <p class="text-box">{{userCreatedOn | date: 'dd/MM/yyyy HH:mm'}}</p>
+           <p class="text-box">{{'All_LastActive' | translate }}:</p>
+           <p class="text-box">{{userLastActive | date: 'dd/MM/yyyy HH:mm'}}</p>
+		    </div>
+
+		    <br>
+        <ion-button  expand="block" (click)="newPost()">
+           <ion-icon class="my-icon" slot="start" name="paper"></ion-icon>
+           {{'Social_CommentAdd' | translate}}
+        </ion-button>
+	     </ion-card-content>
+     </ion-col>
+   </ion-row>
+
+   <ion-row class="text-col">
+     <ion-col color="custom">
+       <ion-button fill="clear" size="small" (click)="showAddLikePrompt(-1)">
+         <ion-icon class="my-icon" slot="start" name="thumbs-up"></ion-icon>
+         <div class="my-icon" slot="start">{{userLikes}}</div>
+       </ion-button>
+     </ion-col>
+	
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showAddLikePrompt(-1)">
+         <ion-icon class="my-icon" slot="start" name="thumbs-down"></ion-icon>
+         <div class="my-icon">{{userNLikes}}</div>
+       </ion-button>
+     </ion-col>
+	
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showProfile()">
+         <ion-icon class="my-icon" slot="start" name="text"></ion-icon>
+         <div class="my-icon">{{userComments}}</div>
+       </ion-button>
+     </ion-col>
+	 
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="changePhoto()">
+         <ion-icon class="my-icon" slot="start" name="camera"></ion-icon>
+         <div class="my-icon">{{ 'Social_Edit_Photo' | translate }}&nbsp;&nbsp;&nbsp;</div>
+       </ion-button>
+     </ion-col>
+   </ion-row>
+ </ion-card>
+
+ <div class="card-box" *ngFor="let c of notifications; let i = index" [ngSwitch]="c.NoteType">
+  <ion-card>
+   <ion-item color="custom" class="item-header">
+      <ion-avatar  slot="start">
+        <img *ngIf="c.userNotification" src="{{c.UserData.PhotoLocation}}" (click)="showMember(c.FromID,c.NoteType)">
+        <img *ngIf="!c.userNotification" src="{{c.GroupData.PhotoLocation}}" (click)="showGroup(c.GroupData.ID)">
+      </ion-avatar>
+      <h2 *ngIf="c.userNotification">{{c.UserData.FullName}}</h2>
+      <h2 *ngIf="!c.userNotification">{{c.GroupData.GroupName}}</h2>
+      <p  slot="end" class="text-box1">{{c.DateSend | date: 'dd/MM/yyyy HH:mm a'}}</p>
+   </ion-item>
+   
+   <div class="noti-content">
+     <div *ngSwitchCase="1">
+       <ion-row>
+         <ion-col>
+           <p class="text-box2">{{'Social_ConnectReques' | translate }}</p>
+           <p *ngIf="c.Contents != null" [innerHTML]="c.Contents"></p>
+         </ion-col>
+       </ion-row>
+
+       <ion-row>
+         <ion-col>
+            <ion-button fill="clear" size="small" (click)="acceptMemberConnect(c.FromID,i)">
+              <ion-icon class="my-icon" slot="start" name="thumbs-up"></ion-icon>
+              <div class="my-icon">{{'BTN_Yes' | translate }}</div>
+            </ion-button>
+         </ion-col>
+		 
+         <ion-col>
+            <ion-button fill="clear" size="small" (click)="consumeNotification(c.ID,i)">
+              <ion-icon class="my-icon" slot="start" name="thumbs-down"></ion-icon>
+              <div class="my-icon">{{'BTN_No' | translate }}</div>
+            </ion-button>
+         </ion-col>
+       </ion-row>
+     </div>
+     
+     <div *ngSwitchCase="2">
+         <p class="text-box2">{{'Social_ConnectReques' | translate }}</p>
+         <p class="text-box1">{{'Social_ConnectAccept' | translate }}</p>
+
+         <ion-row>
+          <ion-col>
+            <ion-button fill="clear" size="small" (click)="consumeNotification(c.ID,i)">
+              <ion-icon class="my-icon" slot="start" name="checkbox"></ion-icon>
+              <div class="my-icon">{{'All_Acknowledged' | translate }}</div>
+            </ion-button>
+          </ion-col>
+         </ion-row>
+     </div>
+
+     <div *ngSwitchCase="3">
+         <p class="text-box2">{{'Message_NotiNew' | translate }}</p>
+         <p *ngIf="c.Contents != null" [innerHTML]="c.Contents"></p>
+
+         <ion-row>
+          <ion-col>
+            <ion-button fill="clear" size="small" (click)="showMailMessage(c.lngExtra)">
+              <ion-icon class="my-icon" slot="start" name="mail"></ion-icon>
+              <div class="my-icon">{{'Message_NotiView' | translate }}</div>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button fill="clear" size="small" (click)="consumeNotification(c.ID,i)">
+              <ion-icon class="my-icon" slot="start" name="checkbox"></ion-icon>
+              <div class="my-icon">{{'All_Acknowledged' | translate }}</div>
+            </ion-button>
+          </ion-col>
+         </ion-row>
+     </div>
+
+     <div *ngSwitchCase="4">
+       <div *ngIf="c.UserID != c.FromID">
+         <p class="text-box2">{{'Message_PostNew' | translate }}</p>
+         <p *ngIf="c.Contents != null" [innerHTML]="c.Contents"></p>
+
+         <ion-row>
+          <ion-col>
+            <ion-button fill="clear" size="small" (click)="showForumMessage(c.lngExtra)">
+              <ion-icon class="my-icon" slot="start" name="megaphone"></ion-icon>
+              <div class="my-icon">{{'Message_GotoForum' | translate }}</div>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button fill="clear" size="small" (click)="consumeNotification(c.ID,i)">
+              <ion-icon class="my-icon" slot="start" name="checkbox"></ion-icon>
+              <div class="my-icon">{{'All_Acknowledged' | translate }}</div>
+            </ion-button>
+          </ion-col>
+         </ion-row>
+       </div>
+     </div>
+
+     <div *ngIf="c.NoteType == 5 || c.NoteType == 7">
+	   <ion-row>
+         <ion-col size="5" class="text-col2">
+             <img class="pic-image" src="{{c.GroupData.PhotoLocation}}" (click)="showObject(i,'group')">
+         </ion-col>
+		   
+	     <ion-col class="text-col2">     
+	       <ion-card-content>
+			 <div class="text-div">
+			   <p class="text-box4">{{'Group_ConnectReques' | translate }}</p>
+			   <p class="text-box">{{'Group_Name2' | translate }}:</p>
+			   <p class="text-box">{{c.GroupData.GroupName}}</p>
+			   <p *ngIf="c.Contents != null" [innerHTML]="c.Contents"></p>
+			 </div>
+	       </ion-card-content>
+		 </ion-col>
+	   </ion-row>
+
+       <ion-row>
+         <ion-col>
+           <ion-button fill="clear" size="small" (click)="showGroup(c.GroupID)">
+             <ion-icon class="my-icon" slot="start" name="contacts"></ion-icon>
+             <div class="my-icon">{{'Group_View' | translate }}</div>
+           </ion-button>
+         </ion-col>
+		  
+         <ion-col>
+           <ion-button fill="clear" size="small" (click)="acceptGroupMembership(c.NoteType,c.GroupID,c.FromID,i)">
+             <ion-icon class="my-icon" slot="start" name="thumbs-up"></ion-icon>
+             <div class="my-icon">{{'BTN_Yes' | translate }}</div>
+           </ion-button>
+         </ion-col>
+		  
+         <ion-col>
+           <ion-button fill="clear" size="small" (click)="consumeNotification(c.ID,i)">
+             <ion-icon class="my-icon" slot="start" name="thumbs-down"></ion-icon>
+             <div class="my-icon">{{'BTN_No' | translate }}</div>
+           </ion-button>
+         </ion-col>
+       </ion-row>
+     </div>
+     
+     <div *ngIf="c.NoteType == 6 || c.NoteType == 8">
+       <ion-row>
+         <ion-col size="5" class="text-col2">
+            <img class="pic-image" src="{{c.GroupData.PhotoLocation}}" (click)="showObject(i,'group')">
+         </ion-col>
+
+         <ion-col class="text-col2">
+			<ion-card-content>
+			  <div class="text-div">
+				<p class="text-box4">{{'Group_ConnectReques' | translate }}</p>
+				<p class="text-box">{{'Group_Accespted' | translate }}</p>
+				<p class="text-box">{{'Group_Name2' | translate }}:</p>
+				<p class="text-box">{{c.GroupData.GroupName}}</p>
+			  </div>
+			</ion-card-content>
+		 </ion-col>
+	   </ion-row>
+
+       <ion-row>
+         <ion-col>
+           <ion-button fill="clear" size="small" (click)="showGroup(c.GroupData.ID)">
+             <ion-icon class="my-icon" slot="start" name="contacts"></ion-icon>
+             <div class="my-icon">{{'Group_View' | translate }}</div>
+           </ion-button>
+         </ion-col>
+		 
+         <ion-col>
+           <ion-button fill="clear" size="small" (click)="consumeNotification(c.ID,i)">
+             <ion-icon class="my-icon" slot="start" name="checkbox"></ion-icon>
+             <div class="my-icon">{{'All_Acknowledged' | translate }}</div>
+           </ion-button>
+         </ion-col>
+       </ion-row>
+     </div>
+     
+     <div *ngIf="c.NoteType == 9 || c.NoteType == 10 || c.NoteType == 12 || c.NoteType == 13" class="section-div">
+	      <ion-card>
+         <ion-item *ngIf="c.OriginalData != null" color="custom" class="item-header">
+           <ion-avatar slot="start">
+             <img src="{{c.OriginalData.PhotoLocation}}" (click)="showMember(c.strExtra,c.NoteType)">
+           </ion-avatar>
+           <p class="text-box1">{{'Social_NewUserCommen' | translate }}: {{c.UserData.FullName}}.</p><BR>
+           <p *ngIf="c.OriginalData" class="text-box1">&nbsp;{{'All_For' | translate }}: {{c.OriginalData.FullName}}</p>
+         </ion-item>
+	      </ion-card>
+
+       <ion-row>
+         <ion-col>
+           <div *ngIf="c.OriginalData == null" class="section-div">
+			        <p class="text-box2">{{'Social_NewUserCommen' | translate }}: {{c.UserData.FullName}}</p>
+           </div>
+         </ion-col>
+       </ion-row>
+
+       <ion-row justify-content-center>
+         <ion-col align-self-center>
+           <img *ngIf="c.lngMore == 1" class="pic-image2" src="{{c.ObjectLocation}}" (click)="showObject(i,'post')">
+           <video *ngIf="c.lngMore == 2" class="pic-image2" src="{{c.ObjectLocation}}" controls="controls" (click)="showObject(i,'post')"></video>
+         </ion-col>
+       </ion-row>
+
+       <ion-row *ngIf="c.ExtraData != null">
+         <ion-col class="section-div">
+          <p class="text-box3" [innerHTML]="c.ExtraData.NoteText"></p>
+         </ion-col>
+       </ion-row>
+
+       <ion-row>
+		     <ion-col *ngIf="c.ShowLikes">
+		      <ion-button fill="clear" size="small" (click)="showAddLikePrompt(i)">
+			      <ion-icon class="my-icon" slot="start" name="thumbs-up"></ion-icon>
+			      <div class="my-icon">{{c.ExtraData.Likes}}</div>
+		      </ion-button>
+		     </ion-col>
+	
+		     <ion-col *ngIf="c.ShowLikes">
+		      <ion-button fill="clear" size="small" (click)="showAddLikePrompt(i)">
+			      <ion-icon class="my-icon" slot="start" name="thumbs-down"></ion-icon>
+			      <div class="my-icon">{{c.ExtraData.NLikes}}</div>
+		      </ion-button>
+		     </ion-col>
+	
+		     <ion-col *ngIf="c.ShowLikes">
+		      <ion-button fill="clear" size="small" (click)="showObject(i,'post')">
+	         <ion-icon class="my-icon" slot="start" name="text"></ion-icon>
+			     <div class="my-icon">{{c.ExtraData.Comments}}</div>
+		      </ion-button>
+		     </ion-col>
+
+         <ion-col>
+           <ion-button fill="clear" size="small" (click)="consumeNotification(c.ID,i)">
+             <ion-icon class="my-icon" slot="start" name="checkbox"></ion-icon>
+             <div class="my-icon">{{'All_Acknowledged' | translate }}</div>
+           </ion-button>
+         </ion-col>
+       </ion-row>
+     </div>
+
+     <div *ngIf="c.NoteType == 11 || c.NoteType == 14 || c.NoteType == 15" class="section-div">
+       <ion-row *ngIf="c.ExtraData != null" text-center>
+         <ion-col text-center>
+           <p *ngSwitchCase="11" class="text-box2">{{'Social_NewUserFoto' | translate }}</p>
+           <img *ngSwitchCase="11" class="pic-image" src="{{c.ExtraData.Location}}" (click)="showObject(i,'picture')">
+
+           <p *ngSwitchCase="14" class="text-box2">{{'Social_NewUserVideo' | translate }}</p>
+           <video *ngSwitchCase="14" class="pic-image" src="{{c.ExtraData.Location}}" controls="controls" (click)="showObject(i,'video')"></video>
+
+           <p *ngSwitchCase="15" class="text-box2">{{'Social_NewUserDoc' | translate }}</p>
+           <img *ngSwitchCase="15" class="pic-smallimage" src="../../assets/imgs/PDF.png" (click)="showPDF(i)">
+         </ion-col>
+       </ion-row>
+
+       <ion-row>
+         <ion-col>
+           <div *ngIf="c.ExtraData.Description != null" class="section-div">
+			      <p class="text-box1" [innerHTML]="c.ExtraData.Description"></p>
+           </div>
+         </ion-col>
+       </ion-row>
+
+       <ion-row>
+		 <ion-col *ngIf="c.ShowLikes">
+		   <ion-button fill="clear" size="small" (click)="showAddLikePrompt(i)">
+			 <ion-icon class="my-icon" slot="start" name="thumbs-up"></ion-icon>
+			 <div class="my-icon">{{c.ExtraData.Likes}}</div>
+		   </ion-button>
+		 </ion-col>
+		 
+		 <ion-col *ngIf="c.ShowLikes">
+		   <ion-button fill="clear" size="small" (click)="showAddLikePrompt(i)">
+			 <ion-icon class="my-icon" slot="start" name="thumbs-down"></ion-icon>
+			 <div class="my-icon">{{c.ExtraData.NLikes}}</div>
+		   </ion-button>
+		 </ion-col>
+		 
+		 <ion-col *ngIf="c.ShowLikes">
+		   <ion-button *ngSwitchCase="11" fill="clear" size="small" (click)="showObject(i,'picture')">
+			 <ion-icon class="my-icon" slot="start" name="text"></ion-icon>
+			 <div class="my-icon">{{c.ExtraData.Comments}}</div>
+		   </ion-button>
+
+		   <ion-button *ngSwitchCase="14" fill="clear" size="small" (click)="showObject(i,'video')">
+			 <ion-icon class="my-icon" slot="start" name="text"></ion-icon>
+			 <div class="my-icon">{{c.ExtraData.Comments}}</div>
+		   </ion-button>
+
+		   <ion-button *ngSwitchCase="15" fill="clear" size="small" (click)="showObject(i,'document')">
+			 <ion-icon class="my-icon" slot="start" name="text"></ion-icon>
+			 <div class="my-icon">{{c.ExtraData.Comments}}</div>
+		   </ion-button>
+		 </ion-col>
+
+		 <ion-col>
+           <ion-button fill="clear" size="small" (click)="consumeNotification(c.ID,i)">
+             <ion-icon class="my-icon" slot="start" name="checkbox"></ion-icon>
+             <div class="my-icon">{{'All_Acknowledged' | translate }}</div>
+           </ion-button>
+         </ion-col>
+       </ion-row>
+     </div>
+
+     <div *ngIf="c.NoteType == 16 || c.NoteType == 17 || c.NoteType == 18" class="section-div">
+       <ion-row *ngIf="c.ExtraData != null" text-center>
+         <ion-col text-center>
+           <p *ngSwitchCase="16" class="text-box2">{{'Group_NewPhoto' | translate }}</p>
+           <img *ngSwitchCase="16" class="pic-image" src="{{c.ExtraData.Location}}" (click)="showObject(i,'grouppicture')">
+
+           <p *ngSwitchCase="17" class="text-box2">{{'Group_NewVideo' | translate }}</p>
+           <video *ngSwitchCase="17" class="pic-image" src="{{c.ExtraData.Location}}" controls="controls" (click)="showObject(i,'groupvideo')"></video>
+
+           <p *ngSwitchCase="18" class="text-box2">{{'Group_NewDoc' | translate }}</p>
+           <img *ngSwitchCase="18" class="pic-smallimage" src="../../assets/imgs/PDF.png" (click)="showPDF(i)">
+         </ion-col>
+       </ion-row>
+
+       <ion-row>
+		 <ion-col>
+		   <div *ngIf="c.ExtraData.Description != null" class="section-div">
+             <p class="text-box1" [innerHTML]="c.ExtraData.Description"></p>
+		   </div>
+         </ion-col>
+       </ion-row>
+
+       <ion-row>
+		 <ion-col *ngIf="c.ShowLikes">
+		   <ion-button fill="clear" size="small" (click)="showAddLikePrompt(i)">
+			 <ion-icon class="my-icon" slot="start" name="thumbs-up"></ion-icon>
+			 <div class="my-icon">{{c.ExtraData.Likes}}</div>
+		   </ion-button>
+		 </ion-col>
+	
+		 <ion-col *ngIf="c.ShowLikes">
+		   <ion-button fill="clear" size="small" (click)="showAddLikePrompt(i)">
+			 <ion-icon class="my-icon" slot="start" name="thumbs-down"></ion-icon>
+			 <div class="my-icon">{{c.ExtraData.NLikes}}</div>
+		   </ion-button>
+		 </ion-col>
+	
+		 <ion-col *ngIf="c.ShowLikes">
+		   <ion-button *ngSwitchCase="16" fill="clear" size="small" (click)="showObject(i,'grouppicture')">
+			 <ion-icon class="my-icon" slot="start" name="text"></ion-icon>
+			 <div class="my-icon">{{c.ExtraData.Comments}}</div>
+		   </ion-button>
+
+		   <ion-button *ngSwitchCase="17" fill="clear" size="small" (click)="showObject(i,'groupvideo')">
+	         <ion-icon class="my-icon" slot="start" name="text"></ion-icon>
+			 <div class="my-icon">{{c.ExtraData.Comments}}</div>
+		   </ion-button>
+
+		   <ion-button *ngSwitchCase="18" fill="clear" size="small" (click)="showObject(i,'groupdocument')">
+	         <ion-icon class="my-icon" slot="start" name="text"></ion-icon>
+	         <div class="my-icon">{{c.ExtraData.Comments}}</div>
+		   </ion-button>
+		 </ion-col>
+
+         <ion-col>
+           <ion-button fill="clear" size="small" (click)="consumeNotification(c.ID,i)">
+             <ion-icon class="my-icon" slot="start" name="checkbox"></ion-icon>
+             <div class="my-icon">{{'All_Acknowledged' | translate }}</div>
+           </ion-button>
+         </ion-col>
+       </ion-row>
+     </div>
+
+     <div *ngIf="c.NoteType == 20 || c.NoteType == 21">
+ 	   <ion-row>
+         <ion-col size="5" class="text-col2">
+           <img class="pic-image" src="{{c.ExtraData.PhotoLocation}}" (click)="showObject(i,'product')">
+         </ion-col>
+		  
+	     <ion-col class="text-col2">     
+	       <ion-card-content>
+	         <div class="text-div">
+		       <p class="text-box2">{{'Product_AuctionNoti' | translate }}</p>
+		       <p *ngIf="c.NoteType == 20" class="text-box">{{'Product_BidAccepted' | translate }}</p>
+		       <p *ngIf="c.NoteType == 21" class="text-box">{{'Product_BidConfirmed' | translate }}</p>
+			   <p class="text-box">{{'Product_Title' | translate }}: {{c.ExtraData.Title}}</p>
+			   <p class="text-box">{{c.ExtraData.Description}}</p>
+		     </div>
+	       </ion-card-content>
+	     </ion-col>
+	   </ion-row>
+	
+       <ion-row>
+         <ion-col>
+           <ion-button fill="clear" size="small" (click)="showProduct(i)">
+             <ion-icon class="my-icon" slot="start" name="basket"></ion-icon>
+             <div class="my-icon">{{'Market_ViewProduct' | translate }}</div>
+           </ion-button>
+         </ion-col>
+		 
+         <ion-col>
+           <ion-button fill="clear" size="small">
+             <ion-icon *ngIf="c.NoteType == 20" class="my-icon" slot="start" name="checkbox"></ion-icon>
+             <ion-icon *ngIf="c.NoteType == 21" class="my-icon" slot="start" name="mail"></ion-icon>
+             <div *ngIf="c.NoteType == 20" class="my-icon">{{'All_Confirmed' | translate }}</div>
+             <div *ngIf="c.NoteType == 21" class="my-icon">{{'Message_SendA' | translate }}</div>
+           </ion-button>
+         </ion-col>
+       </ion-row>
+     </div>
+     
+     <div *ngSwitchCase="22">
+ 	   <ion-row>
+         <ion-col size="5" class="text-col2">
+            <img class="pic-image" src="{{c.GroupData.PhotoLocation}}" (click)="showObject(i,'group')">
+         </ion-col>
+		 
+		 <ion-col class="text-col2">     
+		   <ion-card-content>
+			 <div class="text-div">
+			   <p *ngIf="c.ExtraData.TableType == 'Form'" class="text-box2">{{'All_FormRecieved' | translate }}: {{c.GroupData.GroupName}}</p>
+			   <p *ngIf="c.ExtraData.TableType == 'Poll'" class="text-box2">{{'All_PollRecieved' | translate }}: {{c.GroupData.GroupName}}</p>
+			   <p *ngIf="c.ExtraData.TableType == 'Quiz'" class="text-box2">{{'All_QuizRecieved' | translate }}: {{c.GroupData.GroupName}}</p>
+			   <p *ngIf="c.ExtraData.TableType == 'List'" class="text-box2">{{'All_ListRecieved' | translate }}: {{c.GroupData.GroupName}}</p>
+			   <p class="text-box">{{'Product_Title' | translate }}: {{c.ExtraData.Title}}</p>
+			   <p class="text-box">{{c.ExtraData.WelcomeText}}</p>
+			 </div>
+		   </ion-card-content>
+		 </ion-col>
+	   </ion-row>
+
+       <ion-row>
+         <ion-col>
+           <ion-button fill="clear" size="small" (click)="showGroup(c.GroupData.ID)">
+             <ion-icon class="my-icon" slot="start" name="contacts"></ion-icon>
+             <div class="my-icon">{{'Group_View' | translate }}</div>
+           </ion-button>
+         </ion-col>
+		 
+         <ion-col>
+           <ion-button fill="clear" size="small" (click)="consumeNotification(c.ID,i)">
+             <ion-icon class="my-icon" slot="start" name="checkbox"></ion-icon>
+             <div class="my-icon">{{'All_Acknowledged' | translate }}</div>
+           </ion-button>
+         </ion-col>
+        </ion-row>
+     </div>
+     
+     <div *ngSwitchCase="23">
+ 	   <ion-row>
+         <ion-col size="5" class="text-box1">
+            <img class="pic-smallimage" src="../../assets/imgs/calendar.png">
+         </ion-col>
+		  
+		 <ion-col class="text-col2">  		 
+		   <ion-card-content>
+			 <div class="text-div">
+			   <p class="text-box2">{{'Social_CalendarEventRecieved' | translate }}</p>
+			   <p class="text-box">{{'Product_Title' | translate }}: {{c.ExtraData.ItemName}}</p>
+			   <p class="text-box">{{c.ExtraData.Description}}</p>
+			   <p class="text-box">{{'All_Date&Time' | translate }}: {{c.ExtraData.EventDate | date: 'dd/MM/yyyy'}} {{c.ExtraData.EventStart | date: 'HH:mm a'}} - {{c.ExtraData.EventStop | date: 'HH:mm a'}}</p>
+			 </div>
+		   </ion-card-content>
+		 </ion-col>
+	   </ion-row>
+	   
+       <ion-row>
+         <ion-col>
+           <ion-button fill="clear" size="small">
+             <ion-icon class="my-icon" slot="start" name="calendar"></ion-icon>
+             <div class="my-icon">{{'All_Confirmed' | translate }}</div>
+           </ion-button>
+         </ion-col>
+		 
+         <ion-col>
+           <ion-button fill="clear" size="small" (click)="consumeNotification(c.ID,i)">
+             <ion-icon class="my-icon" slot="start" name="checkbox"></ion-icon>
+             <div class="my-icon">{{'All_Acknowledged' | translate }}</div>
+           </ion-button>
+         </ion-col>
+       </ion-row>
+     </div>
+          
+   </div>
+
+  </ion-card>
+ </div>
+  
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

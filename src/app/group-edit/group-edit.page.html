@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-avatar *ngIf="icon != null" slot="start">
+         <img src="{{ icon }}">
+    </ion-avatar>
+ 
+    <ion-title>&nbsp;{{formOptions.Title}}</ion-title>
+     
+    <ion-buttons slot="end">
+      <ion-button fill="solid" color="secondary" (click)="cancelAndReturn()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="form-content" color="cardback">
+    <div>    
+     <form name="editForm" #editForm="ngForm">
+         <ion-row>
+           <ion-col>
+             <ion-list inset=true>
+               <ion-item>
+                 <ion-label color="primary">{{'Group_Name2' | translate }}:</ion-label>
+                 <ion-input type="text" name="GroupName" [disabled]="formEdit" [(ngModel)]="groupDetails.GroupName" required></ion-input>
+               </ion-item>
+               
+               <ion-item>
+                 <ion-label color="primary">{{'Group_Type' | translate }}:</ion-label>
+                 <ion-select name="GroupType" [(ngModel)]="groupDetails.GroupType">
+                     <ion-select-option [value]="1">{{'Group_TypePrivate' | translate }}</ion-select-option>
+                     <ion-select-option selected="true" [value]="2">{{'Group_TypeSocial' | translate }}</ion-select-option>
+                     <ion-select-option [value]="3">{{'Group_TypeSports' | translate }}</ion-select-option>
+                     <ion-select-option [value]="4">{{'Group_TypeMusic' | translate }}</ion-select-option>
+                     <ion-select-option [value]="5">{{'Group_TypeSchool' | translate }}</ion-select-option>
+                     <ion-select-option [value]="6">{{'Group_TypeCorporate' | translate }}</ion-select-option>
+                     <ion-select-option [value]="7">{{'Group_TypeGovernment' | translate }}</ion-select-option>
+                     <ion-select-option [value]="8">{{'Group_TypeGames' | translate }}</ion-select-option>
+                     <ion-select-option [value]="9">{{'Group_TypeAnything' | translate }}</ion-select-option>
+                     <ion-select-option [value]="10">{{'Group_TypeScience' | translate }}</ion-select-option>
+                 </ion-select>
+               </ion-item>
+               
+               <ion-item>
+                 <ion-label color="primary">{{'Group_Topic' | translate }}:</ion-label>
+                 <ion-input type="text" name="GroupTopic" [(ngModel)]="groupDetails.GroupTopic"></ion-input>
+               </ion-item>
+               
+               <ion-item>
+                 <ion-label color="primary">{{'All_Description' | translate }}:</ion-label>
+                 <ion-input type="text" name="Description" [(ngModel)]="groupDetails.Description" required></ion-input>
+               </ion-item>
+               
+               <ion-item>
+                <ion-label color="primary">{{'Group_IsPublic' | translate }}</ion-label>
+                <ion-checkbox color="primary" checked="true" name="IsPublic" [(ngModel)]="groupDetails.IsPublic"></ion-checkbox>
+               </ion-item>
+               
+               <ion-item>
+                <ion-label color="primary">{{'Group_IsActive' | translate }}</ion-label>
+                <ion-checkbox color="primary" checked="true" name="IsActive" [(ngModel)]="groupDetails.IsActive"></ion-checkbox>
+               </ion-item>
+               
+             </ion-list>
+           </ion-col>
+         </ion-row>
+         
+         <ion-row>
+           <ion-col offset="1">
+             <ion-button class="submit-btn" expand="block" type="button" [disabled]="!editForm.form.valid" (click)="saveAndReturn()">{{'Login_Submit' | translate }}</ion-button>
+           </ion-col>
+         </ion-row>
+         <ion-row>
+           <ion-col offset="1">
+             <ion-button class="submit-btn" expand="block" type="button" (click)="cancelAndReturn()">{{'Go_Back_Text' | translate }}</ion-button>
+           </ion-col>
+         </ion-row>
+      <BR>
+      <BR>
+     </form>
+    </div>
+   </ion-content>
+   

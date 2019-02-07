@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button slot="start" fill="clear" color="dark" (click)="goBack()">
+      <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
+    </ion-button>    
+      
+    <ion-title>{{pageTitle | translate }}{{separator}}{{folderName | translate }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-menu-button menu="RightMenu">
+        <ion-icon name="star"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>	
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="tile-box">
+     <ion-buttons class="my-icon">
+       <ion-button class="my-button" (click)="ChooseFolder()">
+         <ion-icon class="mybutton-icon" name="filing"></ion-icon>
+       </ion-button>
+       <ion-button class="my-button" (click)="newNote()">
+         <ion-icon class="mybutton-icon" name="add"></ion-icon>
+       </ion-button>
+       {{folderTitle | translate }}
+     </ion-buttons>
+  </div>
+  <HR>
+  <ion-searchbar placeholder="{{'All_Search' | translate }}" (ionInput)="getItems($event)"></ion-searchbar>
+  <HR>
+ 
+  <ion-card *ngFor="let c of notes" (click)="showNote(c.ID)">
+    <ion-item class="item-header">
+      <ion-label text-wrap>
+        <p class="text-box1">{{c.PostDate | date: 'dd/MM/yyyy HH:mm a'}}</p>
+        <p class="text-box1">{{c.Description}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-card-content>
+       <p class="detail-box" [innerHTML]="c.PostText"></p>
+    </ion-card-content>
+  </ion-card>
+ 
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+ 
+ </ion-content>
+ 

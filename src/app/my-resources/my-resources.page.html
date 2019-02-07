@@ -1,0 +1,122 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button slot="start" fill="clear" color="dark" (click)="goBack()">
+      <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
+    </ion-button>    
+      
+    <ion-title>{{pageTitle | translate }}{{separator}}{{folderName | translate }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-menu-button menu="RightMenu">
+        <ion-icon name="star"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>	
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="tile-box">
+     <ion-buttons>
+       <ion-button class="my-button" (click)="changeStyleNormal()">
+         <ion-icon class="mybutton-icon" name="albums"></ion-icon>
+       </ion-button>
+       <ion-button class="my-button" (click)="changeStyleThumbnails()">
+         <ion-icon class="mybutton-icon" name="apps"></ion-icon>
+       </ion-button>
+       <ion-button class="my-button" (click)="changeStyleList()">
+         <ion-icon class="mybutton-icon" name="list"></ion-icon>
+       </ion-button>
+       <ion-button class="my-button" (click)="ChooseFolder()">
+         <ion-icon class="mybutton-icon" name="folder"></ion-icon>
+       </ion-button>
+     </ion-buttons>
+  </div>
+  <hr>
+ 
+  <div *ngFor="let c of resources; let i = index" style="ion-Div">
+   <ion-card *ngIf="styleNormal" class="card-box" color="cardback">
+    <img *ngIf="ResourceIsPhoto" class="pic-image" src="{{c.Location}}" (click)="showObject(i)"  slot="start">
+    <video *ngIf="ResourceIsVideo" class="vid-image" src="{{c.Location}}" controls="controls" (click)="showObject(i)"></video>
+    <img *ngIf="ResourceIsDoc" class="pic-image" src="../../assets/imgs/PDF.png" (click)="showPDF(c.Location)"  slot="start">
+ 
+    <ion-card-content>
+      <ion-button fill="clear" size="small" (click)="showEditPrompt(i, c.ID)">
+        <ion-icon class="my-icon" slot="start" name="create"></ion-icon>
+        <div class="my-icon">&nbsp;{{c.Description}}</div>
+      </ion-button>
+ 
+      <p class="text-box">&nbsp;{{'ALL_DateAdded' | translate }}: {{c.DateUploaded | date: 'dd/MM/yyyy H:mm'}}</p>
+    </ion-card-content>
+ 
+    <ion-row>
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showAddLikePrompt(i)">
+         <ion-icon class="my-icon" slot="start" name="thumbs-up"></ion-icon>
+         <div class="my-icon">{{c.Likes}}</div>
+       </ion-button>
+     </ion-col>
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showAddLikePrompt(i)">
+         <ion-icon class="my-icon" slot="start" name="thumbs-down"></ion-icon>
+         <div class="my-icon">{{c.NLikes}}</div>
+       </ion-button>
+     </ion-col>
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showObject(i)">
+         <ion-icon class="my-icon" slot="start" name="text"></ion-icon>
+         <div class="my-icon">{{c.Comments}}</div>
+       </ion-button>
+     </ion-col>
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showDeletePrompt(i, c.ID)">
+         <ion-icon class="my-icon" slot="start" name="trash"></ion-icon>
+       </ion-button>
+     </ion-col>
+    </ion-row>
+   </ion-card>
+ 
+   <ion-list *ngIf="styleList" class="item-background">
+     <ion-item-sliding>
+       <ion-item tappable color="nice" class="list-item">
+         <ion-thumbnail slot="start">
+           <img *ngIf="ResourceIsPhoto" src="{{c.Location}}" align="left" (click)="showObject(i)">
+           <video *ngIf="ResourceIsVideo" class="pic-small-image" src="{{c.Location}}" controls="controls" (click)="showObject(i)"></video>
+           <img *ngIf="ResourceIsDoc" src="../../assets/imgs/PDF.png" (click)="showPDF(c.Location)" align="left">
+         </ion-thumbnail>
+         <h2>{{c.Description}}</h2>
+         <p class="text-box" slot="end">&nbsp;{{'ALL_DateAdded' | translate }}: {{c.DateUploaded | date: 'dd/MM/yyyy H:mm'}}</p>
+         <ion-button fill="clear" slot="end" class="my-icon"> <ion-icon slot="icon-only" name="arrow-forward"></ion-icon></ion-button>
+       </ion-item>
+  
+       <ion-item-options slot="end">
+         <ion-button color="primary" (click)="showEditPrompt(i, c.ID)">
+           <ion-icon slot="icon-only" name="create"></ion-icon>
+         </ion-button>
+         <ion-button color="danger" (click)="showDeletePrompt(i, c.ID)">
+           <ion-icon slot="icon-only" name="trash"></ion-icon>
+         </ion-button>
+       </ion-item-options>
+     </ion-item-sliding>
+   </ion-list>
+ 
+   <div *ngIf="styleThumbNails" class="card-box-small">
+    <img *ngIf="ResourceIsPhoto" class="pic-small-image" src="{{c.Location}}" (click)="showObject(i)" align="left">
+    <video *ngIf="ResourceIsVideo" class="pic-small-image" src="{{c.Location}}" controls="controls" (click)="showObject(i)"></video>
+    <img *ngIf="ResourceIsDoc" class="pic-small-image" src="../../assets/imgs/PDF.png" (click)="showPDF(c.Location)" align="left">
+   </div>
+ 
+  </div>
+  <br>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary" (click)="presentActionSheet()">
+      <ion-icon class="my-icon2" name="{{ pageIcon }}"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+ 
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+ 
+ </ion-content>
+ 

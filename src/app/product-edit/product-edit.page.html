@@ -1,0 +1,145 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-avatar *ngIf="icon != ''" slot="start">
+         <img src="{{ icon }}">
+    </ion-avatar>
+ 
+    <ion-title *ngIf="formOptions != null">&nbsp;{{formOptions.Title}}</ion-title>
+     
+    <ion-buttons slot="end">
+      <ion-button fill="solid" color="secondary" (click)="cancelAndReturn()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="form-content" color="cardback" padding>
+ <div *ngIf="productDetails != null">    
+  <form name="editForm" #editForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+            <ion-item>
+			  <ion-label color="primary">{{'Product_Title' | translate }}:</ion-label>
+              <ion-input type="text" name="Title" [disabled]="formEdit" [(ngModel)]="productDetails.Title" required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="primary">{{'Product_Category' | translate }}:</ion-label>
+              <ion-select name="Category" [(ngModel)]="productDetails.Category" (ngModelChange)="changeSubCategories($event)" okText="{{'All_BTN_OK' | translate }}" cancelText="{{'All_BTN_Cancel' | translate }}">
+                  <ion-select-option *ngFor="let c of categories" [value]=c.ID>{{c.Label | translate }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="primary">{{'Product_SubCategory' | translate }}:</ion-label>
+              <ion-select name="SubCategory" [(ngModel)]="productDetails.SubCategory" okText="{{'All_BTN_OK' | translate }}" cancelText="{{'All_BTN_Cancel' | translate }}">
+                  <ion-select-option *ngFor="let c of subcategories" [value]="c.ID">{{c.Label | translate }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="primary">{{'Product_Brand' | translate }}:</ion-label>
+              <ion-input type="text" name="Brand" [(ngModel)]="productDetails.Brand"></ion-input>
+            </ion-item>
+            
+            <ion-item *ngIf="formEdit">
+			  <ion-label color="primary">{{'Product_Model' | translate }}:</ion-label>
+              <ion-input type="text" name="Model" [(ngModel)]="productDetails.Model"></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="primary">{{'Poduct_MinPrice' | translate }}:</ion-label>
+              <ion-input type="number" name="MinPrice" [(ngModel)]="productDetails.MinPrice" required></ion-input>
+            </ion-item>
+            
+            <ion-item *ngIf="formEdit">
+			  <ion-label color="primary">{{'Poduct_MaxPrice' | translate }}:</ion-label>
+              <ion-input type="number" name="MaxPrice" [(ngModel)]="productDetails.MaxPrice"></ion-input>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="primary">{{'All_Currency' | translate }}:</ion-label>
+              <ion-select name="Currency" [(ngModel)]="productDetails.Currency" okText="{{'All_BTN_OK' | translate }}" cancelText="{{'All_BTN_Cancel' | translate }}">
+                  <ion-select-option *ngFor="let c of currencies" [value]="c.Code1">{{c.CurrencyName | translate }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="primary">{{'All_Description' | translate }}:</ion-label>
+              <ion-input type="text" name="Description" [(ngModel)]="productDetails.Description" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+			  <ion-label color="primary">{{'Register_Country' | translate }}:</ion-label>
+              <ion-select name="Country" [(ngModel)]="productDetails.Country" okText="{{'All_BTN_OK' | translate }}" cancelText="{{'All_BTN_Cancel' | translate }}">
+                  <ion-select-option *ngFor="let c of countries" [value]="c.Code">{{c.Label | translate }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            
+            <ion-item *ngIf="formEdit">
+			  <ion-label color="primary">{{'Register_State' | translate }}:</ion-label>
+              <ion-input type="text" name="State" [(ngModel)]="productDetails.State"></ion-input>
+            </ion-item>
+            
+            <ion-item *ngIf="formEdit">
+			  <ion-label color="primary">{{'Register_City' | translate }}:</ion-label>
+              <ion-input type="text" name="City" [(ngModel)]="productDetails.City"></ion-input>
+            </ion-item>
+                        
+            <ion-item *ngIf="formEdit">
+			  <ion-label color="primary">{{'Product_Condition' | translate }}:</ion-label>
+              <ion-select name="Condition" [(ngModel)]="productDetails.Condition" okText="{{'All_BTN_OK' | translate }}" cancelText="{{'All_BTN_Cancel' | translate }}">
+                  <ion-select-option *ngFor="let c of usages" [value]="c.ID">{{c.Label | translate }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            
+            <ion-item *ngIf="formEdit">
+			  <ion-label color="primary">{{'Product_Date' | translate }}</ion-label>
+              <ion-datetime displayFormat="YYYY" name="YearBuild" [(ngModel)]="productDetails.YearBuild"></ion-datetime>
+            </ion-item>
+            
+            <ion-item *ngIf="formEdit">
+			  <ion-label color="primary">{{'Product_Extra' | translate }}:</ion-label>
+              <ion-input type="text" name="Extra" [(ngModel)]="productDetails.Extra"></ion-input>
+            </ion-item>
+            
+            <ion-item *ngIf="formEdit">
+			  <ion-label color="primary">{{'Product_Auction' | translate }}</ion-label>
+			  <ion-checkbox color="primary" checked="false" name="Auction" [(ngModel)]="productDetails.Auction"></ion-checkbox>
+            </ion-item>
+            
+            <ion-item *ngIf="formEdit">
+			  <ion-label color="primary">{{'Product_Sold' | translate }}</ion-label>
+			  <ion-checkbox color="primary" checked="false" name="Sold" [(ngModel)]="productDetails.Sold"></ion-checkbox>
+            </ion-item>
+            
+            <ion-item *ngIf="formEdit">
+			  <ion-label color="primary">{{'Product_ExpireHide' | translate }}</ion-label>
+			  <ion-checkbox color="primary" checked="false" name="ExpireHide" [(ngModel)]="productDetails.ExpireHide"></ion-checkbox>
+            </ion-item>
+            
+            <ion-item *ngIf="formEdit">
+			  <ion-label color="primary">{{'Product_Expire' | translate }}</ion-label>
+              <ion-datetime displayFormat="MM/DD/YYYY" name="DateExpire" [(ngModel)]="productDetails.DateExpire"></ion-datetime>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col offset="1">
+          <ion-button class="submit-btn" expand="block" type="button" [disabled]="!editForm.form.valid" (click)="saveAndReturn()">{{'Login_Submit' | translate }}</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col offset="1">
+          <ion-button class="submit-btn" expand="block" type="button" (click)="cancelAndReturn()">{{'Go_Back_Text' | translate }}</ion-button>
+        </ion-col>
+      </ion-row>
+   <BR>
+   <BR>
+  </form>
+ </div>
+</ion-content>

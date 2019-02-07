@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button slot="start" fill="clear" color="dark" (click)="goBack()">
+      <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
+    </ion-button>    
+      
+    <ion-title>{{'Social_Calendar' | translate }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-menu-button menu="RightMenu">
+        <ion-icon name="star"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>	
+  </ion-toolbar>  
+</ion-header>
+
+<ion-content>
+ <mwl-demo-utils-calendar-header
+  [(groupID)]="groupID"
+  [(view)]="view"
+  [(viewDate)]="viewDate"
+  [events]="calendarEvents"
+  [locale]="locale"
+  (newEvent)="newEvent()"
+  (viewDateChange)="calendarViewDateChanged()">
+ </mwl-demo-utils-calendar-header>
+</ion-content>

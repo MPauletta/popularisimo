@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-button slot="start" fill="clear" color="dark" (click)="goBack()">
+        <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
+      </ion-button>    
+        
+    <ion-title>{{title}}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-menu-button menu="RightMenu">
+        <ion-icon name="star"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>	
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="view-windows">
+    <div class="card-box">
+      <img *ngIf="resourceType == 1" class="my-image" src="{{ObjJson.Location}}">
+      <video *ngIf="resourceType == 2" class="my-image" src="{{ObjJson.Location}}" controls="controls"></video>
+      <p style="text-box" [innerHTML]="ObjJson.Description"></p>
+    </div>
+  
+    <ion-row *ngIf="ObjJson.NoIcons == null" class="text-col">
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showAddLikePrompt()">
+         <ion-icon slot="start" class="my-icon" name="thumbs-up"></ion-icon>
+         <div class="my-icon">{{ObjJson.Likes}}</div>
+       </ion-button>
+     </ion-col>
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showAddLikePrompt()">
+         <ion-icon slot="start" class="my-icon" name="thumbs-down"></ion-icon>
+         <div class="my-icon">{{ObjJson.NLikes}}</div>
+       </ion-button>
+     </ion-col>
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showAddCommentPrompt()">
+         <ion-icon slot="start" class="my-icon" name="text"></ion-icon>
+         <div class="my-icon">{{ObjJson.Comments}}</div>
+       </ion-button>
+     </ion-col>
+    </ion-row>
+  
+   <ion-card *ngFor="let c of ObjComments; let i = index" class="ion-Div">
+     <ion-item class="item-background">
+        <ion-avatar slot="start">
+          <img src="{{c.PhotoLocation}}" (click)="showMember(c.UserID)">
+        </ion-avatar>
+        <p class="text-box">&nbsp;{{c.FullName}}</p>
+        <p class="text-box">&nbsp;{{'ALL_DateAdded' | translate }}: {{c.DateAdded | date: 'dd/MM/yyyy H:mm'}}</p>
+     </ion-item>
+     <p class="text-box2" [innerHTML]="c.Comment"></p>
+     <hr class="my-line">
+   </ion-card>
+
+   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+     <ion-infinite-scroll-content></ion-infinite-scroll-content>
+   </ion-infinite-scroll>
+    
+  </ion-content>
+  

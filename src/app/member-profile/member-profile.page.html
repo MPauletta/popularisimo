@@ -1,0 +1,245 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button slot="start" fill="clear" color="dark" (click)="goBack()">
+      <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
+    </ion-button>    
+      
+    <ion-title>{{'Member_GuestPortal' | translate }} {{member.FullName}}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-menu-button menu="RightMenu">
+        <ion-icon name="star"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>	
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="social-cards">
+  <ion-refresher [disabled]="false" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+ 
+  <div class="tile-box">
+     <ion-buttons>
+       <ion-button *ngIf="isFriend" class="my-button" (click)="presentSocialActionSheet()">
+         <ion-icon class="mybutton-icon" name="images"></ion-icon>
+       </ion-button>
+       <ion-button class="my-button" (click)="showGroups()">
+         <ion-icon class="mybutton-icon" name="contacts"></ion-icon>
+       </ion-button>
+       <ion-button *ngIf="isFriend" class="my-button" (click)="showChatMessages()">
+         <ion-icon class="mybutton-icon" name="chatboxes"></ion-icon>
+       </ion-button>
+       <ion-button *ngIf="isFriend" class="my-button" (click)="presentMessageActionSheet()">
+         <ion-icon class="mybutton-icon" name="mail"></ion-icon>
+       </ion-button>
+       <ion-button class="my-button" (click)="showProducts()">
+         <ion-icon class="mybutton-icon" name="basket"></ion-icon>
+       </ion-button>
+     </ion-buttons>
+  </div>
+  <hr>
+ 
+   <ion-card>
+    <ion-item color="custom">
+     <h2>&nbsp;&nbsp;{{member.FullName}} ({{member.SpaceAcess | translate }})</h2>
+    </ion-item>
+ 
+    <ion-row>
+     <ion-col size="5" class="text-col3">
+       <img class="pic-image" src="{{member.PhotoLocation}}" (click)="showProfile()">
+     </ion-col>
+     <ion-col class="text-col3">     
+       <ion-card-content>
+        <div class="text-div">
+           <p class="text-box">{{'Login_User' | translate }}: {{member.Username}}</p>
+           <p class="text-box">{{'Register_CreatedOn' | translate }}:</p>
+           <p class="text-box">{{member.DateCreated | date: 'dd/MM/yyyy HH:mm'}}</p>
+           <p class="text-box">{{'All_LastActive' | translate }}:</p>
+           <p class="text-box">{{member.LastActive | date: 'dd/MM/yyyy HH:mm'}}</p>
+        </div>
+       </ion-card-content>
+     </ion-col>
+    </ion-row>
+ 
+    <ion-row class="text-col">
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showAddLikePrompt(-1)">
+         <ion-icon class="my-icon" slot="start" name="thumbs-up"></ion-icon>
+         <div class="my-icon" slot="start">{{member.userLikes}}</div>
+       </ion-button>
+     </ion-col>
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showAddLikePrompt(-1)">
+         <ion-icon class="my-icon" slot="start" name="thumbs-down"></ion-icon>
+         <div class="my-icon">{{member.userNLikes}}</div>
+       </ion-button>
+     </ion-col>
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showProfile()">
+         <ion-icon class="my-icon" slot="start" name="text"></ion-icon>
+         <div class="my-icon">{{member.userComments}}</div>
+       </ion-button>
+     </ion-col>
+ 
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showMemberConnectPrompt()">
+         <div class="my-icon">{{ 'Add_Button' | translate }}&nbsp;&nbsp;&nbsp;</div>
+         <ion-icon class="my-icon" slot="start" name="contacts"></ion-icon>
+       </ion-button>
+     </ion-col>
+    </ion-row>
+   </ion-card>
+ 
+ <div *ngIf="isFriend">
+  <div class="card-box" *ngFor="let c of notifications; let i = index" [ngSwitch]="c.NoteType">
+   <ion-card>
+    <ion-item color="custom" class="item-header">
+       <ion-avatar slot="start">
+         <img *ngIf="c.userNotification" src="{{c.UserData.PhotoLocation}}" (click)="showMember(c.FromID,c.NoteType)">
+         <img *ngIf="!c.userNotification" src="{{c.GroupData.PhotoLocation}}" (click)="showGroup(c.GroupData.ID)">
+       </ion-avatar>
+       <h2 *ngIf="c.userNotification">{{c.UserData.FullName}}</h2>
+       <h2 *ngIf="!c.userNotification">{{c.GroupData.GroupName}}</h2>
+       <p  slot="end" class="text-box1">{{c.DateSend | date: 'dd/MM/yyyy HH:mm a'}}</p>
+    </ion-item>
+    
+    <div class="noti-content">
+      <div *ngIf="c.NoteType == 9 || c.NoteType == 10 || c.NoteType == 12 || c.NoteType == 13" class="section-div">
+	      <ion-card>
+          <ion-item *ngIf="c.OriginalData != null" color="custom" class="item-header">
+            <ion-avatar slot="start">
+              <img src="{{c.OriginalData.PhotoLocation}}" (click)="showMember(c.strExtra,c.NoteType)">
+            </ion-avatar>
+            <p class="text-box1">{{'Social_NewUserCommen' | translate }}: {{c.UserData.FullName}}</p>
+            <p *ngIf="c.OriginalData" class="text-box1">{{'All_For' | translate }}: {{c.OriginalData.FullName}}</p>
+          </ion-item>
+        </ion-card>
+ 
+        <ion-row>
+          <ion-col>
+            <div *ngIf="c.OriginalData == null" class="section-div">
+              <p class="text-box2">{{'Social_NewUserCommen' | translate }}: {{c.UserData.FullName}}</p>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row justify-content-center>
+         <ion-col align-self-center>
+           <img *ngIf="c.lngMore == 1" class="pic-image2" src="{{c.ObjectLocation}}" (click)="showObject(i,'post')">
+           <video *ngIf="c.lngMore == 2" class="pic-image2" src="{{c.ObjectLocation}}" controls="controls" (click)="showObject(i,'post')"></video>
+         </ion-col>
+        </ion-row>
+ 
+        <ion-row *ngIf="c.ExtraData != null">
+          <ion-col class="section-div">
+           <p class="text-box3" [innerHTML]="c.ExtraData.NoteText"></p>
+          </ion-col>
+        </ion-row>
+ 
+        <ion-row>
+         <ion-col *ngIf="c.ShowLikes">
+          <ion-button fill="clear" size="small" (click)="showAddLikePrompt(i)">
+            <ion-icon class="my-icon" slot="start" name="thumbs-up"></ion-icon>
+            <div class="my-icon">{{c.ExtraData.Likes}}</div>
+          </ion-button>
+         </ion-col>
+
+         <ion-col *ngIf="c.ShowLikes">
+          <ion-button fill="clear" size="small" (click)="showAddLikePrompt(i)">
+            <ion-icon class="my-icon" slot="start" name="thumbs-down"></ion-icon>
+            <div class="my-icon">{{c.ExtraData.NLikes}}</div>
+          </ion-button>
+         </ion-col>
+
+         <ion-col *ngIf="c.ShowLikes">
+          <ion-button fill="clear" size="small" (click)="showObject(i,'post')">
+            <ion-icon class="my-icon" slot="start" name="text"></ion-icon>
+            <div class="my-icon">{{c.ExtraData.Comments}}</div>
+          </ion-button>
+         </ion-col>
+ 
+         <ion-col>
+           <ion-button fill="clear" size="small">
+             <ion-icon class="my-icon" slot="start" name="checkbox"></ion-icon>
+             <div class="my-icon">{{'All_Acknowledged' | translate }}</div>
+           </ion-button>
+         </ion-col>
+        </ion-row>
+      </div>
+ 
+      <div *ngIf="c.NoteType == 11 || c.NoteType == 14 || c.NoteType == 15" class="section-div">
+        <ion-row *ngIf="c.ExtraData != null" text-center>
+         <ion-col text-center>
+           <p *ngSwitchCase="11" class="text-box2">{{'Social_NewUserFoto' | translate }}</p>
+           <img *ngSwitchCase="11" class="pic-image" src="{{c.ExtraData.Location}}" (click)="showObject(i,'picture')">
+ 
+           <p *ngSwitchCase="14" class="text-box2">{{'Social_NewUserVideo' | translate }}</p>
+           <video *ngSwitchCase="14" class="pic-image" src="{{c.ExtraData.Location}}" controls="controls" (click)="showObject(i,'video')"></video>
+ 
+           <p *ngSwitchCase="15" class="text-box2">{{'Social_NewUserDoc' | translate }}</p>
+           <img *ngSwitchCase="15" class="pic-smallimage" src="../../assets/imgs/PDF.png" (click)="showPDF(i)">
+         </ion-col>
+        </ion-row>
+ 
+        <ion-row>
+          <ion-col>
+           <div *ngIf="c.ExtraData.Description != null" class="section-div">
+            <p class="text-box1" [innerHTML]="c.ExtraData.Description"></p>
+           </div>
+          </ion-col>
+        </ion-row>
+ 
+        <ion-row>
+         <ion-col *ngIf="c.ShowLikes">
+          <ion-button fill="clear" size="small" (click)="showAddLikePrompt(i)">
+            <ion-icon class="my-icon" slot="start" name="thumbs-up"></ion-icon>
+            <div class="my-icon">{{c.ExtraData.Likes}}</div>
+          </ion-button>
+         </ion-col>
+
+         <ion-col *ngIf="c.ShowLikes">
+          <ion-button fill="clear" size="small" (click)="showAddLikePrompt(i)">
+            <ion-icon class="my-icon" slot="start" name="thumbs-down"></ion-icon>
+            <div class="my-icon">{{c.ExtraData.NLikes}}</div>
+          </ion-button>
+         </ion-col>
+
+         <ion-col *ngIf="c.ShowLikes">
+          <ion-button *ngSwitchCase="11" fill="clear" size="small" (click)="showObject(i,'picture')">
+            <ion-icon class="my-icon" slot="start" name="text"></ion-icon>
+            <div class="my-icon">{{c.ExtraData.Comments}}</div>
+          </ion-button>
+ 
+          <ion-button *ngSwitchCase="14" fill="clear" size="small" (click)="showObject(i,'video')">
+            <ion-icon class="my-icon" slot="start" name="text"></ion-icon>
+            <div class="my-icon">{{c.ExtraData.Comments}}</div>
+          </ion-button>
+ 
+          <ion-button *ngSwitchCase="15" fill="clear" size="small" (click)="showObject(i,'document')">
+            <ion-icon class="my-icon" slot="start" name="text"></ion-icon>
+            <div class="my-icon">{{c.ExtraData.Comments}}</div>
+          </ion-button>
+         </ion-col>
+ 
+         <ion-col>
+           <ion-button fill="clear" size="small">
+             <ion-icon class="my-icon" slot="start" name="checkbox"></ion-icon>
+             <div class="my-icon">{{'All_Acknowledged' | translate }}</div>
+           </ion-button>
+         </ion-col>
+        </ion-row>
+      </div>
+      
+    </div>
+ 
+   </ion-card>
+  </div>
+ </div>
+ 
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+ 
+ </ion-content>
+ 

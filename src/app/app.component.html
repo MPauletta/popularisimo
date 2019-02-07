@@ -1,3 +1,41 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+ <ion-menu menuId="MainMenu" side="start">
+  <ion-header>
+   <ion-toolbar color="secondary">
+    <ion-title>{{'All_MainMenu' | translate }}</ion-title>
+   </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <ion-menu-toggle *ngFor="let p of popRoutes.pages"  menu="MainMenu">
+	      <ion-item (click)="openPage(p)" [color]="p.itemColor">
+          <ion-icon side="start" [name]="p.icon" color="primary"></ion-icon>
+          &nbsp;&nbsp;{{ p.title | translate }}
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+ </ion-menu>
+
+ <ion-menu menuId="RightMenu" side="end" type="overlay">
+  <ion-header>
+   <ion-toolbar color="secondary">
+    <ion-title>{{'Group_Resources' | translate }}</ion-title>
+   </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <ion-menu-toggle *ngFor="let p of popRoutes.subpages" menu="RightMenu">
+	      <ion-item (click)="openPage(p)" [color]="p.itemColor">
+          <ion-icon item-start [name]="p.icon" color="primary"></ion-icon>
+          &nbsp;&nbsp;{{ p.title | translate }}
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+ </ion-menu>
+
+ <ion-router-outlet main></ion-router-outlet>
 </ion-app>

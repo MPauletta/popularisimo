@@ -1,0 +1,152 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button slot="start" fill="clear" color="dark" (click)="goBack()">
+      <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
+    </ion-button>    
+      
+    <ion-title>{{ 'Product_Details' | translate }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-menu-button menu="RightMenu">
+        <ion-icon name="star"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>	
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="social-cards">
+  <div *ngIf="productEditing" class="tile-box">
+    <ion-buttons>
+      <ion-button class="my-button" (click)="editProduct()">
+        <ion-icon class="mybutton-icon" name="create"></ion-icon>
+      </ion-button>
+      <ion-button class="my-button" (click)="editPhoto()">
+        <ion-icon class="mybutton-icon" name="image"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="!NoPhoto" class="my-button" (click)="addPhoto()">
+        <ion-icon class="mybutton-icon" name="images"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </div>
+  <HR>
+  <br>
+
+  <ion-card *ngIf="product != null">
+   <ion-item color="custom">
+    <ion-avatar *ngIf="product.OwnerPhoto != null" slot="start">
+      <img *ngIf="product.UserID > 0" src="{{product.OwnerPhoto}}" (click)="showMember(product.UserID)">
+      <img *ngIf="product.GroupID > 0" src="{{product.OwnerPhoto}}" (click)="showGroup(product.GroupID)">
+    </ion-avatar>
+	<ion-label text-wrap>
+	  <p class="text-box-header">&nbsp;{{ product.Title }}</p>
+	  <p class="text-box" *ngIf="product.FullName != null">&nbsp;&nbsp;{{ 'Group_ForumToSmall' | translate }}: {{ product.FullName }}</p>
+      <p class="text-box" *ngIf="product.GroupName != null">&nbsp;&nbsp;{{ 'Group_From' | translate }}: {{ product.GroupName }}</p>
+	</ion-label>
+   </ion-item>
+
+   <ion-row>
+    <ion-col *ngIf="product.PhotoLocation != ''" class="text-col3">
+      <img class="pic-image" src="{{ product.PhotoLocation }}" (click)="showObject()">
+    </ion-col>
+    <ion-col class="text-col3">
+      <p class="text-box">{{ product.Title }}</p>
+      <p class="text-box">{{ 'Poduct_MinPrice' | translate }}:</p>
+      <p class="text-box">{{ product.MinPrice }} {{ product.Currency }}</p>
+      <p class="text-box-left">{{ 'Product_Condition' | translate }}: {{ product.ConditionLabel | translate }}</p>
+      <p class="text-box-left">{{ 'Product_Category' | translate }}: {{ product.lblCategory | translate }}</p>
+      <p class="text-box-left">{{ 'Product_SubCategory' | translate }}: {{ product.lblSubCategory | translate }}</p>
+      <p class="text-box-left">{{ 'Product_Date' | translate }}: {{ product.YearBuild | date: 'yyyy' }}</p>
+      <p class="text-box-left">{{ 'ALL_DateAdded' | translate }}: {{ product.DateAdded | date: 'dd/MM/yyyy HH:mm' }}</p>
+      <p class="text-box-left">{{ 'All_Description' | translate }}: {{ product.Description }}</p>
+    </ion-col>
+   </ion-row>
+   <ion-row (click)="toggleMoreDetail()">
+    <ion-col class="text-col3">
+      <ion-button fill="clear" size="small">
+        <div class="my-icon">{{ 'Product_MoreDetails' | translate }}&nbsp;&nbsp;&nbsp;</div>
+        <ion-icon slot="start" class="my-icon" name="{{moreDetailArrow}}"></ion-icon>
+      </ion-button>
+    </ion-col>
+   </ion-row>
+   <ion-row *ngIf="moreDetail">
+    <ion-col class="text-col3">
+      <p class="text-box-left">{{ 'Poduct_MaxPrice' | translate }}: {{ product.MaxPrice }} {{ product.Currency }}</p>
+      <p class="text-box-left">{{ 'Product_Brand' | translate }}: {{ product.Brand }}</p>
+      <p class="text-box-left">{{ 'Product_Model' | translate }}: {{ product.Model }}</p>
+      <p class="text-box-left">{{ 'Product_Expire' | translate }}: {{ product.DateExpire | date: 'dd/MM/yyyy'}}</p>
+      <p class="text-box-left">{{ 'Register_Country' | translate }}: {{ country }}</p>
+      <p class="text-box-left">{{ 'Register_State' | translate }}: {{ product.State }}</p>
+      <p class="text-box-left">{{ 'Register_City' | translate }}: {{ product.City }}</p>
+      <p class="text-box-left">{{ 'Product_Extra' | translate }}: {{ product.Extra }}</p>
+      <p class="text-box-left">{{ 'Product_Auction' | translate }}: {{ productIsAuction | translate }}</p>
+      <p class="text-box-left">{{ 'Product_Sold' | translate }}: {{ productIsSold | translate }}</p>
+      <p class="text-box-left">{{ 'Product_ExpireHide' | translate }}: {{ productIsExpireHide | translate }}</p>
+    </ion-col>
+   </ion-row>
+
+   <ion-row class="text-col">
+    <ion-col>
+      <ion-button fill="clear" size="small" (click)="showAddLikePrompt()">
+        <ion-icon slot="start" slot="start" class="my-icon" name="thumbs-up"></ion-icon>
+        <div class="my-icon">{{product.Likes}}</div>
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button fill="clear" size="small" (click)="showAddLikePrompt()">
+        <ion-icon slot="start" slot="start" class="my-icon" name="thumbs-down"></ion-icon>
+        <div class="my-icon">{{product.NLikes}}</div>
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button fill="clear" size="small" (click)="showObject()">
+        <ion-icon slot="start" slot="start" class="my-icon" name="text"></ion-icon>
+        <div class="my-icon">{{product.Comments}}</div>
+      </ion-button>
+    </ion-col>
+   </ion-row>
+  </ion-card>
+  <hr>
+  
+  <div *ngIf="hasAuctions">
+   <ion-card>
+    <ion-row class="list-title">
+     <ion-col>
+       <p class="list-title-text">{{ 'Product_AuctionTitle' | translate }}</p>
+     </ion-col>
+    </ion-row>
+    <ion-row class="text-col">
+     <ion-col class="list-col">
+       <p class="text-box">{{ 'ALL_DateAdded2' | translate }}</p>
+     </ion-col>
+     <ion-col class="list-col" col-3>
+       <p class="text-box">{{ 'All_Price' | translate }}</p>
+     </ion-col>
+     <ion-col class="list-col">
+       <p class="text-box">{{ 'Social_FullName' | translate }}</p>
+     </ion-col>
+    </ion-row>
+
+    <ion-row class="list-box" *ngFor="let c of auctions; let i = index">
+     <ion-col class="list-col">
+       <p class="text-box-small">{{ c.DatePlaced | date: 'dd/MM/yyyy HH:mm' }}</p>
+     </ion-col>
+     <ion-col class="list-col" col-3>
+       <p class="text-box-small">{{ c.Amount }}</p>
+     </ion-col>
+     <ion-col class="list-col">
+       <p class="text-box-small">{{ c.FullName }}</p>
+     </ion-col>
+    </ion-row>
+   </ion-card>
+  </div>
+
+  <ion-slides pager="true" [options]="slideOpts" *ngIf="hasProductPhotos">
+    <ion-slide *ngFor="let d of productPhotos; let i = index">
+      <div class="card-box-small" (click)="clickedPhoto(i, d.ID)">
+         <img class="pic-image-small" src="{{ d.Location }}">
+      </div>
+    </ion-slide>
+  </ion-slides>
+  <BR>
+  <BR>
+</ion-content>

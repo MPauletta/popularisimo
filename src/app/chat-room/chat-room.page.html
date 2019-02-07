@@ -1,0 +1,118 @@
+<ion-header>
+ <ion-toolbar color="primary">
+    <ion-button slot="start" fill="clear" color="dark" (click)="goBack()">
+        <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
+    </ion-button>    
+
+    <ion-grid no-padding>
+        <ion-row>
+          <ion-col class="grid-col">
+           <ion-item lines="none" color="primary">
+            {{FriendName}}    
+           </ion-item>
+          </ion-col>
+          <ion-col class="grid-col">
+           <ion-item lines="none" color="primary">
+            <ion-avatar slot="end">
+              <img src="{{FriendPhoto}}">
+            </ion-avatar>
+           </ion-item>
+          </ion-col>
+        </ion-row>
+    </ion-grid>        
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+      <ion-row *ngFor="let message of messages; let i = index" id="message{{message.ID}}">          
+        <ion-col size="10" *ngIf="message.FromID == FriendID" class="message" [ngClass]="{'my_message': message.FromID != FriendID, 'other_message': message.FromID == FriendID}">
+          <div class="cover-div">
+              <div *ngIf="message.ObjectType == 1" class="message-div2"><img class="display-image" src="{{message.ObjectLocation}}"></div> 
+              <div *ngIf="message.ObjectType == 2" class="message-div2"><video class="display-image" src="{{message.ObjectLocation}}" controls="controls"></video></div> 
+              <div *ngIf="message.ObjectType == 4" class="message-div2"><img class="display-pdf" src="../../assets/imgs/PDF.png"></div> 
+          </div>
+          <img class="ok-icon" src="../../assets/imgs/Ok.png">
+          <span class="user_name">&nbsp;{{message.DateSend | date:'dd.MM hh:MM a'}} : {{ FriendName }}</span><br>
+          <span [innerHTML]="message.Message"></span>
+        </ion-col>
+     
+        <ion-col offset="2" size="10" *ngIf="message.FromID != FriendID" class="message" [ngClass]="{'my_message': message.FromID != FriendID, 'other_message': message.FromID == FriendID}">
+          <div class="cover-div">
+              <div *ngIf="message.ObjectType == 1" class="message-div"><img class="display-image" src="{{message.ObjectLocation}}"></div> 
+              <div *ngIf="message.ObjectType == 2" class="message-div"><video class="display-image" src="{{message.ObjectLocation}}" controls="controls"></video></div> 
+              <div *ngIf="message.ObjectType == 4" class="message-div"><img class="display-pdf" src="../../assets/imgs/PDF.png"></div> 
+          </div>
+          <img *ngIf="message.Read == 2" class="ok-icon" src="../../assets/imgs/mail_send.png">
+          <img *ngIf="message.Read == 1" class="ok-icon" src="../../assets/imgs/Ok.png">
+          <img *ngIf="message.Read == 0" class="ok-icon" src="../../assets/imgs/Hourglass.png">
+          <span class="user_name">&nbsp;{{message.DateSend | date:'dd.MM hh:MM a'}} : {{'Chat_You' | translate }}</span><br>
+          <span [innerHTML]="message.Message"></span>
+        </ion-col>
+     
+      </ion-row>
+    </ion-grid>    
+    
+    <div class="icons-window" id="divChatIconsSel" name="divChatIconsSel" *ngIf="showIcons">
+      <div class="tabs-list" id="divChatIconsBox" name="divChatIconsBox">
+        <div class="tabs-scroll">
+          <div *ngFor="let iconTab of iconTabs">
+            <div class="tabs" (click)="changeIconsTab(iconTab.Group)">{{iconTab.Title | translate }}</div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="icons-list" id="divChatIconsBox" name="divChatIconsBox">
+        <div *ngFor="let chatIcon of allIcons">
+          <img *ngIf="chatIcon.FileGroup == iconGroup" class="icons" src="{{chatIcon.FilePath}}" (click)="addChatIcon(chatIcon.FilePath)">
+        </div>
+      </div>
+    </div>
+    
+    <div *ngIf="false">
+      <input type="text" name="objectType" [(ngModel)]="objectType">
+      <input type="text" name="objectType" [(ngModel)]="objectLocation">
+    </div>
+    
+    <div class="object-window" id="divChatObjectSel" name="divChatObjectSel" *ngIf="showObject">
+      <div class="cover-div">
+          <div *ngIf="objectType == 1" class="message-div"><img class="display-image" src="{{objectLocation2}}"></div> 
+          <div *ngIf="objectType == 2" class="message-div"><video class="display-image" src="{{objectLocation2}}" controls="controls"></video></div> 
+          <div *ngIf="objectType == 4" class="message-div"><img class="display-pdf" src="../../assets/imgs/PDF.png"></div> 
+      </div>
+      <div id="divChatObjectClose" class="div-close"><img class="emoti-icons" src="../../assets/imgs/Delete.png" (tap)="closeWindows()"></div>
+    </div>
+    
+</ion-content>
+    
+<ion-footer>
+    <ion-toolbar color="nice">
+    
+      <ion-row class="message_row">
+          <ion-col size="auto">
+            <ion-buttons>
+              <ion-button class="my-button" fill="clear" tappable (click)="getEmoticons()">
+                <ion-icon class="my-icon" name="eye"></ion-icon>
+              </ion-button>
+              <ion-button class="my-button" fill="clear" tappable (click)="presentActionSheet()">
+                <ion-icon class="my-icon" name="images"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-col>
+
+          <ion-col>
+            <div class="input-div" #myInputDiv id="myInputDiv" contenteditable="true"></div>	    
+          </ion-col>
+
+          <ion-col size="auto">
+            <ion-buttons>
+              <ion-button class="my-button2" fill="clear" (click)="sendMessage()">
+                {{'Message_Send' | translate }}
+              </ion-button>
+            </ion-buttons>	
+          </ion-col>
+      </ion-row>
+    
+    </ion-toolbar>
+</ion-footer>
+    

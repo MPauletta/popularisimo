@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button slot="start" fill="clear" color="dark" (click)="goBack()">
+      <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
+    </ion-button>    
+      
+    <ion-title>{{ pageTitle }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-menu-button menu="RightMenu">
+        <ion-icon name="star"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>	
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="cards-bg social-cards">
+  <ion-searchbar placeholder="{{'All_Search' | translate }}" (ionInput)="getItems($event)"></ion-searchbar>
+  <HR>
+ 
+  <div class="card-box" *ngFor="let c of friends; let i = index">
+   <ion-card color="cardback">
+    <ion-item color="custom">
+     <h2>{{c.FullName}}</h2>
+    </ion-item>
+ 
+    <img class="pic-image" src="{{c.PhotoLocation}}" (click)="presentActionSheet(c.FriendID, i)">
+ 
+    <ion-card-content>
+     <p class="text-box">{{'Social_FriendSince' | translate }}: {{c.FriendSince | date: 'dd/MM/yyyy H:mm'}}</p>    
+     <p class="text-box">{{'All_LastActive' | translate }}: {{c.LastActive | date: 'dd/MM/yyyy H:mm'}}</p>
+    </ion-card-content>
+ 
+    <ion-row>
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showAddLikePrompt(i)">
+         <ion-icon class="my-icon" slot="start" name="thumbs-up"></ion-icon>
+         <div class="my-icon">{{c.Likes}}</div>
+       </ion-button>
+     </ion-col>
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showAddLikePrompt(i)">
+         <ion-icon class="my-icon" slot="start" name="thumbs-down"></ion-icon>
+         <div class="my-icon">{{c.NLikes}}</div>
+       </ion-button>
+     </ion-col>
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showObject(i)">
+         <ion-icon class="my-icon" slot="start" name="text"></ion-icon>
+         <div class="my-icon">{{c.Comments}}</div>
+       </ion-button>
+     </ion-col>
+     <ion-col *ngIf="memberID == 0">
+       <ion-badge slot="end" (click)="showChatMessages(c.FriendID, i)">{{c.StatData.ChatUnread}}</ion-badge>
+       <ion-badge color="mailblue" slot="start" (click)="showFriendMessages(c.FriendID, i)">{{c.StatData.MailUnread}}</ion-badge>
+     </ion-col>
+    </ion-row>
+   </ion-card>
+  </div>
+ 
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+ 
+ </ion-content>
+ 

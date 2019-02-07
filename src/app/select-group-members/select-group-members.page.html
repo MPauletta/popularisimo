@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-avatar *ngIf="icon != null" slot="start">
+         <img src="{{ icon }}">
+    </ion-avatar>
+ 
+    <ion-title>&nbsp;{{'Group_Members' | translate }} : {{groupFullname}}</ion-title>
+     
+    <ion-buttons slot="end">
+      <ion-button fill="solid" color="secondary" (click)="cancelAndReturn()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="cards-bg social-cards">
+ <ion-searchbar placeholder="{{'All_Search' | translate }}" (ionInput)="getItems($event)"></ion-searchbar>
+ <HR>
+
+ <div class="card-box" *ngFor="let c of groupMembers">
+  <ion-card>
+   <ion-item no-padding>
+    <p class="text-box">&nbsp;{{c.FullName}}</p>
+   </ion-item>
+   <img class="pic-image" src="{{c.PhotoLocation}}" (click)="selectAndReturn(c.UserID, c.FullName)">
+  </ion-card>
+ </div>
+
+ <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+   <ion-infinite-scroll-content></ion-infinite-scroll-content>
+ </ion-infinite-scroll>
+</ion-content>

@@ -1,0 +1,41 @@
+  .form-content {
+ 
+    ion-row {
+       align-items: center;
+       text-align: center;
+    }
+ 
+    ion-item {
+         padding-left: 30px !important;
+         font-size: 0.9em;
+         margin-bottom: 10px;
+         box-shadow: none !important;
+	 color: #733C00;
+    }
+
+    ion-input {
+      text-align: right;
+    }
+
+    ion-select {
+        padding-left: 0!important;
+        align-items: left;
+        text-align: left;
+	color: #733C00;
+    }
+ 
+    ion-datetime{
+        padding-left: 0!important;
+	color: #733C00;
+    }
+
+    .submit-btn {
+       padding: 10px;
+       background: #733C00;
+       border-radius: 30px !important;
+       border: 1px solid #ffffff;
+       width: 90%;
+    }
+  }
+
+

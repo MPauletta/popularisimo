@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-avatar *ngIf="icon != null" slot="start">
+         <img src="{{ icon }}">
+    </ion-avatar>
+ 
+    <ion-title>&nbsp;{{strTitle}}</ion-title>
+     
+    <ion-buttons slot="end">
+      <ion-button fill="solid" color="secondary" (click)="cancelAndReturn()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="cards-bg social-cards">
+ <ion-searchbar placeholder="{{'All_Search' | translate }}" (ionInput)="getItems($event)"></ion-searchbar>
+ <ion-input *ngIf="blnSowMessageBox" [(ngModel)]="strMessage" placeholder="{{'All_Message' | translate }}"></ion-input>
+ <HR>
+
+ <div class="card-box" *ngFor="let c of friends">
+  <ion-card>
+   <img class="pic-image" src="{{c.PhotoLocation}}" (click)="selectAndReturn(c.FriendID, c.FullName, c.PhotoLocation)">
+   <ion-item color="custom" no-padding>
+    <p class="text-box">&nbsp;{{c.FullName}}</p>
+   </ion-item>
+  </ion-card>
+ </div>
+
+ <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+   <ion-infinite-scroll-content></ion-infinite-scroll-content>
+ </ion-infinite-scroll>
+</ion-content>

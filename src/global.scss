@@ -9,3 +9,128 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+
+@import '~angular-calendar/css/angular-calendar.css';
+
+	.emoti-icons {
+       height:40px;
+       width:40px;
+       vertical-align:middle;
+	}
+
+    .changeToast {
+      .toast-wrapper {
+		opacity: 0.6;
+		border-radius: 5px !important;
+		text-align: center;
+		background: #733C00;
+      }
+
+      .toast-message {
+		color: #FFFF00;
+      }
+
+      .toast-button {
+		color: #FFFF00;
+      }
+    }
+
+    .my-modal {
+      pointer-events: auto;
+      overflow: hidden;
+	  
+      .modal-wrapper {
+		pointer-events: auto;
+		border-radius: 10px 10px 10px 10px;
+		overflow: hidden;
+		top: 15%;
+		left: 5%;
+		position: absolute;
+		width: 86%;
+		height: 70%;
+      }
+    }
+
+    .toast-modal {
+      pointer-events: none;
+      overflow: hidden;
+      ion-backdrop {
+		pointer-events: auto;
+		visibility: hidden !important;
+		.backdrop-hide {
+		  pointer-events: none;
+		  cursor: auto;
+		}
+      }
+	  	  
+      .modal-wrapper {
+		pointer-events: auto;
+		border-radius: 10px 10px 10px 10px;
+		overflow: hidden;
+		top: 50%;
+		left: 10%;
+		position: absolute;
+		width: 80%;
+		height: 50px;
+      }
+    }
+	
+     .navigate-btn-left {
+       color: #FFFFFF;
+       background: #CC9E86;
+       border-radius: 5px 0px 0px 5px;
+       border: 1px solid gray;
+       min-height: 20px;
+       padding: 5px;
+       float:left;
+     }
+ 
+     .navigate-btn-middle {
+       color: #FFFFFF;
+       background: #CC9E86;
+       border-radius: 0px 0px 0px 0px;
+       border: 1px solid gray;
+       min-height: 20px;
+       padding: 5px;
+       float:left;
+     }
+ 
+     .navigate-btn-right {
+       color: #FFFFFF;
+       background: #CC9E86;
+       border-radius: 0px 5px 5px 0px;
+       border: 1px solid gray;
+       min-height: 20px;
+       padding: 5px;
+       float:left;
+     }
+ 
+     .navigate-btn-left2 {
+       color: #FAF5DA;
+       background: #733C00;
+       border-radius: 5px 0px 0px 5px;
+       border: 1px solid gray;
+       min-height: 20px;
+       padding: 5px;
+       float:left;
+     }
+ 
+     .navigate-btn-middle2 {
+       color: #FAF5DA;
+       background: #733C00;
+       border-radius: 0px 0px 0px 0px;
+       border: 1px solid gray;
+       min-height: 20px;
+       padding: 5px;
+       float:left;
+     }
+ 
+     .navigate-btn-right2 {
+       color: #FAF5DA;
+       background: #733C00;
+       border-radius: 0px 5px 5px 0px;
+       border: 1px solid gray;
+       min-height: 20px;
+       padding: 5px;
+       float:left;
+     }	

@@ -1,0 +1,103 @@
+ <div class="col-md-4">
+   <table  width="100%">
+     <tr>
+       <td>
+        <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}&nbsp;</h3>
+       </td>
+       <td>
+        <button *ngIf="activeDayIsOpen || view=='day'" class="navigate-btn-middle" (click)="newClicked()">{{'Social_NewEvent' | translate }}</button>
+       </td>
+    </tr>
+   </table>
+ </div>
+ <table  width="100%">
+   <tr>
+     <td>
+        <div
+          class="navigate-btn-left"
+          mwlCalendarPreviousView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (newEvent)="newEvent.next()"
+          (viewDateChange)="viewDateChange.next(viewDate)">
+          {{'Calendar_Back' | translate }}
+        </div>
+        <div
+          class="navigate-btn-middle"
+          mwlCalendarToday
+          [(viewDate)]="viewDate"
+          (newEvent)="newEvent.next()"
+          (viewDateChange)="viewDateChange.next(viewDate)">
+          {{'Calendar_Today' | translate }}
+        </div>
+        <div
+          class="navigate-btn-right"
+          mwlCalendarNextView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (newEvent)="newEvent.next()"
+          (viewDateChange)="viewDateChange.next(viewDate)">
+          {{'All_Next' | translate }}
+        </div>
+     </td>
+
+     <td>
+     </td>
+
+     <td>
+      <button class="{{leftBool ? 'navigate-btn-left' : 'navigate-btn-left2'}}" (click)="viewChange.emit('month');leftBool=false;middleBool=true;rightBool=true;activeDayIsOpen=false;" [class.active]="view === 'month'">{{'Date_Month' | translate }}</button>
+      <button class="{{middleBool ? 'navigate-btn-middle' : 'navigate-btn-middle2'}}" (click)="viewChange.emit('week');leftBool=true;middleBool=false;rightBool=true;activeDayIsOpen=false;" [class.active]="view === 'week'">{{'Calendar_Week' | translate }}</button>
+      <button class="{{rightBool ? 'navigate-btn-right' : 'navigate-btn-right2'}}" (click)="viewChange.emit('day');leftBool=true;middleBool=true;rightBool=false;" [class.active]="view === 'day'">{{'Date_Day' | translate }}</button>
+     </td>
+  </tr>
+ </table>
+
+ <ng-template #customCellTemplate let-day="day" let-locale="locale">
+   <div class="cal-cell-top">
+      <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
+      <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+      <div class="cal-events" *ngIf="day.events.length > 0">
+        <div
+          class="cal-event"
+          *ngFor="let event of day.events"
+          [style.backgroundColor]="event.color.primary"
+          [ngClass]="event?.cssClass"
+          (mwlClick)="handleEvent('Clicked', event)">
+        </div>
+      </div>
+   </div>
+ </ng-template>
+ 
+ <div [ngSwitch]="view">
+   <mwl-calendar-month-view
+     *ngSwitchCase="'month'"
+     [viewDate]="viewDate"
+     [locale]="locale"
+     [events]="events"
+     [cellTemplate]="customCellTemplate"
+     [activeDayIsOpen]="activeDayIsOpen"
+     (dayClicked)="dayClicked($event.day)"
+     (eventClicked)="handleEvent('Clicked', $event.event)"
+     (eventTimesChanged)="eventTimesChanged($event)">
+   </mwl-calendar-month-view>
+   <mwl-calendar-week-view
+     *ngSwitchCase="'week'"
+     [viewDate]="viewDate"
+     [locale]="locale"
+     [events]="events"
+     (dayClicked)="dayClicked($event.day)"
+     (dayHeaderClicked)="viewDate = $event.day.date; view = 'day'"
+     (eventClicked)="handleEvent('Clicked', $event.event)"
+     (eventTimesChanged)="eventTimesChanged($event)">
+   </mwl-calendar-week-view>
+   <mwl-calendar-day-view
+     *ngSwitchCase="'day'"
+     [viewDate]="viewDate"
+     [locale]="locale"
+     [events]="events"
+     (dayClicked)="dayClicked($event.day)"
+     (eventClicked)="handleEvent('Clicked', $event.event)"
+     (eventTimesChanged)="eventTimesChanged($event)">
+   </mwl-calendar-day-view>
+ </div>
+

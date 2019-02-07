@@ -1,0 +1,143 @@
+<ion-header>
+ <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+        <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+	<ion-title>{{'Register_Long' | translate }}</ion-title>
+ </ion-toolbar>
+</ion-header>
+
+<ion-content class="login-content" padding>
+ <div class="login-logo">
+  <ion-img class="logo-img" src="../../assets/imgs/Popularisimo.png"></ion-img>
+ </div>
+ 
+ <div class="login-box">    
+  <ion-row>
+    <ion-col class="icon-col">
+      <ion-img class="icon-img" src="../../assets/imgs/pops.png"></ion-img> 
+    </ion-col>
+   <ion-col class="icon-col">
+      <h2>{{strTitle}}</h2>
+   </ion-col>
+  </ion-row>
+
+  <div *ngIf="blnInput">
+    <form autocomplete="off" (ngSubmit)="register()" #registerForm="ngForm">
+      <ion-row>
+        <ion-col class="signup-col">
+          <BR>
+          <BR>
+        </ion-col>
+      </ion-row>
+	
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+            
+            <ion-item>
+              <ion-input type="text" placeholder="{{'Register_Username' | translate }}" name="Usuario" [(ngModel)]="registerCredentials.Usuario" required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+              <ion-input type="email" placeholder="{{'Register_Email' | translate }}" name="Correo" [(ngModel)]="registerCredentials.Correo" required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+              <ion-input type="password" autocomplete="new-password" placeholder="{{'Register_Password' | translate }}" name="Password" [(ngModel)]="registerCredentials.Password" required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+              <ion-input type="text" placeholder="{{'Register_Firstname' | translate }}" name="FirstName" [(ngModel)]="registerCredentials.FirstName" required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+              <ion-input type="text" placeholder="{{'Register_Lastname' | translate }}" name="LastName" [(ngModel)]="registerCredentials.LastName" required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+              <ion-select placeholder="{{'Register_Language' | translate }}" name="Language" [(ngModel)]="registerCredentials.Language" okText="{{'All_BTN_OK' | translate }}" cancelText="{{'All_BTN_Cancel' | translate }}" required>
+                  <ion-select-option selected="true" value="Eng">English</ion-select-option>
+                  <ion-select-option value="Span">Español</ion-select-option>
+                  <ion-select-option value="Pap">Papiamentu</ion-select-option>
+              </ion-select>
+            </ion-item>
+            
+            <ion-item>
+	      <ion-label color="secondary">{{'User_Nationality' | translate }}:</ion-label>
+              <ion-select placeholder="{{'Register_Country' | translate }}" name="Country" [(ngModel)]="registerCredentials.Country" okText="{{'All_BTN_OK' | translate }}" cancelText="{{'All_BTN_Cancel' | translate }}" required>
+                  <ion-select-option *ngFor="let c of countries" [value]="c.Code">{{c.Label | translate }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            
+            <ion-item>
+              <ion-select placeholder="{{'Register_Gender' | translate }}" name="Gender" [(ngModel)]="registerCredentials.Gender" okText="{{'All_BTN_OK' | translate }}" cancelText="{{'All_BTN_Cancel' | translate }}" required>
+                  <ion-select-option value="0">{{'All_Female' | translate }}</ion-select-option>
+                  <ion-select-option selected="true" value="1">{{'All_Male' | translate }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            
+            <ion-item>
+              <ion-input type="text" placeholder="{{'Register_CellPhone' | translate }}" name="CellPhone" [(ngModel)]="registerCredentials.CellPhone" required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+              <ion-datetime placeholder="{{'Register_Birthday' | translate }}" displayFormat="MM/DD/YYYY" name="Birthday" [(ngModel)]="registerCredentials.Birthday" required></ion-datetime>
+            </ion-item>
+            
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col class="signup-col">
+          <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!registerForm.form.valid">{{'All_Register' | translate }}</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="signup-col">
+          <BR>
+          <BR>
+          <BR>
+          <BR>
+          <BR>
+        </ion-col>
+      </ion-row>
+    </form>
+  </div>
+
+  <div *ngIf="blnCode">    
+    <form name="changeForm" #changeForm="ngForm">
+      <ion-row>
+        <ion-col>
+
+          <ion-list inset>
+            <div class="div-box">
+	          <p class="text-box">&nbsp;{{'Register_Successfull' | translate }}</p>
+	          <p class="text-box">&nbsp;{{'Register_Message' | translate }}</p>
+            </div>
+
+            <ion-item>
+              <ion-input type="text" placeholder="{{'All_Code' | translate }}" name="txtCode" [(ngModel)]="txtCode" required></ion-input>
+            </ion-item>            
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="signup-col">
+           <ion-button class="submit-btn" expand="block" type="button" (click)="completeAndReturn()">{{'Login_Submit' | translate }}</ion-button>
+	       <HR>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="signup-col">
+          <BR>
+          <BR>
+        </ion-col>
+      </ion-row>
+    </form>
+  </div>
+
+ </div>
+</ion-content>
+

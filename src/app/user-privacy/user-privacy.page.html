@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-avatar *ngIf="icon != null" slot="start">
+         <img src="{{ icon }}">
+    </ion-avatar>
+ 
+    <ion-title>&nbsp;{{'User_Privacy' | translate }}</ion-title>
+     
+    <ion-buttons slot="end">
+      <ion-button fill="solid" color="secondary" (click)="cancelAndReturn()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="form-content" color="cardback" padding>
+ <div *ngIf="privacyDetails != null">    
+  <form name="editForm" #editForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+            <ion-item>
+			  <ion-label color="secondary">{{'All_LastUpdated' | translate }}: {{privacyDetails.LastUpdated | date: 'dd/MM/yyyy HH:mm'}}</ion-label>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'User_NotifyOnPhoto' | translate }}:</ion-label>
+              <ion-checkbox color="primary" checked="true" name="NotifyOnPhoto" [(ngModel)]="privacyDetails.NotifyOnPhoto"></ion-checkbox>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'User_NotifyOnComment' | translate }}:</ion-label>
+              <ion-checkbox color="primary" checked="true" name="NotifyOnComment" [(ngModel)]="privacyDetails.NotifyOnComment"></ion-checkbox>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'User_RecieveFriend' | translate }}:</ion-label>
+              <ion-checkbox color="primary" checked="true" name="RecieveFriendReq" [(ngModel)]="privacyDetails.RecieveFriendReq"></ion-checkbox>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'User_PortalPublic' | translate }}:</ion-label>
+              <ion-checkbox color="primary" checked="true" name="PortalIsPublic" [(ngModel)]="privacyDetails.PortalIsPublic"></ion-checkbox>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'User_HidePortal' | translate }}:</ion-label>
+              <ion-checkbox color="primary" checked="true" name="HidePortal" [(ngModel)]="privacyDetails.HidePortal"></ion-checkbox>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'User_AutoReplyActive' | translate }}:</ion-label>
+              <ion-checkbox color="primary" checked="true" name="AutoReplyActive" [(ngModel)]="privacyDetails.AutoReplyActive"></ion-checkbox>
+            </ion-item>
+            
+            <ion-item>
+			  <ion-label color="secondary">{{'User_AutoReplyText' | translate }}:</ion-label>
+              <ion-input type="text" name="AutoReplyText" [(ngModel)]="privacyDetails.AutoReplyText"></ion-input>
+            </ion-item>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col offset="1">
+          <ion-button class="submit-btn" expand="block" type="button" [disabled]="!editForm.form.valid" (click)="saveAndReturn()">{{'Login_Submit' | translate }}</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col offset="1">
+          <ion-button class="submit-btn" expand="block" type="button" (click)="cancelAndReturn()">{{'Go_Back_Text' | translate }}</ion-button>
+        </ion-col>
+      </ion-row>
+   <BR>
+   <BR>
+  </form>
+ </div>
+</ion-content>

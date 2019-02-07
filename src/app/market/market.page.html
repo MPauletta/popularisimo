@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons *ngIf="popTools.isRoot" slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>  
+    <ion-button *ngIf="popTools.isRoot == false" slot="start" fill="clear" color="dark" (click)="goBack()">
+      <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
+    </ion-button>    
+
+    <ion-title>{{'Products_Short' | translate }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-menu-button menu="RightMenu"><ion-icon name="star"></ion-icon></ion-menu-button>
+    </ion-buttons>	
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="cards-bg social-cards">
+  <div class="tile-box">
+     <ion-buttons>
+       <ion-button class="my-button" (click)="emptyMethod()">
+         <ion-icon class="mybutton-icon" name="basket"></ion-icon>
+       </ion-button>
+       <ion-button class="my-button" (click)="emptyMethod()">
+         <ion-icon class="mybutton-icon" name="bookmarks"></ion-icon>
+       </ion-button>
+       <ion-button class="my-button" (click)="addProduct()">
+         <ion-icon class="mybutton-icon" name="add"></ion-icon>
+       </ion-button>
+     </ion-buttons>
+  </div>
+  <HR>
+  <ion-searchbar placeholder="{{'All_Search' | translate }}" (ionInput)="getItems($event)"></ion-searchbar>
+  <HR>
+ 
+  <div *ngFor="let c of products; let i = index">
+   <ion-card color="cardback">
+    <ion-item color="custom">
+     <ion-avatar *ngIf="c.OwnerPhoto != null" slot="start">
+       <img *ngIf="c.UserID > 0" src="{{c.OwnerPhoto}}" (click)="showMember(c.UserID)">
+       <img *ngIf="c.GroupID > 0" src="{{c.OwnerPhoto}}" (click)="showGroup(c.GroupID)">
+     </ion-avatar>
+     <h2>{{c.Title}}</h2>
+    </ion-item>
+ 
+    <img class="pic-image" src="{{c.PhotoLocation}}" (click)="presentActionSheet(c.ID, i)">
+ 
+    <ion-card-content>
+     <p class="text-box">{{'Product_Category' | translate }}: {{c.lblCategory | translate }}</p>
+     <p class="text-box">{{'Product_SubCategory' | translate }}: {{c.lblSubCategory | translate }}</p>
+     <p class="text-box">{{'Poduct_MinPrice' | translate }}: {{c.Currency}} {{c.MinPrice | currency : " "}}</p>
+     <p class="text-box">{{'ALL_DateAdded' | translate }}: {{c.DateAdded | date: 'dd/MM/yyyy H:mm'}}</p>
+     <p class="text-box" *ngIf="c.FullName != null">{{'Group_ForumToSmall' | translate }}: {{c.FullName}}</p>
+     <p class="text-box" *ngIf="c.GroupName != null">{{'Group_From' | translate }}: {{c.GroupName}}</p>
+    </ion-card-content>
+ 
+    <ion-row>
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showAddLikePrompt(i)">
+         <ion-icon class="my-icon" slot="start" name="thumbs-up"></ion-icon>
+         <div class="my-icon">{{c.Likes}}</div>
+       </ion-button>
+     </ion-col>
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showAddLikePrompt(i)">
+         <ion-icon class="my-icon" slot="start" name="thumbs-down"></ion-icon>
+         <div class="my-icon">{{c.NLikes}}</div>
+       </ion-button>
+     </ion-col>
+     <ion-col>
+       <ion-button fill="clear" size="small" (click)="showObject(i)">
+         <ion-icon class="my-icon" slot="start" name="text"></ion-icon>
+         <div class="my-icon">{{c.Comments}}</div>
+       </ion-button>
+     </ion-col>
+    </ion-row>
+   </ion-card>
+  </div>
+ 
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+ 
+ </ion-content>
+ 

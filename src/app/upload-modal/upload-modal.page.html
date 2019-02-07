@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="primary">
+ 
+    <ion-title>&nbsp;{{'Upload_File' | translate }}</ion-title>
+     
+    <ion-buttons slot="end">
+      <ion-button fill="solid" color="secondary" (click)="cancelAndReturn()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+ <BR>
+ <ion-card class="card-box">
+    <img *ngIf="ResourceIsPhoto" Class="pic-image" src="{{anyData}}">
+    <img *ngIf="ResourceIsPhoto" Class="pic-image" src="{{anyURL}}">
+    <video *ngIf="ResourceIsVideo" Class="pic-image" src="{{anyURL}}" controls="controls"></video>
+    <ion-item>
+      <ion-input placeholder="{{'Edit_ShortDescription' | translate }}" [(ngModel)]="desc"></ion-input>
+    </ion-item>
+ 
+    <ion-button expand="block" class="my-button" (click)="saveResource()">
+          <ion-icon slot="start" name="checkmark"></ion-icon>
+          {{'All_UploadSave' | translate }}
+    </ion-button>
+ </ion-card>
+
+ <p>this.anyData = : {{ anyData }}</p>
+ <p>this.anyURL = : {{ anyURL }}</p>
+</ion-content>

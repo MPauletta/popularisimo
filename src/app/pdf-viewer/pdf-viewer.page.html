@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button slot="start" fill="clear" color="dark" (click)="goBack()">
+      <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
+    </ion-button>    
+      
+    <ion-title>{{All_PDF_Viewer | translate }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-menu-button menu="RightMenu">
+        <ion-icon name="star"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>	
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="social-cards">
+  <ion-item>
+    <h2>{{pdfSrc}}</h2>
+  </ion-item> 
+  <br>
+  
+  <div class="card-box">
+    <pdf-viewer [src]="pdfSrc" 
+              [render-text]="true"
+              style="display: block;"
+    ></pdf-viewer>
+  </div>
+
+  <br>
+  <ion-button expand="full" (click)="downloadAndOpenPdf()">Download and open PDF</ion-button>  
+</ion-content>

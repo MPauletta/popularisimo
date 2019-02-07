@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button slot="start" fill="clear" color="dark" (click)="goBack()">
+      <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
+    </ion-button>    
+      
+    <ion-title>{{'Message_ViewNotes' | translate }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-menu-button menu="RightMenu">
+        <ion-icon name="star"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>	
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="tile-box">
+     <ion-buttons class="my-icon">
+       <ion-button class="my-button" (click)="newNote()">
+         <ion-icon class="mybutton-icon" name="add"></ion-icon>
+       </ion-button>
+       <ion-button class="my-button" (click)="editNote()">
+         <ion-icon class="mybutton-icon" name="create"></ion-icon>
+       </ion-button>
+       <ion-button class="my-button" (click)="showDeletePrompt()">
+         <ion-icon class="mybutton-icon" name="trash"></ion-icon>
+       </ion-button>
+     </ion-buttons>
+  </div>
+  <HR>
+  <ion-searchbar placeholder="{{'All_Search' | translate }}" (ionInput)="getItems($event)"></ion-searchbar>
+  <HR>
+ 
+  <ion-card *ngFor="let c of notes">
+    <ion-item class="item-header">
+      <ion-label text-wrap>
+        <p class="text-box1">{{'Register_CreatedOn' | translate }}: {{c.PostDate | date: 'dd/MM/yyyy HH:mm a'}}</p>
+        <p class="text-box2">{{c.Description}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-card-content>
+       <BR>
+       <p class="detail-box" [innerHTML]="c.PostText"></p>
+    </ion-card-content>
+  </ion-card>
+ </ion-content>
+ 

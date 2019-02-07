@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="primary"> 
+    <ion-title>&nbsp;{{formOptions.Title}}{{separator}}{{folderName | translate }}</ion-title>
+     
+    <ion-buttons slot="end">
+      <ion-button fill="solid" color="secondary" (click)="cancelAndReturn()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ <div class="tile-box">
+    <ion-buttons>
+      <ion-button class="my-button" (click)="changeStyleThumbnails()">
+        <ion-icon class="mybutton-icon" name="apps"></ion-icon>
+      </ion-button>
+      <ion-button class="my-button" (click)="changeStyleList()">
+        <ion-icon class="mybutton-icon" name="list"></ion-icon>
+      </ion-button>
+      <ion-button class="my-button" (click)="ChooseFolder()">
+        <ion-icon class="mybutton-icon" name="folder"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+ </div>
+ <hr>
+
+ <div *ngFor="let c of resources; let i = index" style="ion-Div">
+  <ion-list *ngIf="styleList" class="item-background" (click)="selectAndReturn(i,c.Location)">
+    <ion-item tappable color="nice" class="list-item">
+      <ion-thumbnail slot="start">
+        <img *ngIf="ResourceIsPhoto" src="{{c.Location}}" (click)="selectAndReturn(i,c.Location)" align="left">
+        <video *ngIf="ResourceIsVideo" class="pic-small-image" src="{{c.Location}}" controls="controls" (click)="selectAndReturn(i,c.Location)"></video>
+        <img *ngIf="ResourceIsDoc" src="../../assets/imgs/PDF.png" (click)="selectAndReturn(i,c.Location)" align="left">
+      </ion-thumbnail>
+      <ion-label text-wrap>
+        <h2>{{c.Description}}</h2>
+        <p class="text-box">{{'ALL_DateAdded' | translate }}: {{c.DateUploaded | date: 'dd/MM/yyyy H:mm'}}</p>
+      </ion-label>
+      <ion-button fill="clear" slot="end" class="my-icon"> <ion-icon slot="icon-only" name="arrow-forward"></ion-icon></ion-button>
+    </ion-item> 
+  </ion-list>
+
+  <div *ngIf="styleThumbNails" class="card-box-small" (click)="selectAndReturn(i,c.Location)">
+    <img *ngIf="ResourceIsPhoto" class="pic-small-image" src="{{c.Location}}" align="left">
+    <video *ngIf="ResourceIsVideo" class="pic-small-image" src="{{c.Location}}" controls="controls"></video>
+    <img *ngIf="ResourceIsDoc" class="pic-small-image" src="../../assets/imgs/PDF.png">
+    <div *ngIf="ResourceIsVideo" class="div-cover-video"></div>
+  </div>
+ </div>
+
+ <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+   <ion-infinite-scroll-content></ion-infinite-scroll-content>
+ </ion-infinite-scroll>
+</ion-content>

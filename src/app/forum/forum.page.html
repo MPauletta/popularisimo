@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button slot="start" fill="clear" color="dark" (click)="goBack()">
+      <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
+    </ion-button>    
+      
+    <ion-title>{{'All_Forum' | translate }} {{ groupName }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-menu-button menu="RightMenu">
+        <ion-icon name="star"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>	
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="tile-box">
+     <ion-buttons>
+       <ion-button class="my-button" (click)="presentActionSheet()">
+         <ion-icon class="mybutton-icon" name="filing"></ion-icon>
+       </ion-button>
+       <ion-button *ngIf="activeMember" class="my-button" (click)="newMessage()">
+         <ion-icon class="mybutton-icon" name="mail"></ion-icon>
+       </ion-button>
+       &nbsp;{{ forumName }}
+     </ion-buttons>
+  </div>
+  <HR>
+  <ion-searchbar placeholder="{{'All_Search' | translate }}" (ionInput)="getItems($event)"></ion-searchbar>
+  <HR>
+ 
+  <ion-card *ngFor="let c of messages" (click)="showMessage(c.ID)">
+    <ion-item class="item-header">
+       <ion-avatar slot="start">
+         <img *ngIf="c.UserData != null" src="{{c.UserData.PhotoLocation}}">
+       </ion-avatar>
+       <ion-label text-wrap>
+        <h2 *ngIf="c.UserData != null">{{c.UserData.FullName}}</h2>
+        <p class="text-box1">{{c.PostDate | date: 'dd/MM/yyyy HH:mm a'}}</p>
+        <p class="text-box1">{{c.Title}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-card-content>
+       <p class="detail-box" [innerHTML]="c.PostText"></p>
+    </ion-card-content>
+  </ion-card>
+ 
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+ </ion-content>
+ 

@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-avatar *ngIf="icon != null" slot="start">
+         <img src="{{ icon }}">
+    </ion-avatar>
+ 
+    <ion-title>&nbsp;{{formOptions.Title}}</ion-title>
+     
+    <ion-buttons slot="end">
+      <ion-button fill="solid" color="secondary" (click)="cancelAndReturn()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="form-content" color="cardback" padding>
+ <div>    
+    <br>
+    <form name="editForm" #editForm="ngForm">
+      <ion-row>
+        <ion-col>
+            <ion-item>
+	            <ion-label color="primary">{{'All_Folder' | translate }}:</ion-label>
+              <ion-input readonly type="text" name="FolderID" [(ngModel)]="folderName"></ion-input>
+            </ion-item>
+        </ion-col>
+        <ion-col size="auto">
+          <img class="my-image" src="../../assets/imgs/FolderDoc.png" (click)="ChooseFolder()">
+        </ion-col>
+      </ion-row>
+                        
+      <ion-row>
+        <ion-col>
+            <ion-item>
+	            <ion-label color="primary">{{'Message_Subject' | translate }}:</ion-label>
+              <ion-input type="text" name="Description" [(ngModel)]="txtDescription" required></ion-input>
+            </ion-item>
+        </ion-col>
+      </ion-row>
+            
+      <ion-row>
+        <ion-col>
+            <ion-label class="editor-label" color="primary">{{'All_Description' | translate }}:</ion-label>
+            <ion-item>
+              <div #myInputDiv id="myInputDiv" class="input-div" [innerHTML]="txtPostText" contenteditable="true" required></div>	    
+            </ion-item>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col offset="1">
+          <ion-button class="submit-btn" expand="block" type="button" [disabled]="!editForm.form.valid" (click)="completeAndReturn()">{{'Login_Submit' | translate }}</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col offset="1">
+          <ion-button class="submit-btn" expand="block" type="button" (click)="cancelAndReturn()">{{'Go_Back_Text' | translate }}</ion-button>
+        </ion-col>
+      </ion-row>
+   <BR>
+   <BR>
+  </form>
+ </div>
+</ion-content>

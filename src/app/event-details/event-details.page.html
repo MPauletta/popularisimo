@@ -1,0 +1,117 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-avatar *ngIf="icon != null" slot="start">
+         <img src="{{ icon }}">
+    </ion-avatar>
+ 
+    <ion-title>&nbsp;{{eventDetails.title}}</ion-title>
+     
+    <ion-buttons slot="end">
+      <ion-button fill="solid" color="secondary" (click)="cancelAndReturn()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+ </ion-header>
+
+ <ion-content class="form-content" color="cardback">
+  <div>    
+   <form name="editForm" #editForm="ngForm">
+       <ion-row>
+         <ion-col>
+           <ion-list inset="true">
+             
+             <ion-item>
+              <ion-label>{{'Social_EventName' | translate }}: </ion-label>
+              <ion-input type="text" name="ItemName" [(ngModel)]="eventDetails.ItemName" required></ion-input>
+             </ion-item>
+             
+             <ion-item>
+              <ion-label>{{'Social_EventType' | translate }}: </ion-label>
+              <ion-select name="ItemType" [(ngModel)]="eventDetails.ItemType" okText="{{'All_BTN_OK' | translate }}" cancelText="{{'All_BTN_Cancel' | translate }}">
+                   <ion-select-option [value]="1">{{'All_Event_General' | translate }}</ion-select-option>
+                   <ion-select-option [value]="2">{{'All_Event_AppointMen' | translate }}</ion-select-option>
+                   <ion-select-option [value]="3">{{'All_Event_BirthDay' | translate }}</ion-select-option>
+                   <ion-select-option [value]="4">{{'All_Event_Practice' | translate }}</ion-select-option>
+                   <ion-select-option [value]="5">{{'All_Event_Tournament' | translate }}</ion-select-option>
+                   <ion-select-option [value]="6">{{'All_Event_Meeting' | translate }}</ion-select-option>
+                   <ion-select-option [value]="7">{{'All_Event_Course' | translate }}</ion-select-option>
+                   <ion-select-option [value]="8">{{'All_Event_Class' | translate }}</ion-select-option>
+                   <ion-select-option [value]="9">{{'All_Event_Aniversary' | translate }}</ion-select-option>
+                   <ion-select-option [value]="10">{{'All_Event_Party' | translate }}</ion-select-option>
+               </ion-select>
+             </ion-item>
+             
+             <ion-item>
+              <ion-label>{{'All_Description' | translate }}: </ion-label>
+              <ion-input type="text" name="Description" [(ngModel)]="eventDetails.Description" required></ion-input>
+             </ion-item>
+             
+             <ion-item>
+              <ion-label color="primary">{{'All_Location' | translate }}: </ion-label>
+              <ion-input type="text" name="Location" [(ngModel)]="eventDetails.Location"></ion-input>
+             </ion-item>
+             
+             <ion-item>
+              <ion-label color="primary">{{'All_Importance' | translate }}: </ion-label>
+              <ion-select name="Importance" placeholder="{{'All_Importance' | translate }}" [(ngModel)]="eventDetails.Importance">
+                   <ion-select-option [value]="0">{{'All_Importance_Normal' | translate }}</ion-select-option>
+                   <ion-select-option [value]="1">{{'All_Importance_High' | translate }}</ion-select-option>
+                   <ion-select-option [value]="2">{{'All_Importance_Medium' | translate }}</ion-select-option>
+                   <ion-select-option [value]="3">{{'All_Importance_Low' | translate }}</ion-select-option>
+               </ion-select>
+             </ion-item>
+             
+             <ion-item *ngIf="formEdit">
+              <ion-label color="primary">{{'ALL_DateAdded' | translate }}: </ion-label>
+              <ion-datetime [disabled]="formEdit" displayFormat="MM/DD/YYYY hh:mm A" name="DateAdded" [(ngModel)]="eventDetails.DateAdded"></ion-datetime>
+             </ion-item>
+             
+             <ion-item>
+              <ion-label color="primary">{{'Calendar_Schedule' | translate }}: </ion-label>
+              <ion-select name="Frequency" [(ngModel)]="eventDetails.Frequency">
+                   <ion-select-option [value]="0">{{'All_FrequencyOneTime' | translate }}</ion-select-option>
+                   <ion-select-option [value]="1">{{'All_FrequencyDaily' | translate }}</ion-select-option>
+                   <ion-select-option [value]="2">{{'All_FrequencyWeekly' | translate }}</ion-select-option>
+                   <ion-select-option [value]="3">{{'All_FrequencyMonthly' | translate }}</ion-select-option>
+                   <ion-select-option [value]="4">{{'All_FrequencyYearly' | translate }}</ion-select-option>
+                   <ion-select-option [value]="5">{{'All_FrequencyWeekDays' | translate }}</ion-select-option>
+                   <ion-select-option [value]="6">{{'All_FrequencyWeekend' | translate }}</ion-select-option>
+               </ion-select>
+             </ion-item>
+             
+             <ion-item>
+              <ion-label color="primary">{{'Social_EventStart' | translate }}: </ion-label>
+              <ion-datetime displayFormat="H:mm" name="EventStart" [(ngModel)]="eventDetails.EventStart"></ion-datetime>
+             </ion-item>
+             
+             <ion-item>
+              <ion-label color="primary">{{'Social_EventEnd' | translate }}: </ion-label>
+              <ion-datetime displayFormat="H:mm" name="EventStop" [(ngModel)]="eventDetails.EventStop"></ion-datetime>
+             </ion-item>
+             
+             <ion-item>
+              <ion-label color="primary">{{'All_ExpirationDate' | translate }}: </ion-label>
+              <ion-datetime displayFormat="MM/DD/YYYY" name="ExpirationDate" [(ngModel)]="eventDetails.ExpirationDate"></ion-datetime>
+             </ion-item>
+                         
+           </ion-list>
+         </ion-col>
+       </ion-row>
+       
+       <ion-row>
+         <ion-col offset="1">
+           <ion-button class="submit-btn" expand="block" type="button" [disabled]="!editForm.form.valid" (click)="saveAndReturn()">{{'Login_Submit' | translate }}</ion-button>
+         </ion-col>
+       </ion-row>
+       <ion-row>
+         <ion-col offset="1">
+           <ion-button class="submit-btn" expand="block" type="button" (click)="cancelAndReturn()">{{'Go_Back_Text' | translate }}</ion-button>
+         </ion-col>
+       </ion-row>
+    <BR>
+    <BR>
+   </form>
+  </div>
+ </ion-content>
+ 

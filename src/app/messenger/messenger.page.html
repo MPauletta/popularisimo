@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button slot="start" fill="clear" color="dark" (click)="goBack()">
+      <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
+    </ion-button>    
+      
+    <ion-title>{{'Messenger_Name' | translate }}{{separator}}{{friendFullname}}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-menu-button menu="RightMenu">
+        <ion-icon name="star"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>	
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="tile-box">
+     <ion-buttons>
+       <ion-button class="my-button" (click)="presentActionSheet()">
+         <ion-icon class="mybutton-icon" name="filing"></ion-icon>
+       </ion-button>
+       <ion-button class="my-button" (click)="newMessage()">
+         <ion-icon class="mybutton-icon" name="add"></ion-icon>
+       </ion-button>
+       &nbsp;{{folderTitle | translate }}
+     </ion-buttons>
+  </div>
+  <HR>
+  <ion-searchbar placeholder="{{'All_Search' | translate }}" (ionInput)="getItems($event)"></ion-searchbar>
+  <HR>
+ 
+  <ion-card *ngFor="let c of messages" (click)="showMessage(c.MessageID)">
+    <ion-item text-wrap [ngClass]="{'item-header': !c.MarkRead, 'item-header-read': c.MarkRead}">
+      <ion-avatar slot="start">
+         <img src="{{c.FromPhotoLocation}}">
+      </ion-avatar>
+      <ion-label text-wrap>
+        <p [ngClass]="{'header-box': !c.MarkRead, 'header-box-read': c.MarkRead}" *ngIf="showFromName; else elseBlock">{{c.FromFullName}}</p>
+        <ng-template #elseBlock><p [ngClass]="{'header-box': !c.MarkRead, 'header-box-read': c.MarkRead}">{{c.FullNames}}</p></ng-template>
+        <p *ngIf="c.PrevFolder != ''" [ngClass]="{'text-box1': !c.MarkRead, 'text-box1-read': c.MarkRead}">{{c.PrevFolder}}</p>
+        <p [ngClass]="{'text-box1': !c.MarkRead, 'text-box1-read': c.MarkRead}">{{c.DateSend | date: 'dd/MM/yyyy HH:mm a'}}</p>
+        <p [ngClass]="{'text-box1': !c.MarkRead, 'text-box1-read': c.MarkRead}">{{c.Subject}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-card-content>
+       <p class="detail-box" [innerHTML]="c.Message"></p>
+    </ion-card-content>
+  </ion-card>
+ 
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+ 
+ </ion-content>
+ 

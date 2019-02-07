@@ -1,19 +1,24 @@
 <ion-tabs>
 
   <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="tab1">
-      <ion-icon name="flash"></ion-icon>
-      <ion-label>Tab One</ion-label>
+    <ion-tab-button tab="my-portal" (click)="activateTab('my-portal')">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>{{ 'Member_MyPortal' | translate }}</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab2">
-      <ion-icon name="apps"></ion-icon>
-      <ion-label>Tab Two</ion-label>
+    <ion-tab-button tab="groups" (click)="activateTab('groups')">
+      <ion-icon name="contacts"></ion-icon>
+      <ion-label>{{ 'Main_Groups' | translate }}</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab3">
-      <ion-icon name="send"></ion-icon>
-      <ion-label>Tab Three</ion-label>
+    <ion-tab-button tab="chat" (click)="activateTab('chat')">
+      <ion-icon name="chatboxes"></ion-icon>
+      <ion-label>{{ 'Chat_Chat' | translate }}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="market" (click)="activateTab('market')">
+      <ion-icon name="basket"></ion-icon>
+      <ion-label>{{ 'Market_Name' | translate }}</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 

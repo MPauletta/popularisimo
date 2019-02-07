@@ -1,0 +1,87 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-button slot="start" fill="clear" color="dark" (click)="goBack()">
+          <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
+        </ion-button>    
+          
+        <ion-avatar slot="start">
+            <img src="../../assets/imgs/Config.png">
+        </ion-avatar>
+        <ion-title>&nbsp;{{'MyAccount_Name' | translate }}</ion-title>
+    
+        <ion-buttons slot="end">
+          <ion-menu-button menu="RightMenu">
+            <ion-icon name="star"></ion-icon>
+          </ion-menu-button>
+        </ion-buttons>	
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+      <ion-item (click)="editUserInfo()">
+        <ion-thumbnail slot="start">
+          <img src="../../assets/imgs/05_phonebook.png">
+        </ion-thumbnail>
+        <h2>{{'User_Information' | translate }}</h2>
+      </ion-item>
+  
+      <ion-item (click)="editUserPrivacy()">
+        <ion-thumbnail slot="start">
+          <img src="../../assets/imgs/Symbol-Stop.png">
+        </ion-thumbnail>
+        <h2>{{'User_Privacy' | translate }}</h2>
+      </ion-item>
+  
+      <ion-item>
+        <ion-thumbnail slot="start" (click)="toggleAddresses()">
+          <img src="../../assets/imgs/map.png">
+        </ion-thumbnail>
+
+        <ion-label>        
+          <h1 (click)="toggleAddresses()">{{'User_Addresses' | translate }}</h1>
+          <ion-list *ngIf="showAddresses">
+            <ion-item-divider padding *ngFor="let item of addresses; let i = index" color="light" (click)="editAddress(i)">
+              {{item.lblAddressType | translate }}:
+              <p slot="end">{{item.City}}, {{item.Country}}</p>
+            </ion-item-divider>
+          </ion-list>
+        </ion-label>
+      </ion-item>
+  
+      <ion-item>
+        <ion-thumbnail slot="start" (click)="toggleWatchs()">
+          <img src="../../assets/imgs/news_subscribe.png">
+        </ion-thumbnail>
+
+        <ion-label>        
+          <h1 (click)="toggleWatchs()">{{'User_Notifications' | translate }}</h1>
+          <ion-list *ngIf="showWatchs">
+            <ion-item-divider padding color="light" (click)="editWatches(1)">
+              <div class="header-thumb" slot="start">
+                <img class="header-image" src="../../assets/imgs/No_Photo.png">
+              </div>
+              {{'All_WatchFriend' | translate }}
+            </ion-item-divider>
+
+            <ion-item-divider padding color="light" (click)="editWatches(2)">
+              <div class="header-thumb" slot="start">
+                <img class="header-image" src="../../assets/imgs/Group_Meeting_Dark.png">
+              </div>
+              {{'All_WatchForum' | translate }}
+            </ion-item-divider>
+          </ion-list>
+        </ion-label>
+      </ion-item>
+  
+      <ion-item (click)="editSecurity()">
+        <ion-thumbnail slot="start">
+          <img src="../../assets/imgs/lock.png">
+        </ion-thumbnail>
+        <h2>{{'User_Security' | translate }}</h2>
+      </ion-item>
+    </ion-list>
+    <hr>
+  
+  </ion-content>
+    

@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button slot="start" fill="clear" color="dark" (click)="goBack()">
+      <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
+    </ion-button>    
+      
+    <ion-title>{{'Messenger_Name' | translate }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-menu-button menu="RightMenu">
+        <ion-icon name="star"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>	
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="tile-box">
+     <ion-buttons class="my-icon">
+       <ion-button class="my-button" (click)="editMessage(1)">
+         <ion-icon class="mybutton-icon" name="add"></ion-icon>
+       </ion-button>
+       <ion-button class="my-button" (click)="deleteRequested()">
+         <ion-icon class="mybutton-icon" name="trash"></ion-icon>
+       </ion-button>
+       <ion-button *ngIf="FolderIsInboxSend" class="my-button" (click)="editMessage(2)">
+         <ion-icon class="mybutton-icon" name="play"></ion-icon>
+       </ion-button>
+       <ion-button *ngIf="FolderIsInboxSend" class="my-button" (click)="editMessage(3)">
+         <ion-icon class="mybutton-icon" name="fastforward"></ion-icon>
+       </ion-button>
+       <ion-button *ngIf="FolderIsDraft" class="my-button" (click)="editMessage(4)">
+         <ion-icon class="mybutton-icon" name="create"></ion-icon>
+       </ion-button>
+       <ion-button *ngIf="FolderIsDeleted" class="my-button" (click)="restoreMessage()">
+         <ion-icon class="mybutton-icon" name="undo"></ion-icon>
+       </ion-button>
+     </ion-buttons>
+  </div>
+  <HR>
+  <ion-searchbar placeholder="{{'All_Search' | translate }}" (ionInput)="getItems($event)"></ion-searchbar>
+  <HR>
+ 
+  <ion-card *ngFor="let c of messages; let i = index">
+    <ion-item class="item-header">
+       <ion-avatar slot="start">
+         <img src="{{c.FromPhotoLocation}}">
+       </ion-avatar>
+       <ion-label text-wrap>
+        <h2>{{'Message_From' | translate }}: {{c.FromFullName}}</h2>
+        <p class="text-box1">{{'Message_To' | translate }}: {{c.toNames}}</p>
+        <p class="text-box1" *ngIf="c.showBCC">{{'Message_BCC' | translate }}: {{c.bccNames}}</p>
+        <p class="text-box1">{{'Message_SendOn' | translate }}: {{c.DateSend | date: 'dd/MM/yyyy HH:mm a'}}</p>
+        <p class="text-box2">{{c.Subject}}</p>
+        <p *ngIf="c.Parent > 0" [ngClass]="{'text-box1': c.Pressed, 'text-box3': !c.Pressed}" (click)="showParent(i,c.Parent)">{{'Message_ShowRelated' | translate }}</p>
+       </ion-label>
+      </ion-item>
+    <ion-card-content>
+       <BR>
+       <p class="detail-box" [innerHTML]="c.Message"></p>
+    </ion-card-content>
+  </ion-card>
+ </ion-content>
+ 

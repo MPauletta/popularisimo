@@ -1,0 +1,72 @@
+  .login-content {
+    background: #B2815E;
+ 
+    .login-logo {
+      background: #B2815E;
+      padding: 0px 0px 10px 0px;
+      margin-top: 0px;      
+    }
+
+    .login-box {
+      background: #733C00;
+      padding: 0px 0px 10px 0px;
+      margin-top: 0px;
+      background-image: url(../../assets/imgs/Frame.png);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      
+    }
+ 
+    .logo-img {
+      	background: #B2815E;
+	height: 100px;
+	width: 100%;
+	border: 0;
+    }
+
+    .icon-img {
+      padding: 0px 0px 0px 0px;
+      height: 40px;
+      width: 40px;
+      background: #D9B08C;
+    }
+
+    .icon-col {
+         font-size: 0.9em;
+         align-items: left;
+         text-align: left;
+    }
+
+    ion-row {
+       align-items: center;
+       text-align: center;
+     }
+ 
+     ion-item {
+         border-radius: 30px !important;
+         padding-left: 30px !important;
+         font-size: 0.9em;
+         margin-bottom: 10px;
+         border: 1px solid #ffffff;
+         border-bottom: 0px !important;
+         box-shadow: none !important;
+	 color: #733C00;
+     }
+ 
+     .signup-col {
+       margin: 0px 16px 0px 16px;
+       padding-bottom: 20px;
+     }
+ 
+     .item-inner {
+       border-bottom-color: #ffffff !important;
+       box-shadow: none !important;
+     }
+ 
+     .submit-btn {
+       background: #733C00;
+       border-radius: 30px !important;
+       border: 1px solid #ffffff;
+     }
+  }
