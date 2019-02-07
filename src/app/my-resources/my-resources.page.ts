@@ -5,7 +5,7 @@ import { DataServiceService } from './../data-service.service';
 import { TranslateService } from '@ngx-translate/core';
 import { PopTools } from './../pop-tools';
 import { PopRoutes } from './../pop-routes';
-import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/Camera/ngx';
+import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/ngx';
 
 @Component({
   selector: 'app-my-resources',
