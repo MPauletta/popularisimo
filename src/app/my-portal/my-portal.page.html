@@ -23,25 +23,22 @@
    </ion-item>
 
    <ion-row>
-     <ion-col size="5" class="text-col3">
-      <img class="pic-image" src="{{PhotoLocation}}" (click)="showProfile()">
+     <ion-col class="text-col3">
+      <img class="profile-image" src="{{PhotoLocation}}" (click)="showProfile()">
      </ion-col>	 
      <ion-col class="text-col3">     
-       <ion-card-content>
-		    <div class="text-div">
-		       <p class="text-box">{{'Login_User' | translate }}: {{userName}}</p>
+       <ion-card-content no-padding>
+		   <p class="text-box">{{'Login_User' | translate }}: {{userName}}</p>
            <p class="text-box">{{'Register_CreatedOn' | translate }}:</p>
            <p class="text-box">{{userCreatedOn | date: 'dd/MM/yyyy HH:mm'}}</p>
            <p class="text-box">{{'All_LastActive' | translate }}:</p>
            <p class="text-box">{{userLastActive | date: 'dd/MM/yyyy HH:mm'}}</p>
-		    </div>
-
-		    <br>
+		<br>
         <ion-button  expand="block" (click)="newPost()">
            <ion-icon class="my-icon" slot="start" name="paper"></ion-icon>
            {{'Social_CommentAdd' | translate}}
         </ion-button>
-	     </ion-card-content>
+	   </ion-card-content>
      </ion-col>
    </ion-row>
 
@@ -83,9 +80,11 @@
         <img *ngIf="c.userNotification" src="{{c.UserData.PhotoLocation}}" (click)="showMember(c.FromID,c.NoteType)">
         <img *ngIf="!c.userNotification" src="{{c.GroupData.PhotoLocation}}" (click)="showGroup(c.GroupData.ID)">
       </ion-avatar>
-      <h2 *ngIf="c.userNotification">{{c.UserData.FullName}}</h2>
-      <h2 *ngIf="!c.userNotification">{{c.GroupData.GroupName}}</h2>
-      <p  slot="end" class="text-box1">{{c.DateSend | date: 'dd/MM/yyyy HH:mm a'}}</p>
+      <ion-label text-wrap>
+        <p class="title-box" *ngIf="c.userNotification">{{c.UserData.FullName}}</p>
+        <p class="title-box" *ngIf="!c.userNotification">{{c.GroupData.GroupName}}</p>
+        <p class="text-box1">{{c.DateSend | date: 'dd/MM/yyyy HH:mm a'}}</p>
+      </ion-label>
    </ion-item>
    
    <div class="noti-content">

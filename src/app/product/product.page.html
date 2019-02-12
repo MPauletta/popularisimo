@@ -29,7 +29,6 @@
     </ion-buttons>
   </div>
   <HR>
-  <br>
 
   <ion-card *ngIf="product != null">
    <ion-item color="custom">
@@ -49,6 +48,7 @@
       <img class="pic-image" src="{{ product.PhotoLocation }}" (click)="showObject()">
     </ion-col>
     <ion-col class="text-col3">
+	 <ion-card-content no-padding>
       <p class="text-box">{{ product.Title }}</p>
       <p class="text-box">{{ 'Poduct_MinPrice' | translate }}:</p>
       <p class="text-box">{{ product.MinPrice }} {{ product.Currency }}</p>
@@ -58,6 +58,7 @@
       <p class="text-box-left">{{ 'Product_Date' | translate }}: {{ product.YearBuild | date: 'yyyy' }}</p>
       <p class="text-box-left">{{ 'ALL_DateAdded' | translate }}: {{ product.DateAdded | date: 'dd/MM/yyyy HH:mm' }}</p>
       <p class="text-box-left">{{ 'All_Description' | translate }}: {{ product.Description }}</p>
+	 </ion-card-content>
     </ion-col>
    </ion-row>
    <ion-row (click)="toggleMoreDetail()">

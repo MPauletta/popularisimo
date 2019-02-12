@@ -29,7 +29,7 @@
   .tile-box {
     padding-top: 10px;
     padding-bottom: 10px;
-    height: 30px;
+    height: 50px;
     font-weight: bold;
     font-size: 12pt;
     vertical-align: bottom;
@@ -107,6 +107,7 @@
 
   .list-item {
     --border-radius: 5px;
+    max-height: 80px;
   }
 
   .item-background {

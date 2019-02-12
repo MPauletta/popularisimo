@@ -4,7 +4,7 @@
       <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
     </ion-button>    
       
-    <ion-title>{{'Member_GuestPortal' | translate }} {{member.FullName}}</ion-title>
+    <ion-title>{{'Member_GuestPortal' | translate }}</ion-title>
 
     <ion-buttons slot="end">
       <ion-menu-button menu="RightMenu">
@@ -42,22 +42,23 @@
  
    <ion-card>
     <ion-item color="custom">
-     <h2>&nbsp;&nbsp;{{member.FullName}} ({{member.SpaceAcess | translate }})</h2>
+      <ion-label text-wrap>
+		<p class="title-box">&nbsp;{{member.FullName}}</p>
+		<p class="text-box">&nbsp;({{member.SpaceAcess | translate }})</p>
+      </ion-label>
     </ion-item>
  
     <ion-row>
      <ion-col size="5" class="text-col3">
-       <img class="pic-image" src="{{member.PhotoLocation}}" (click)="showProfile()">
+       <img class="profile-image" src="{{member.PhotoLocation}}" (click)="showProfile()">
      </ion-col>
      <ion-col class="text-col3">     
-       <ion-card-content>
-        <div class="text-div">
+       <ion-card-content no-padding>
            <p class="text-box">{{'Login_User' | translate }}: {{member.Username}}</p>
            <p class="text-box">{{'Register_CreatedOn' | translate }}:</p>
            <p class="text-box">{{member.DateCreated | date: 'dd/MM/yyyy HH:mm'}}</p>
            <p class="text-box">{{'All_LastActive' | translate }}:</p>
            <p class="text-box">{{member.LastActive | date: 'dd/MM/yyyy HH:mm'}}</p>
-        </div>
        </ion-card-content>
      </ion-col>
     </ion-row>
@@ -99,9 +100,11 @@
          <img *ngIf="c.userNotification" src="{{c.UserData.PhotoLocation}}" (click)="showMember(c.FromID,c.NoteType)">
          <img *ngIf="!c.userNotification" src="{{c.GroupData.PhotoLocation}}" (click)="showGroup(c.GroupData.ID)">
        </ion-avatar>
-       <h2 *ngIf="c.userNotification">{{c.UserData.FullName}}</h2>
-       <h2 *ngIf="!c.userNotification">{{c.GroupData.GroupName}}</h2>
-       <p  slot="end" class="text-box1">{{c.DateSend | date: 'dd/MM/yyyy HH:mm a'}}</p>
+       <ion-label text-wrap>
+		<p class="title-box" *ngIf="c.userNotification">{{c.UserData.FullName}}</p>
+		<p class="title-box" *ngIf="!c.userNotification">{{c.GroupData.GroupName}}</p>
+		<p class="text-box1">{{c.DateSend | date: 'dd/MM/yyyy HH:mm a'}}</p>
+       </ion-label>
     </ion-item>
     
     <div class="noti-content">

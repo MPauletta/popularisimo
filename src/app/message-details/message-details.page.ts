@@ -31,7 +31,7 @@ export class MessageDetailsPage implements OnInit {
   constructor(private router: Router, private UserData: UserDataService, private rest: DataServiceService, private translate: TranslateService, 
     private popTools: PopTools, private popRoutes: PopRoutes) {
 
-      this.translate.stream(['All_Message','Message_Edit','Message_Create','Message_Reply','Message_Successfull','Message_Saved','Message_DeletedOK','Message_Distroyed','Message_RestoredOK','Delete_Text','Message_AskDestroy','Delete_Button','All_BTN_Cancel','All_Wait','Al_SystemError']).subscribe(res => {
+      this.translate.stream(['All_Message','Message_Edit','Message_Create','Message_Reply','Message_ReplyAll','Message_Successfull','Message_Saved','Message_DeletedOK','Message_Distroyed','Message_RestoredOK','Delete_Text','Message_AskDestroy','Delete_Button','All_BTN_Cancel','All_Wait','Al_SystemError']).subscribe(res => {
         this.sheetLabels = res;
       });  
   }
@@ -184,7 +184,7 @@ console.log(this.folderID);
      }
      this.message.BCCUserIDs = "";
      this.message.Subject = this.messages[0].Subject;
-     this.formOptions.Title = this.sheetLabels["Message_Reply"];
+     this.formOptions.Title = this.sheetLabels["Message_ReplyAll"];
    } else {
      this.message.ToUserIDs = "";
      this.message.BCCUserIDs = "";

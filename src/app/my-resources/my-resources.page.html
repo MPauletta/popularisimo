@@ -35,7 +35,7 @@
  
   <div *ngFor="let c of resources; let i = index" style="ion-Div">
    <ion-card *ngIf="styleNormal" class="card-box" color="cardback">
-    <img *ngIf="ResourceIsPhoto" class="pic-image" src="{{c.Location}}" (click)="showObject(i)"  slot="start">
+    <img *ngIf="ResourceIsPhoto" class="pic-image" src="{{c.Location}}" (click)="showObject(i)" slot="start">
     <video *ngIf="ResourceIsVideo" class="vid-image" src="{{c.Location}}" controls="controls" (click)="showObject(i)"></video>
     <img *ngIf="ResourceIsDoc" class="pic-image" src="../../assets/imgs/PDF.png" (click)="showPDF(c.Location)"  slot="start">
  
@@ -83,8 +83,10 @@
            <video *ngIf="ResourceIsVideo" class="pic-small-image" src="{{c.Location}}" controls="controls" (click)="showObject(i)"></video>
            <img *ngIf="ResourceIsDoc" src="../../assets/imgs/PDF.png" (click)="showPDF(c.Location)" align="left">
          </ion-thumbnail>
-         <h2>{{c.Description}}</h2>
-         <p class="text-box" slot="end">&nbsp;{{'ALL_DateAdded' | translate }}: {{c.DateUploaded | date: 'dd/MM/yyyy H:mm'}}</p>
+		 <ion-label text-wrap>
+			<p class="title-box">{{c.Description}}</p>
+			<p class="text-box">&nbsp;{{'ALL_DateAdded' | translate }}: {{c.DateUploaded | date: 'dd/MM/yyyy H:mm'}}</p>
+		 </ion-label>
          <ion-button fill="clear" slot="end" class="my-icon"> <ion-icon slot="icon-only" name="arrow-forward"></ion-icon></ion-button>
        </ion-item>
   

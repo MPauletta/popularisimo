@@ -16,7 +16,7 @@
 
 <ion-content class="cards-bg social-cards">
  <ion-searchbar placeholder="{{'All_Search' | translate }}" (ionInput)="getItems($event)"></ion-searchbar>
- <ion-input *ngIf="blnSowMessageBox" [(ngModel)]="strMessage" placeholder="{{'All_Message' | translate }}"></ion-input>
+ <ion-input *ngIf="blnSowMessageBox" class="input-border" [(ngModel)]="strMessage" placeholder="{{'All_Message' | translate }}"></ion-input>
  <HR>
 
  <div class="card-box" *ngFor="let c of friends">

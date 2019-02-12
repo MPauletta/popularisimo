@@ -4,7 +4,7 @@
       <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
     </ion-button>    
       
-    <ion-title>{{pageTitle | translate }}{{separator}}{{folderName | translate }}</ion-title>
+    <ion-title>{{pageTitle | translate }}</ion-title>
 
     <ion-buttons slot="end">
       <ion-menu-button menu="RightMenu">
@@ -23,7 +23,7 @@
        <ion-button class="my-button" (click)="newNote()">
          <ion-icon class="mybutton-icon" name="add"></ion-icon>
        </ion-button>
-       {{folderTitle | translate }}
+       &nbsp;{{folderName | translate }}
      </ion-buttons>
   </div>
   <HR>

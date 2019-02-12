@@ -7,11 +7,11 @@
          </ion-avatar>
        </div>
      </ion-col>
-     <ion-col>
+     <ion-col no-padding>
        <div class="my-label" [innerHTML]="title" (click)="cancelReturn()"></div>
      </ion-col>
      <ion-col class="button-col" size="auto">
-       <ion-button class="my-button" color="custom" (click)="okReturn()">{{buttonText}}</ion-button>
+       <ion-button class="my-button" color="custom" (click)="okReturn()" no-padding>{{buttonText}}</ion-button>
      </ion-col>
    </ion-row>
 </ion-grid>

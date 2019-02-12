@@ -104,6 +104,11 @@ export class CalendarHeaderComponent {
     this.editEvent.ParentID = event["ParentID"];
     this.editEvent.OriginalOwner = event["OriginalOwner"];
     let params = { "event": this.editEvent, "options": this.formOptions };
+	if (this.groupID == 0) {
+      this.editEvent.title = "Social_CalendarEvent";
+	} else {
+      this.editEvent.title = "Group_CalendarEvent";
+	}
 
     this.popRoutes.showModal("EventDetailsPage", params, (data) => {
       if (data) {
@@ -112,7 +117,7 @@ export class CalendarHeaderComponent {
         delete data.ParentID;
         delete data.OriginalOwner;
         delete data.IconPath;
-        if (data.ItemName == event["ItemName"]) {delete data.ItemName;} else {event["title"] = data.ItemName;}
+        if (data.ItemName == event["ItemName"]) {delete data.ItemName;}
         if (data.ItemType == event["ItemType"]) {delete data.ItemType;}
         if (data.Description == event["Description"]) {delete data.Description;}
         if (data.Location == event["Location"]) {delete data.Location;}
@@ -165,6 +170,11 @@ export class CalendarHeaderComponent {
     this.editEvent.ParentID = 0;
     this.editEvent.OriginalOwner = 0;
     let params = { "event": this.editEvent, "options": this.formOptions };
+	if (this.groupID == 0) {
+      this.editEvent.title = "Social_CalendarEvent";
+	} else {
+      this.editEvent.title = "Group_CalendarEvent";
+	}
 
     this.popRoutes.showModal("EventDetailsPage", params, (data) => {
       if (data) {

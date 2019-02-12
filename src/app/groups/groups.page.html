@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-buttons *ngIf="popTools.isRoot" slot="start">
+    <ion-buttons *ngIf="popRoutes.isRoot" slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>  
-    <ion-button *ngIf="popTools.isRoot == false" slot="start" fill="clear" color="dark" (click)="goBack()">
+    <ion-button *ngIf="popRoutes.isRoot == false" slot="start" fill="clear" color="dark" (click)="goBack()">
       <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
     </ion-button>    
 

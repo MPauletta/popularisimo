@@ -16,7 +16,6 @@
 <ion-content>
  <BR>
  <ion-card class="card-box">
-    <img *ngIf="ResourceIsPhoto" Class="pic-image" src="{{anyData}}">
     <img *ngIf="ResourceIsPhoto" Class="pic-image" src="{{anyURL}}">
     <video *ngIf="ResourceIsVideo" Class="pic-image" src="{{anyURL}}" controls="controls"></video>
     <ion-item>
@@ -28,7 +27,4 @@
           {{'All_UploadSave' | translate }}
     </ion-button>
  </ion-card>
-
- <p>this.anyData = : {{ anyData }}</p>
- <p>this.anyURL = : {{ anyURL }}</p>
 </ion-content>

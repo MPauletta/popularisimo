@@ -1,6 +1,6 @@
 
-  .social-cards ion-col {
-    padding: 0px;
+  .social-cards {
+    padding: 5px;
   }
 
   ion-card {
@@ -28,7 +28,7 @@
   .text-col3 {
     padding: 0px;
     text-align: left;
-    font-size: 12pt;
+    font-size: 10pt;
     background: #FAF5DA;
   }
 
@@ -54,10 +54,8 @@
   .pic-image {
     padding: 0px 0px 0px 10px;
     width: 89%;
+    height:300px;
     max-height:300px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
   }
   
   .pic-image2 {
@@ -78,6 +76,14 @@
     margin-right: auto;
   }
 
+  .profile-image {
+    padding: 0px 10px 10px 10px;
+    float: left;
+    width: 100%;
+    max-height:200px;
+    height:200px;
+  }
+  
   .text-box {
     color: black;
     padding: 0px;

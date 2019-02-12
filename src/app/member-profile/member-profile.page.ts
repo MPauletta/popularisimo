@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { UserDataService } from './../user-data.service';
 import { DataServiceService } from './../data-service.service';
@@ -27,7 +27,7 @@ export class MemberProfilePage implements OnInit {
   formOptions = {"Mode":"ADD", "Title":"", "Icon":""};
   sheetLabels: any = {};
 
-  constructor(private router: Router, private modalCtrl: ModalController, private UserData: UserDataService, private rest: DataServiceService, 
+  constructor(private router: Router, private zone: NgZone, private modalCtrl: ModalController, private UserData: UserDataService, private rest: DataServiceService, 
     private translate: TranslateService, private popTools: PopTools, private popRoutes: PopRoutes) { 
 
     this.translate.stream(['Member_GuestPortal','All_SocialOptions', 'Main_Friends','Social_Pictures','Social_Videos',
@@ -181,31 +181,41 @@ export class MemberProfilePage implements OnInit {
   showResource(strResourcePage,resourceIndex) {
    let params = { memberID: this.memberID, resourceIndex: resourceIndex, Fullname: this.member.FullName };
 
-   this.popRoutes.navigateForward(strResourcePage, params);
+   this.zone.run(async () => {
+     this.popRoutes.navigateForward(strResourcePage, params);
+   });	
   }
 
   showFriends() {
    let params = { memberID: this.memberID, Fullname: this.member.FullName };
 
-   this.popRoutes.navigateForward('/friends', params);
+   this.zone.run(async () => {   
+	 this.popRoutes.navigateForward('/friends', params);
+   });	
   }
 
   showGroups() {
    let params = { memberID: this.memberID, Fullname: this.member.FullName };
 
-   this.popRoutes.navigateForward('/tabs/groups', params);
+   this.zone.run(async () => {   
+     this.popRoutes.navigateForward('/tabs/groups', params);
+   });	
   }
 
   showProducts() {
    let params = { memberID: this.memberID, groupID: 0, Fullname: this.member.FullName };
 
-   this.popRoutes.navigateForward('/tabs/market', params);
+   this.zone.run(async () => {   
+     this.popRoutes.navigateForward('/tabs/market', params);
+   });	
   }
 
   showFriendMessages() {
    let params = { friendID: this.memberID, friendFullname: this.member.FullName };
 
-   this.popRoutes.navigateForward('/messenger', params);
+   this.zone.run(async () => {   
+     this.popRoutes.navigateForward('/messenger', params);
+   });	
   }
 
   showMember(lngMemberID, lngNoteType) {
@@ -214,27 +224,35 @@ export class MemberProfilePage implements OnInit {
    if (lngNoteType == null) {blnFriend = null;}
    let params = { memberID: lngMemberID, isFriend: blnFriend };
 
-   this.popRoutes.navigateForward('/member-profile', params);
+   this.zone.run(async () => {   
+     this.popRoutes.navigateForward('/member-profile', params);
+   });	
   }
 
   showGroup(lngGroupID) {
    let params = { groupID: lngGroupID };
 
-   this.popRoutes.navigateForward('/group-details', params);
+   this.zone.run(async () => {   
+     this.popRoutes.navigateForward('/group-details', params);
+   });	
   }
 
   showChatMessages() {
     let params = { friendID: this.memberID, fullName: this.member.FullName, PhotoLocation: this.member.PhotoLocation };
     
     if (this.isFriend) {
-      this.popRoutes.navigateForward('/chat-room', params);
-     }
+	  this.zone.run(async () => {		
+		this.popRoutes.navigateForward('/chat-room', params);
+	  });	
+    }
   }
  
   showPDF(lngIndex) {
    var params = { pdfSrc: this.notifications[lngIndex].ExtraData.Location };
 
-   this.popRoutes.navigateForward('/pdf-viewer', params);
+   this.zone.run(async () => {   
+     this.popRoutes.navigateForward('/pdf-viewer', params);
+   });	
   }
 
   showProfile() {

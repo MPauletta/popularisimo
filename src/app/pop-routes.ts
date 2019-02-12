@@ -121,11 +121,15 @@ export class PopRoutes {
     }
   }
 
-  setRoot(url, param){
+  async setRoot(url, param){
     this.dataList = [];
     this.urlList = [];
     this.currentIndex = -1;
-    this.navigateForward(url, param);
+	
+    this.dataList.push(param);
+    this.urlList.push(url);
+    this.currentIndex = this.currentIndex + 1;
+    await this.router.navigate([url]); 
     this.isRoot = true;
 
     this.pages.forEach(item => {

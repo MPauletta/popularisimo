@@ -49,7 +49,7 @@
       <img *ngIf="group.PhotoLocation != ''" class="profile-image" src="{{ group.PhotoLocation }}" (click)="showPhoto()">
     </ion-col>
     <ion-col class="text-col3">
-      <ion-card-content>
+      <ion-card-content no-padding>
 		<p class="text-box-left">{{ 'Group_Type' | translate }}: {{ group.lblGroupType | translate }}</p>
 		<p class="text-box-left">{{ 'Group_Topic' | translate }}: {{ group.GroupTopic }}</p>
 		<p class="text-box-left">{{ 'Register_CreatedOn' | translate }}: {{ group.DateCreated | date: 'dd/MM/yyyy HH:mm' }}</p>
@@ -98,7 +98,7 @@
     <ion-col *ngIf="groupAdmin">
       <ion-button fill="clear" size="small" (click)="editPhoto()">
         <ion-icon slot="start" class="my-icon" name="camera"></ion-icon>
-        <div class="my-icon">{{ 'Social_Edit_Photo' | translate }}&nbsp;&nbsp;&nbsp;</div>
+        <div class="my-icon">{{ 'Social_Edit_Photo' | translate }}&nbsp;</div>
       </ion-button>
     </ion-col>	
    </ion-row>
@@ -144,8 +144,10 @@
        <ion-avatar slot="start">
          <img src="{{c.UserData.PhotoLocation}}">
        </ion-avatar>
-       <h2>{{c.UserData.FullName}}</h2>
-       <p slot="end" class="text-box1">{{c.DateSend | date: 'dd/MM/yyyy HH:mm a'}}</p>
+       <ion-label text-wrap>
+         <p class="title-box">{{c.UserData.FullName}}</p>
+         <p class="text-box1">{{c.DateSend | date: 'dd/MM/yyyy HH:mm a'}}</p>
+       </ion-label>
     </ion-item>
    
     <div class="noti-content">

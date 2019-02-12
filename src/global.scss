@@ -12,6 +12,12 @@
 
 @import '~angular-calendar/css/angular-calendar.css';
 
+    .title-box {
+      color: black;
+      font-size: 14pt;
+      font-weight: bold;
+    }
+
 	.emoti-icons {
        height:40px;
        width:40px;
@@ -68,9 +74,9 @@
 		border-radius: 10px 10px 10px 10px;
 		overflow: hidden;
 		top: 50%;
-		left: 10%;
+		left: 2%;
 		position: absolute;
-		width: 80%;
+		width: 96%;
 		height: 50px;
       }
     }

@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-buttons *ngIf="popTools.isRoot" slot="start">
+    <ion-buttons *ngIf="popRoutes.isRoot" slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>  
-    <ion-button *ngIf="popTools.isRoot == false" slot="start" fill="clear" color="dark" (click)="goBack()">
+    <ion-button *ngIf="popRoutes.isRoot == false" slot="start" fill="clear" color="dark" (click)="goBack()">
       <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
     </ion-button>    
 
@@ -40,7 +40,7 @@
        <img *ngIf="c.UserID > 0" src="{{c.OwnerPhoto}}" (click)="showMember(c.UserID)">
        <img *ngIf="c.GroupID > 0" src="{{c.OwnerPhoto}}" (click)="showGroup(c.GroupID)">
      </ion-avatar>
-     <h2>{{c.Title}}</h2>
+     <p class="title-box">{{c.Title}}</p>
     </ion-item>
  
     <img class="pic-image" src="{{c.PhotoLocation}}" (click)="presentActionSheet(c.ID, i)">

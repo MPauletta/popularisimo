@@ -4,7 +4,7 @@
          <img src="{{ icon }}">
     </ion-avatar>
  
-    <ion-title>&nbsp;{{eventDetails.title}}</ion-title>
+    <ion-title>&nbsp;{{eventDetails.title | translate }}</ion-title>
      
     <ion-buttons slot="end">
       <ion-button fill="solid" color="secondary" (click)="cancelAndReturn()">
@@ -14,7 +14,7 @@
   </ion-toolbar>
  </ion-header>
 
- <ion-content class="form-content" color="cardback">
+ <ion-content class="form-content" color="cardback" no-padding>
   <div>    
    <form name="editForm" #editForm="ngForm">
        <ion-row>

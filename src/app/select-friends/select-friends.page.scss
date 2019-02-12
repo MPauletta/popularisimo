@@ -1,5 +1,5 @@
 
-  .social-cards ion-col {
+  .social-cards {
     padding: 0;
   }
 
@@ -27,6 +27,12 @@
     color: black;
     font-size: 8pt;
     font-weight: bold;
+  }
+
+  .input-border {
+    margin-left: 10px;
+    width:90%;
+    border: solid 1px gray;
   }
 
 
