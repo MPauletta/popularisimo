@@ -1,27 +1,23 @@
 <ion-content class="login-content" padding>
  <BR>
- <div class="login-logo">
-  <ion-img class="logo-img" src="../../assets/imgs/Popularisimo.png"></ion-img>
- </div>
 
- <div class="login-box">
+ <div *ngIf="blnShowBody" class="login-box">
 
   <ion-row>
     <ion-col class="icon-col">
-      <ion-img class="icon-img" src="../../assets/imgs/pops.png"></ion-img> 
+      <ion-img class="logo-img" src="../../assets/imgs/Popularisimo.png"></ion-img> 
     </ion-col>
-   <ion-col class="icon-col">
-      <h2>{{strTitle}}</h2>
-   </ion-col>
   </ion-row>
 
   <div *ngIf="blnLogin">    
     <form (ngSubmit)="getlogin()" #registerForm="ngForm">
       <ion-row>
-        <ion-col class="signup-col">
-          <BR>
-          <BR>
-        </ion-col>
+		<ion-col class="icon-col" size="auto">
+			<ion-img class="icon-img" src="../../assets/imgs/pops.png"></ion-img> 
+		</ion-col>
+		<ion-col class="icon-col">
+			<h2>{{strTitle}}</h2>
+		</ion-col>
       </ion-row>
 	
       <ion-row>
@@ -64,6 +60,7 @@
         <ion-col class="signup-col">
           <BR>
           <BR>
+          <BR>
         </ion-col>
       </ion-row>
     </form>
@@ -72,11 +69,21 @@
   <div *ngIf="blnForgotPassword || blnUnlockPassword">    
     <form name="changeForm" #changeForm="ngForm">
       <ion-row>
-        <ion-col>
+		<ion-col class="icon-col" size="auto">
+			<ion-img class="icon-img" src="../../assets/imgs/pops.png"></ion-img> 
+		</ion-col>
+		<ion-col class="icon-col">
+			<h2>{{strTitle}}</h2>
+		</ion-col>
+      </ion-row>
+	
           <div class="div-box">
-	        <p class="text-box">&nbsp;{{'User_Mail_Confirm' | translate }}</p>
+	        <p class="text-box">{{'User_Mail_Confirm' | translate }}</p>
           </div>
 
+
+      <ion-row>
+        <ion-col>
           <ion-list inset>
             <ion-item>
 	          <ion-label color="secondary">{{'All_Username' | translate }}:</ion-label>
@@ -127,8 +134,8 @@
       <ion-row>
         <ion-col>
           <div class="div-box">
-	        <p class="text-box">&nbsp;{{strSubTitle1}}</p>
-	        <p class="text-box">&nbsp;{{strSubTitle2}}</p>
+	        <p class="text-box">{{strSubTitle1}}</p>
+	        <p class="text-box">{{strSubTitle2}}</p>
           </div>
 
           <ion-list inset>
@@ -161,7 +168,7 @@
       <ion-row>
         <ion-col>
           <div class="div-box">
-	        <p class="text-box">&nbsp;{{'User_RecoverComplete2' | translate }}</p>
+	        <p class="text-box">{{'User_RecoverComplete2' | translate }}</p>
           </div>
 
           <ion-list inset>

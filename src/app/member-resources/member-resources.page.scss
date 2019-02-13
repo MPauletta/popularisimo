@@ -16,13 +16,23 @@
   }
 
 
-  .tile-box {
+  .icon-box {
     padding: 0px;
-    padding-left: 10px;
     padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
     height: 30px;
     font-weight: bold;
     font-size: 16pt;
+  }
+
+  .title-box {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 50px;
+    font-weight: bold;
+    font-size: 12pt;
+    vertical-align: bottom;
   }
 
   .card-box {
@@ -75,6 +85,18 @@
     color: black;
     font-size: 10pt;
   }
+
+
+  .text-box3 {
+
+    color: black;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+  }
+
 
 
   .my-icon {

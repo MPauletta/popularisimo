@@ -30,9 +30,13 @@
   </div>
   <HR>
 
-  <ion-card *ngIf="product != null">
+  <div *ngIf="product == null">
+    <ion-img class="loading-img" src="../../assets/imgs/Loading.gif"></ion-img>
+  </div>
+
+  <ion-card *ngIf="product != null && product.PhotoLocation != ''">
    <ion-item color="custom">
-    <ion-avatar *ngIf="product.OwnerPhoto != null" slot="start">
+    <ion-avatar slot="start">
       <img *ngIf="product.UserID > 0" src="{{product.OwnerPhoto}}" (click)="showMember(product.UserID)">
       <img *ngIf="product.GroupID > 0" src="{{product.OwnerPhoto}}" (click)="showGroup(product.GroupID)">
     </ion-avatar>
@@ -44,7 +48,7 @@
    </ion-item>
 
    <ion-row>
-    <ion-col *ngIf="product.PhotoLocation != ''" class="text-col3">
+    <ion-col class="text-col3">
       <img class="pic-image" src="{{ product.PhotoLocation }}" (click)="showObject()">
     </ion-col>
     <ion-col class="text-col3">

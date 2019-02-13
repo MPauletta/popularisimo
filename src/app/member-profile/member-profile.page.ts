@@ -133,7 +133,7 @@ export class MemberProfilePage implements OnInit {
        this.infiniteScroll.target.complete();
     }
     if (this.refresher) {
-       this.refresher.complete();
+       this.refresher.target.complete();
     }
   }
 
@@ -146,7 +146,7 @@ export class MemberProfilePage implements OnInit {
     }
     if (this.refresher) {
        this.firstNotification = this.tempNotification;
-       this.refresher.complete();
+       this.refresher.target.complete();
     }
   }
 
@@ -167,7 +167,7 @@ export class MemberProfilePage implements OnInit {
   doRefresh(refresher) {
     this.refresher = refresher;
 
-    if (this.refresher) {
+    if (this.refresher && this.firstNotification != null) {
       this.tempNotification = this.firstNotification;
 
       this.firstNotification = null;
@@ -175,6 +175,8 @@ export class MemberProfilePage implements OnInit {
          .subscribe(
            notifications => this.parsNotifications(notifications, true),
            error =>  this.errorNotification(error));
+	} else {
+	    refresher.target.complete();;
     }
   }
 

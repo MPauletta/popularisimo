@@ -17,9 +17,16 @@
  </ion-refresher>
 
  <br>
- <ion-card>
+ <div *ngIf="PhotoLocation == ''">
+  <ion-img class="loading-img" src="../../assets/imgs/Loading.gif"></ion-img>
+ </div>
+
+ <ion-card *ngIf="PhotoLocation != ''">
    <ion-item color="custom">
-    <h2>&nbsp;&nbsp;{{userFullname}} ({{userSpaceAcess | translate }})</h2>
+    <ion-label text-wrap>	
+      <p class="title-box">{{userFullname}}</p>
+	  <p class="text-box">&nbsp;({{userSpaceAcess | translate }})</p>
+    </ion-label>
    </ion-item>
 
    <ion-row>
@@ -34,11 +41,16 @@
            <p class="text-box">{{'All_LastActive' | translate }}:</p>
            <p class="text-box">{{userLastActive | date: 'dd/MM/yyyy HH:mm'}}</p>
 		<br>
+	   </ion-card-content>
+     </ion-col>
+   </ion-row>
+
+   <ion-row>
+     <ion-col class="text-col3">     
         <ion-button  expand="block" (click)="newPost()">
            <ion-icon class="my-icon" slot="start" name="paper"></ion-icon>
            {{'Social_CommentAdd' | translate}}
         </ion-button>
-	   </ion-card-content>
      </ion-col>
    </ion-row>
 
@@ -252,8 +264,10 @@
            <ion-avatar slot="start">
              <img src="{{c.OriginalData.PhotoLocation}}" (click)="showMember(c.strExtra,c.NoteType)">
            </ion-avatar>
-           <p class="text-box1">{{'Social_NewUserCommen' | translate }}: {{c.UserData.FullName}}.</p><BR>
-           <p *ngIf="c.OriginalData" class="text-box1">&nbsp;{{'All_For' | translate }}: {{c.OriginalData.FullName}}</p>
+		   <ion-label text-wrap>
+             <p class="text-box1">{{'Social_NewUserCommen' | translate }}: {{c.UserData.FullName}}.</p>
+             <p *ngIf="c.OriginalData" class="text-box1">{{'All_For' | translate }}: {{c.OriginalData.FullName}}</p>
+		   </ion-label>
          </ion-item>
 	      </ion-card>
 

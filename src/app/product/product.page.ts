@@ -40,7 +40,7 @@ export class ProductPage implements OnInit {
 
   slideOpts = {
     slidesPerView: 5,
-	spaceBetween: 20,
+	spaceBetween: 100,
 	autoHeight: true,
 	touchStartPreventDefault: false
   };

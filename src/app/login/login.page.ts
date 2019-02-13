@@ -23,6 +23,7 @@ export class LoginPage implements OnInit {
   blnForgotComplete: boolean = false;
   blnUnlockComplete: boolean = false;
   blnRecoverPassword: boolean = false;
+  blnShowBody: boolean = false;
   strCode: string = "";
   strTitle: string = "";
   strSubTitle1: string = "";
@@ -55,8 +56,12 @@ export class LoginPage implements OnInit {
     });		
   }
 
-  ngOnInit() {
+  isUserActivated(): boolean {
+    return this.auth.isAuthenticated();
+  }
 
+  ngOnInit() {
+	this.blnShowBody = !this.isUserActivated();
   }
 
   public createAccount() {

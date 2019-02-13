@@ -43,7 +43,6 @@ export class AuthServiceService {
     );
   }
 
-
   resetUserPassword(infoData): Observable<{}> {
     var url = this.authUrl + "reset/"; 
  
@@ -107,8 +106,6 @@ export class AuthServiceService {
     );
   }
 
-
- 
   checkToken() {
     this.UserData.getUserInfo().subscribe(user => {
       if (user) {

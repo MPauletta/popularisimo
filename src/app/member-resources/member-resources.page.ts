@@ -68,19 +68,19 @@ export class MemberResourcesPage implements OnInit {
 	      this.resourceType = "video";
         this.pageTitle2 = "Social_Videos";
         this.getVideos(null,null);
-        this.pageTitle = this.sheetLabels.Social_Videos2 + " " + this.sheetLabels.Group_ForumToSmall + " " + this.memberFullname;
+        this.pageTitle = this.sheetLabels.Social_Videos2 + " " + this.sheetLabels.Group_ForumToSmall;
         break;
       case 3:
 	      this.resourceType = "document";
         this.pageTitle2 = "Social_Documents";
         this.getDocs(null,null);
-        this.pageTitle = this.sheetLabels.Social_Documents2 + " " + this.sheetLabels.Group_ForumToSmall + " " + this.memberFullname;
+        this.pageTitle = this.sheetLabels.Social_Documents2 + " " + this.sheetLabels.Group_ForumToSmall;
         break;
       default:
 	      this.resourceType = "picture";
         this.pageTitle2 = "Social_Photos";
         this.getPhotos(null,null);
-        this.pageTitle = this.sheetLabels.Social_Photos2 + " " + this.sheetLabels.Group_ForumToSmall + " " + this.memberFullname;
+        this.pageTitle = this.sheetLabels.Social_Photos2 + " " + this.sheetLabels.Group_ForumToSmall;
     } 
   }
 

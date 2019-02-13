@@ -15,7 +15,7 @@
 </ion-header>
 
 <ion-content class="social-cards">
-  <div class="tile-box">
+  <div class="title-box">
     <ion-buttons>
       <ion-button *ngIf="groupAdmin" class="my-button" (click)="editGroup()">
         <ion-icon class="mybutton-icon" name="create"></ion-icon>
@@ -36,7 +36,11 @@
   </div>
   <hr>
 
-  <ion-card>
+  <div *ngIf="group.PhotoLocation == ''">
+    <ion-img class="loading-img" src="../../assets/imgs/Loading.gif"></ion-img>
+  </div>
+
+  <ion-card *ngIf="group.PhotoLocation != ''">
    <ion-item color="custom">
 	 <ion-label text-wrap>
 	   <p class="text-box-header">&nbsp;{{ group.GroupName }}</p>
@@ -46,7 +50,7 @@
 
    <ion-row>
     <ion-col class="text-col3">
-      <img *ngIf="group.PhotoLocation != ''" class="profile-image" src="{{ group.PhotoLocation }}" (click)="showPhoto()">
+      <img class="profile-image" src="{{ group.PhotoLocation }}" (click)="showPhoto()">
     </ion-col>
     <ion-col class="text-col3">
       <ion-card-content no-padding>
@@ -145,7 +149,7 @@
          <img src="{{c.UserData.PhotoLocation}}">
        </ion-avatar>
        <ion-label text-wrap>
-         <p class="title-box">{{c.UserData.FullName}}</p>
+         <p class="text-box3">{{c.UserData.FullName}}</p>
          <p class="text-box1">{{c.DateSend | date: 'dd/MM/yyyy HH:mm a'}}</p>
        </ion-label>
     </ion-item>

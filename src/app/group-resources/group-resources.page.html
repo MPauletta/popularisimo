@@ -31,7 +31,7 @@
        </ion-button>
      </ion-buttons>
   </div>
-  <div class="tile-box">
+  <div class="title-box">
     <br>
      &nbsp;{{'All_Group' | translate }}: {{ groupFullname }}
     <br>
@@ -92,7 +92,7 @@
            <img *ngIf="ResourceIsDoc" src="../../assets/imgs/PDF.png" (click)="showPDF(c.Location)" align="left">
          </ion-thumbnail>
 		 <ion-label text-wrap>
-			<p class="title-box">{{c.Description}}</p>
+			<p class="text-box3">{{c.Description}}</p>
 			<p class="text-box">&nbsp;{{'ALL_DateAdded' | translate }}: {{c.DateUploaded | date: 'dd/MM/yyyy H:mm'}}</p>
 		 </ion-label>
          <ion-button *ngIf="groupAdmin" fill="clear" slot="end" class="my-icon"> <ion-icon slot="icon-only" name="arrow-forward"></ion-icon></ion-button>

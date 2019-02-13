@@ -4,7 +4,7 @@
       <ion-icon class="my-arrow" name="arrow-back"></ion-icon>
     </ion-button>    
       
-    <ion-title>{{pageTitle | translate }}{{separator}}{{folderName | translate }}</ion-title>
+    <ion-title>{{pageTitle | translate }}</ion-title>
 
     <ion-buttons slot="end">
       <ion-menu-button menu="RightMenu">
@@ -15,7 +15,7 @@
 </ion-header>
 
 <ion-content>
-  <div class="tile-box">
+  <div class="icon-box">
      <ion-buttons>
        <ion-button class="my-button" (click)="changeStyleNormal()">
          <ion-icon class="mybutton-icon" name="albums"></ion-icon>
@@ -31,6 +31,12 @@
        </ion-button>
      </ion-buttons>
   </div>
+  <div class="title-box">
+    <br>
+	 &nbsp;{{ memberFullname }}
+    <br>
+     &nbsp;{{folderName | translate }}
+  </div>  
   <hr>
  
   <div *ngFor="let c of resources; let i = index" style="ion-Div">
@@ -67,7 +73,6 @@
    </ion-card>
  
     <ion-list *ngIf="styleList" class="item-background">
-     <ion-item-sliding>
        <ion-item tappable color="nice" class="list-item">
          <ion-thumbnail slot="start">
            <img *ngIf="ResourceIsPhoto" src="{{c.Location}}" align="left" (click)="showObject(i)">
@@ -75,12 +80,10 @@
            <img *ngIf="ResourceIsDoc" src="../../assets/imgs/PDF.png" (click)="showPDF(c.Location)" align="left">
          </ion-thumbnail>
 		 <ion-label text-wrap>
-			<p class="title-box">{{c.Description}}</p>
+			<p class="text-box3">{{c.Description}}</p>
 			<p class="text-box">&nbsp;{{'ALL_DateAdded' | translate }}: {{c.DateUploaded | date: 'dd/MM/yyyy H:mm'}}</p>
 		 </ion-label>
        </ion-item>
-  
-     </ion-item-sliding>
    </ion-list>
  
    <div *ngIf="styleThumbNails" class="card-box-small">

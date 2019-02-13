@@ -44,11 +44,10 @@
     display: none;
   }
 
-  .loading-div {
-    display: inline-block;
-    text-align: center;
-    max-width:150px;
-    max-height:150px;
+  .loading-img {
+    height: 50%;
+    width: 50%;
+    margin-left: 20%;
   }
 
   .pic-image {
@@ -79,7 +78,7 @@
   .profile-image {
     padding: 0px 10px 10px 10px;
     float: left;
-    width: 100%;
+    min-width: 300px;
     max-height:200px;
     height:200px;
   }
@@ -157,4 +156,13 @@
   }
 
 
-
+  .title-box {
+
+    color: black;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+  }
+

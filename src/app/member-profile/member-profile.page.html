@@ -40,10 +40,14 @@
   </div>
   <hr>
  
-   <ion-card>
+  <div *ngIf="member.PhotoLocation == ''">
+    <ion-img class="loading-img" src="../../assets/imgs/Loading.gif"></ion-img>
+  </div>
+
+  <ion-card *ngIf="member.PhotoLocation != ''">
     <ion-item color="custom">
       <ion-label text-wrap>
-		<p class="title-box">&nbsp;{{member.FullName}}</p>
+		<p class="title-box" style="font-size: 18px;">&nbsp;{{member.FullName}}</p>
 		<p class="text-box">&nbsp;({{member.SpaceAcess | translate }})</p>
       </ion-label>
     </ion-item>
@@ -90,7 +94,7 @@
        </ion-button>
      </ion-col>
     </ion-row>
-   </ion-card>
+  </ion-card>
  
  <div *ngIf="isFriend">
   <div class="card-box" *ngFor="let c of notifications; let i = index" [ngSwitch]="c.NoteType">
@@ -114,8 +118,10 @@
             <ion-avatar slot="start">
               <img src="{{c.OriginalData.PhotoLocation}}" (click)="showMember(c.strExtra,c.NoteType)">
             </ion-avatar>
-            <p class="text-box1">{{'Social_NewUserCommen' | translate }}: {{c.UserData.FullName}}</p>
-            <p *ngIf="c.OriginalData" class="text-box1">{{'All_For' | translate }}: {{c.OriginalData.FullName}}</p>
+			<ion-label text-wrap>
+              <p class="text-box1">{{'Social_NewUserCommen' | translate }}: {{c.UserData.FullName}}</p>
+              <p *ngIf="c.OriginalData" class="text-box1">{{'All_For' | translate }}: {{c.OriginalData.FullName}}</p>
+			</ion-label>
           </ion-item>
         </ion-card>
  

@@ -822,7 +822,7 @@ export class MyPortalPage implements OnInit {
            notifications => this.parsNotifications(notifications, true),
            error =>  this.errorNotification(error)
       );
-	  } else {
+	} else {
 	    refresher.target.complete();;
     }
   }

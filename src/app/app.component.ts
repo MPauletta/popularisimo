@@ -41,6 +41,7 @@ export class AppComponent implements OnInit {
     private popTools: PopTools,
     private popRoutes: PopRoutes
     ) {
+	  this.splashScreen.show();
       this.initializeApp();	
       this.translate.addLangs(["en", "es", "pa"]);
 //     let userLang = navigator.language.split('-')[0];
@@ -61,10 +62,11 @@ export class AppComponent implements OnInit {
 
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
+	  this.statusBar.backgroundColorByHexString('#733c00');
 
 console.log('============ App Initialized =================');	  
       this.authenticationService.authenticationState.subscribe(state => {
+        this.splashScreen.hide();
         if (state) {
           this.popRoutes.setRoot('/tabs/my-portal', null);
         }
