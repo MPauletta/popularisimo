@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
-import { AuthServiceService } from './../auth-service.service';
 import { Component, OnInit } from '@angular/core';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { AuthServiceService } from './../auth-service.service';
 import { UserDataService } from './../user-data.service';
 import { TranslateService } from '@ngx-translate/core';
 import { PopTools } from './../pop-tools';
@@ -41,7 +42,7 @@ export class LoginPage implements OnInit {
 		"User_UnlockSend":"User_UnlockSend","All_Invalid_Cellphone":"All_Invalid_Cellphone","All_Invalid_Country":"All_Invalid_Country",
 		"All_Invalid_Birthday":"All_Invalid_Birthday","All_Account_Blocked":"All_Account_Blocked"};
 
-  constructor(private auth: AuthServiceService, private router: Router, private UserData: UserDataService,private translate: TranslateService, 
+  constructor(private auth: AuthServiceService, private router: Router, private splashScreen: SplashScreen, private UserData: UserDataService,private translate: TranslateService, 
 		private popTools: PopTools) { 
 		
     this.translate.stream(['All_Welcome','All_Guest','errManInvalidAccess','All_AccessDenied','Login_Message',
@@ -62,6 +63,7 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
 	this.blnShowBody = !this.isUserActivated();
+    this.splashScreen.hide();
   }
 
   public createAccount() {

@@ -1,5 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { ModalController } from '@ionic/angular';
 import { UserDataService } from './../user-data.service';
 import { DataServiceService } from './../data-service.service';
@@ -38,7 +39,7 @@ export class MyPortalPage implements OnInit {
   sheetLabels: any = {};
   formOptions = {"Mode":"EDIT", "Title":"", "Icon":""};
   
-  constructor(private events: Events, private router: Router, private modalCtrl: ModalController, private UserData: UserDataService, 
+  constructor(private events: Events, private router: Router, private modalCtrl: ModalController, private splashScreen: SplashScreen, private UserData: UserDataService, 
     private rest: DataServiceService, private translate: TranslateService, private popTools: PopTools, private popRoutes: PopRoutes) { 
 
   }
@@ -54,6 +55,8 @@ export class MyPortalPage implements OnInit {
 			'Social_NewCommentSuc','All_Online','All_Offline','All_View','Chat_Chat','All_Message','All_File']).subscribe(res => {
       this.sheetLabels = res;
     });	  	
+
+    this.splashScreen.hide();
   }
 
   getUser() {

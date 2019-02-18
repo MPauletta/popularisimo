@@ -31,6 +31,9 @@
     .message_row {
         height:40px;
         max-height:40px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+        vertical-align: middle;
     }
 
 
@@ -87,8 +90,11 @@
 
     .input-div {
         background-color: #fff;
-        height:30px;
-        max-height:30px;
+        height:40px;
+        max-height:40px;
+	width: 100%;
+	display: inline-block;
+	overflow-y: auto;
     }
 
 

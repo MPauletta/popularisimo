@@ -66,7 +66,6 @@ export class AppComponent implements OnInit {
 
 console.log('============ App Initialized =================');	  
       this.authenticationService.authenticationState.subscribe(state => {
-        this.splashScreen.hide();
         if (state) {
           this.popRoutes.setRoot('/tabs/my-portal', null);
         }
