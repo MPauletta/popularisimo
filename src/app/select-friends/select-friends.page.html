@@ -23,7 +23,9 @@
   <ion-card>
    <img class="pic-image" src="{{c.PhotoLocation}}" (click)="selectAndReturn(c.FriendID, c.FullName, c.PhotoLocation)">
    <ion-item color="custom" no-padding>
-    <p class="text-box">&nbsp;{{c.FullName}}</p>
+	<ion-label>
+      <p class="text-box">&nbsp;{{c.FullName}}</p>
+	</ion-label>
    </ion-item>
   </ion-card>
  </div>

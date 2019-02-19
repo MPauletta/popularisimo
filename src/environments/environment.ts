@@ -46,7 +46,7 @@ export const environment = {
   watchsUrl: 'https://www.popularisimo.com:3000/api/watchs/',
   popularisimoUrl: 'https://www.popularisimo.com/popularisimo',
   socketserverurl: 'https://www.popularisimo.com:4001/'
-};
+};
 
 
 

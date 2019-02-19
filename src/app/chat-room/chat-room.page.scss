@@ -93,8 +93,8 @@
         height:40px;
         max-height:40px;
 	width: 100%;
-	display: inline-block;
 	overflow-y: auto;
+        color: #000 !important;
     }
 
 
@@ -171,7 +171,7 @@
 	text-align:left;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	left: 10px;
-	bottom: 120px;
+	bottom: 10px;
 	position: fixed;
 	height:250px;
 	background-color: #FAF5DA;

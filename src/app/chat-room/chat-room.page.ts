@@ -240,7 +240,8 @@ export class ChatRoomPage implements OnInit {
    let params = { "resourceIndex": indexResource, "options": this.formOptions };
 
    this.popRoutes.showModal("SelectMyResourcePage", params, (data) => {
-    if (data != null && data["ActionOk"]) {
+console.log(data);	   
+    if (data != null) {
       this.objectLocation = data["resourceLocation"];
       this.objectLocation2 = this.popularisimoUrl + data["resourceLocation"].replace(/\\/g,"/");
       if (indexResource == 3) {
